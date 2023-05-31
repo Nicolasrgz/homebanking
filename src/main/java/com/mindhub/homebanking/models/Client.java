@@ -1,7 +1,6 @@
 package com.mindhub.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,13 +19,17 @@ public class Client {
 
     public Client (){ }
 
-    public Client (String first, String last, String gmail){
-        firstName = first;
-        lastName = last;
-        email = gmail;
+    public Client(String firstName, String lastName, String email) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
     }
 
-    public String getFirstName(){
+    public long getId() {
+        return id;
+    }
+
+    public String getFirstName() {
         return firstName;
     }
 
@@ -42,16 +45,21 @@ public class Client {
         this.lastName = lastName;
     }
 
-    public String getEmail (){
-        return  email;
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public String toString(){
-        return firstName + " " + lastName + " " + email ;
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
-
 }
