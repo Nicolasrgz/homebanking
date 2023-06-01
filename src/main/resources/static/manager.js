@@ -12,6 +12,7 @@ const app = createApp({
     this.loadData()
   },
   methods: {
+    
     loadData(){
          axios.get('http://localhost:8080/clients')
               .then(response => {
@@ -42,6 +43,7 @@ const app = createApp({
       .catch(err =>{
         console.log(err)
       })
+      
     },
     reset(){
       this.newclient.name = ""

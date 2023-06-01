@@ -29,11 +29,11 @@
         <th>Email</th>
     </tr>
 </thead>
-<tbody>
-    <tr v-for="client in clients" :key="client.id">
-        <td>{{client.name}}</td>
-        <td>{{client.LastName}}</td>
-        <td>{{client.Email}}</td>
+<tbody v-for="client in clients" :key="client.id">
+    <tr >
+        <td>{{client.firstName}}</td>
+        <td>{{client.lastName}}</td>
+        <td>{{client.email}}</td>
     </tr>
 </tbody>
   </table>
