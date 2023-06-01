@@ -10,6 +10,7 @@ const app = createApp({
   },
   created() {
     this.loadData()
+
   },
   methods: {
     
@@ -49,7 +50,18 @@ const app = createApp({
       this.newclient.name = ""
       this.newclient.lastName = ""
       this.newclient.email = ""
+    },
+
+    deleteUser(id){
+      axios.delete(id)
+      .then(res => {
+        console.log(res)
+        console.log("user delete")
+        this.loadData()
+      })
+      .catch(err => console.log(err))
     }
+
   }
 })
 
