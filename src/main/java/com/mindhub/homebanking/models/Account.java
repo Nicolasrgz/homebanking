@@ -1,10 +1,11 @@
 package com.mindhub.homebanking.models;
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.naming.Name;
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 public class Account {
@@ -14,20 +15,20 @@ public class Account {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private String number;
-    private LocalDateTime creationDate;
+    private LocalDate creationDate;
     private double balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "owner._id")
-    private Client owner;
+    private Client client;
 
     public Account (){}
 
-    public Account(String number, LocalDateTime creationDate, double balance, Client owner) {
+    public Account(String number, LocalDate creationDate, double balance, Client client) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
-        this.owner = owner;
+        this.client = client;
     }
 
     public String getNumber() {
@@ -38,11 +39,11 @@ public class Account {
         this.number = number;
     }
 
-    public LocalDateTime getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(LocalDateTime creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -54,11 +55,13 @@ public class Account {
         this.balance = balance;
     }
 
-    public Client getOwner() {
-        return owner;
+    @JsonIgnore
+    public Client getClient() {
+
+        return client;
     }
 
-    public void setOwner(Client owner) {
-        this.owner = owner;
+    public void setClient(Client client) {
+        this.client = client;
     }
 }
