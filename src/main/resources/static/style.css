@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+body{
+  background-color: rgb(9, 2, 39);
+}
+
 main{
   min-height: 80vh !important;
 }
@@ -16,8 +20,9 @@ footer{
   min-height: 10vh !important;
 }
 
+
 .form {
-  background-color: white;
+  background-color: rgb(164, 148, 231);
   padding: 1.125em;
   border-radius: 10px;
   display: flex;
@@ -82,7 +87,7 @@ footer{
 
 .form--submit:hover {
   color: #639;
-  background-color: white;
+  background-color: rgb(103, 100, 141);
   border: 1px dashed #639;
   cursor: pointer;
   transition: 0.5s;
@@ -90,6 +95,7 @@ footer{
 
 .h1{
   margin: 2rem;
+  color: white;
 }
 
 footer{
@@ -100,5 +106,9 @@ footer{
   display: flex;
   justify-content: space-around;
  font-size: 20px;
+  color: white;
+}
+
+pre{
   color: white;
 }
