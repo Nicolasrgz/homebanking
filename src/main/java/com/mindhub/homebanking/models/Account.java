@@ -19,7 +19,7 @@ public class Account {
     private double balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "owner._id")
+    @JoinColumn(name= "client._id")
     private Client client;
 
     public Account (){}
@@ -57,7 +57,6 @@ public class Account {
 
     @JsonIgnore
     public Client getClient() {
-
         return client;
     }
 

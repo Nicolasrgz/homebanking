@@ -38,6 +38,8 @@ public class MindhubBrothersApplication {
 			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500, client1 );
 			accountRepository.save(account2);
 
+			client1.addAccount(account1);
+			client1.addAccount(account2);
 		};
 	}
 }
