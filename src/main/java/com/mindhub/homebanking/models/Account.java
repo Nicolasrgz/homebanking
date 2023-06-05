@@ -1,13 +1,14 @@
 package com.mindhub.homebanking.models;
 
-import net.minidev.json.annotate.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.naming.Name;
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
+//@JsonIgnoreProperties("client")
 public class Account {
 
     @Id
@@ -19,16 +20,15 @@ public class Account {
     private double balance;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name= "client._id")
+    @JoinColumn(name= "client")
     private Client client;
 
-    public Account (){}
+    public Account() {}
 
-    public Account(String number, LocalDate creationDate, double balance, Client client) {
+    public Account(String number, LocalDate creationDate, double balance) {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
-        this.client = client;
     }
 
     public String getNumber() {
@@ -55,7 +55,7 @@ public class Account {
         this.balance = balance;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     public Client getClient() {
         return client;
     }

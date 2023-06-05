@@ -2,41 +2,36 @@ package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import org.springframework.web.bind.annotation.RequestMapping;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 import java.util.HashSet;
 import java.util.Set;
-@RequestMapping("/api")
+import java.util.stream.Collectors;
+
 public class ClientDTO {
     private long id;
     private String firstName;
     private String lastName;
     private String email;
-    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    private Set<Account> accounts = new HashSet<>();
-public ClientDTO (){}
+    private Set<AccountDTO> accounts;
 
-public ClientDTO(Client client){
-    this.id = client.getId();
-    this.firstName = client.getFirstName();
-    this. lastName = client.getLastName();
-    this.email = client.getEmail();
-    this.accounts = client.getAccounts();
-}
+    public ClientDTO() {}
 
-    public Set<Account> getAccounts(){
+    public ClientDTO(Client client) {
+        this.id = client.getId();
+        this.firstName = client.getFirstName();
+        this.lastName = client.getLastName();
+        this.email = client.getEmail();
+        this.accounts = client.getAccounts()
+                .stream()
+                .map(account -> new AccountDTO(account))
+                .collect(Collectors.toSet());
+    }
 
-    return accounts;
+    public Set<AccountDTO> getAccounts() {
+        return accounts;
     }
 
     public long getId() {
         return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getFirstName() {
@@ -62,5 +57,4 @@ public ClientDTO(Client client){
     public void setEmail(String email) {
         this.email = email;
     }
-
 }

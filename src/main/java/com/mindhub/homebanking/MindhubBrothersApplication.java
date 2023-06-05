@@ -14,32 +14,30 @@ import java.time.LocalDate;
 @SpringBootApplication
 public class MindhubBrothersApplication {
 
-	private final ClientRepository clientRepository;
-	private final AccountRepository accountRepository;
-	public MindhubBrothersApplication(ClientRepository clientRepository, AccountRepository accountRepository){
-		this.clientRepository = clientRepository;
-
-		this.accountRepository = accountRepository;
-	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(MindhubBrothersApplication.class, args);
 	}
 
 	@Bean
-	public CommandLineRunner initData(){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository){
 		return args -> {
-			Client client1 = new Client("melba","morel", "melba@mindhub.com");
-			clientRepository.save(client1);
-
-			Account account1 = new Account("VIN001", LocalDate.now(), 5000, client1 );
+			Client melba = new Client("melba","morel", "melba@mindhub.com");
+			clientRepository.save(melba);
+			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
+			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
+			melba.addAccount(account1);
+			melba.addAccount(account2);
 			accountRepository.save(account1);
-
-			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500, client1 );
 			accountRepository.save(account2);
 
-			client1.addAccount(account1);
-			client1.addAccount(account2);
+			Client juan = new Client("juan", "rondon", "juna@gmail.com");
+			clientRepository.save((juan));
+			Account account3 = new Account("VIN003", LocalDate.now(), 5000);
+			Account account4 = new Account("VIN004", LocalDate.now().plusDays(1), 7500);
+			juan.addAccount(account3);
+			juan.addAccount(account4);
+			accountRepository.save(account3);
+			accountRepository.save(account4);
 		};
 	}
 }
