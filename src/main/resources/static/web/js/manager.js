@@ -4,7 +4,7 @@ const app = createApp({
   data() {
     return {
       clients:[],
-      json: "",
+      json: [],
       newclient: {name: "" ,lastName: "" ,email: ""}
     };
   },
@@ -15,7 +15,7 @@ const app = createApp({
   methods: {
     
     loadData(){
-         axios.get('http://localhost:8080/clients')
+         axios.get('http://localhost:8080/rest/clients')
               .then(response => {
                 this.json = response.data;
                 this.clients = response.data._embedded.clients
@@ -32,7 +32,7 @@ const app = createApp({
       }
     },
     postClient(){
-      axios.post("http://localhost:8080/clients", {
+      axios.post("http://localhost:8080/rest/clients", {
         firstName: this.newclient.name,
         lastName: this.newclient.lastName,
         email: this.newclient.email
