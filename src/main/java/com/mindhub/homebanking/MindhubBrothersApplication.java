@@ -27,8 +27,10 @@ public class MindhubBrothersApplication {
 			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
 			melba.addAccount(account1);
 			melba.addAccount(account2);
+			clientRepository.save(melba); // Save the client object after adding the accounts
 			accountRepository.save(account1);
 			accountRepository.save(account2);
+
 
 			Client juan = new Client("juan", "rondon", "juna@gmail.com");
 			clientRepository.save((juan));
@@ -36,6 +38,7 @@ public class MindhubBrothersApplication {
 			Account account4 = new Account("VIN004", LocalDate.now().plusDays(1), 7500);
 			juan.addAccount(account3);
 			juan.addAccount(account4);
+			clientRepository.save((juan));
 			accountRepository.save(account3);
 			accountRepository.save(account4);
 		};

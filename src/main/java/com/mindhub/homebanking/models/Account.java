@@ -1,14 +1,10 @@
 package com.mindhub.homebanking.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-//@JsonIgnoreProperties("client")
 public class Account {
 
     @Id
@@ -29,6 +25,10 @@ public class Account {
         this.number = number;
         this.creationDate = creationDate;
         this.balance = balance;
+    }
+
+    public long getId() {
+        return id;
     }
 
     public String getNumber() {
@@ -55,7 +55,6 @@ public class Account {
         this.balance = balance;
     }
 
-//    @JsonIgnore
     public Client getClient() {
         return client;
     }
