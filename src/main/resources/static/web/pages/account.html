@@ -25,7 +25,7 @@
                     <a class="nav-link active" aria-current="page" href="/web/pages/manager.html">Home</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link active" href="#">Accounts</a>
+                    <a class="nav-link active" href="/web/pages/accounts.html">Accounts</a>
                   </li>
                   <li class="nav-item ">
                     <a class="nav-link active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -37,17 +37,19 @@
             </div>
           </nav> 
     </header>
-<main id="app">
-    <div v-if="account" class="container-card-d">
-        <div class="card-account-d">
-            <h3>number of account{{account.number}}</h3>
-            <h3>type</h3>
-            <h3>description</h3>
-            <h3>amount</h3>
-            <h5>date</h5>
-        </div>
-    </div>
-</main>
+    <main id="app">
+      <h1 class="text-center m-3" ><b>account:</b> {{accountsP.number}}</h1>
+       <div class="container-card-d" v-for="element in account">
+          <div class="card-account-d " :class="{}">
+              <h5><b>type:</b> {{element.type}}</h5>
+              <h5><b>description:</b> {{element.description}}</h5>
+              <h5><b>amount:</b> ${{element.amount}}</h5>
+              <h5><b>date:</b> {{element.date}}</h5>
+          </div>
+        
+      </div>
+  </main>
+  
     <footer class="bg-body-tertiary" data-bs-theme="dark">
         <div class="footer " >
             <div class="card-footer">

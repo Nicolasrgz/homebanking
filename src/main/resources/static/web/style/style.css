@@ -616,3 +616,9 @@ margin: 2rem;
   transition-duration: .3s;
 }
 /* hover effect on button width */
+
+.h1-detail{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
