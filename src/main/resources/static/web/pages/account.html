@@ -38,16 +38,39 @@
           </nav> 
     </header>
     <main id="app">
-      <h1 class="text-center m-3" ><b>account:</b> {{accountsP.number}}</h1>
-       <div class="container-card-d" v-for="element in account">
-          <div class="card-account-d " :class="{}">
-              <h5><b>type:</b> {{element.type}}</h5>
+      <h1 class="text-center m-3" ><b>ACCOUNT:</b> {{accountsP.number}}</h1>
+          <div class="container">
+            <div class="row row-edit">
+              <div class="col-md-6 text-center">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="col-4">type:</th>
+                      <th>description:</th>
+                      <th>amount:</th>
+                      <th>date:</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="element in account">
+                      <td><p :class="{ 'credit': element.type === 'CREDIT', 'debit': element.type === 'DEBIT' }">{{element.type}}</p></td>
+                      <td>{{element.description}}</td>
+                      <td><p :class="{ 'credit': element.type === 'CREDIT', 'debit': element.type === 'DEBIT' }">${{element.amount}}</p></td>
+                      <td>{{element.date}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+      </div>
+             <div class="container-card-d" v-for="element in account">
+          <div class="card-account-d " >
+              <h5 :class="{ 'credit': element.type === 'CREDIT', 'debit': element.type === 'DEBIT' }"><b>type:</b> {{element.type}}</h5>
               <h5><b>description:</b> {{element.description}}</h5>
-              <h5><b>amount:</b> ${{element.amount}}</h5>
+              <h5 :class="{ 'credit': element.type === 'CREDIT', 'debit': element.type === 'DEBIT' }"><b>amount:</b> ${{element.amount}}</h5>
               <h5><b>date:</b> {{element.date}}</h5>
           </div>
-        
-      </div>
   </main>
   
     <footer class="bg-body-tertiary" data-bs-theme="dark">

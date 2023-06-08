@@ -622,3 +622,12 @@ margin: 2rem;
   justify-content: center;
   align-items: center;
 }
+
+.credit {
+  color: green;
+}
+
+.debit {
+  color: red;
+}
+

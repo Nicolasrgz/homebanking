@@ -5,8 +5,10 @@ const app = createApp({
         return{
             account: [],
             params: {},
-            identificador: [],
+            identificador: '',
             accountsP: [],
+            isActive: true,
+            hasError: false
         }
     },
    created(){
