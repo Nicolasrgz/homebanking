@@ -348,6 +348,10 @@ justify-content: center;
 align-items: center;
 flex-direction: column;
 margin: 2rem;
+border-radius: 45px;
+background: linear-gradient(145deg, rgb(9, 2, 39));
+box-shadow:  5px 5px 10px #afafaf,
+             -5px -5px 20px #ffffff;
 
 }
 

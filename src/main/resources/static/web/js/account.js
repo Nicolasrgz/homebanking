@@ -7,8 +7,7 @@ const app = createApp({
             params: {},
             identificador: '',
             accountsP: [],
-            isActive: true,
-            hasError: false
+            accountSort: []
         }
     },
    created(){
@@ -22,6 +21,7 @@ const app = createApp({
     .then(response => {
         this.accountsP = response.data
         this.account = this.accountsP.accounts
+        this.accountSort = this.account.sort((a,b)=> a.id - b.id)
         document.title = `details of ${this.accountsP.number}`
         console.log(this.account)
     })

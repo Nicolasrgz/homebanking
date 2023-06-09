@@ -24,7 +24,7 @@ public class Account {
     private Client client;
 
     @OneToMany(mappedBy = "account", fetch = FetchType.EAGER)
-    private List<Transaction> transactions = new ArrayList<Transaction>();
+    private Set<Transaction> transactions = new HashSet<>();
 
     public Account() {}
 
@@ -38,7 +38,7 @@ public class Account {
         return id;
     }
 
-    public List<Transaction> getTransactions() {
+    public Set<Transaction> getTransactions() {
         return transactions;
     }
 

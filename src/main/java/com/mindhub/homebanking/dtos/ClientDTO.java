@@ -12,7 +12,7 @@ public class ClientDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private List<AccountDTO> accounts;
+    private Set<AccountDTO> accounts;
 
     public ClientDTO() {}
 
@@ -23,11 +23,12 @@ public class ClientDTO {
         this.email = client.getEmail();
         this.accounts = client.getAccounts()
                 .stream()
+                .distinct()
                 .map(account -> new AccountDTO(account))
-                .collect(Collectors.toList());
+                .collect(Collectors.toSet());
     }
 
-    public List<AccountDTO> getAccounts() {
+    public Set<AccountDTO> getAccounts() {
         return accounts;
     }
 

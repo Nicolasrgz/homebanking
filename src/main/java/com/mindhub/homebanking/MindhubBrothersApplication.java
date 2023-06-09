@@ -27,17 +27,21 @@ public class MindhubBrothersApplication {
 		return args -> {
 			Client melba = new Client("melba","morel", "melba@mindhub.com");
 			clientRepository.save(melba);
+
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
 			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
+
 			melba.addAccount(account1);
 			melba.addAccount(account2);
-			clientRepository.save(melba);
+
 			accountRepository.save(account1);
 			accountRepository.save(account2);
+
 			Transaction one = new Transaction(TransactionType.CREDIT, 3000, "venta de un perro", LocalDateTime.now());
 			Transaction two = new Transaction(TransactionType.DEBIT, -3000, "pago de alquiler", LocalDateTime.now());
 			Transaction three = new Transaction(TransactionType.CREDIT, 600, "venta de una remera", LocalDateTime.now());
 			Transaction four = new Transaction(TransactionType.DEBIT, -1000, "pago de nafta", LocalDateTime.now());
+
 			account1.addTransaction(one);
 			account1.addTransaction(two);
 			account2.addTransaction(three);

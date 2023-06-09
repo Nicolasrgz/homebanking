@@ -21,7 +21,7 @@ public class Client {
     private String email;
 
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
-    private List<Account> accounts = new ArrayList<Account>();
+    private Set<Account> accounts = new HashSet<>();
 
     public Client (){ }
 
@@ -32,7 +32,7 @@ public class Client {
 
     }
 
-    public List<Account> getAccounts(){
+    public Set<Account> getAccounts(){
         return accounts;
     }
     public long getId() {

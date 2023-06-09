@@ -13,7 +13,7 @@ public class AccountDTO {
     private LocalDate creationDate;
     private double balance;
 
-    private List<TransactionDTO> transactions;
+    private Set<TransactionDTO> transactions;
 
     public AccountDTO() {
     }
@@ -24,11 +24,12 @@ public class AccountDTO {
         this.creationDate = account.getCreationDate();
         this.number = account.getNumber();
         this.transactions = account.getTransactions()
-                .stream().map(transaction -> new TransactionDTO(transaction))
-                .collect(Collectors.toList());
+                .stream()
+                .map(transaction -> new TransactionDTO(transaction))
+                .collect(Collectors.toSet());
     }
 
-    public List<TransactionDTO> getAccounts() {
+    public Set<TransactionDTO> getAccounts() {
         return transactions;
     }
 
