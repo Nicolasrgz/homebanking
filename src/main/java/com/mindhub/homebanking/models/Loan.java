@@ -2,13 +2,11 @@ package com.mindhub.homebanking.models;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.ElementCollection;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Loan {
 
     @Id
@@ -19,7 +17,7 @@ public class Loan {
     private double maxAmount;
 
     @ElementCollection
-    private List<Integer> payments = new ArrayList<>();
+    private List<Integer> payments;
 
     public Loan (){}
 

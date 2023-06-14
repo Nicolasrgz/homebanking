@@ -1,11 +1,9 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.repositories.LoanRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -14,6 +12,8 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class MindhubBrothersApplication {
@@ -23,9 +23,9 @@ public class MindhubBrothersApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
 		return args -> {
-			Client melba = new Client("melba","morel", "melba@mindhub.com");
+			Client melba = new Client("melba", "morel", "melba@mindhub.com");
 			clientRepository.save(melba);
 
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
@@ -51,31 +51,9 @@ public class MindhubBrothersApplication {
 			transactionRepository.save(three);
 			transactionRepository.save(four);
 
-
-			Client juan = new Client("juan", "rondon", "juna@gmail.com");
-			clientRepository.save((juan));
-			Account account3 = new Account("VIN003", LocalDate.now(), 5000);
-			Account account4 = new Account("VIN004", LocalDate.now().plusDays(1), 7500);
-			juan.addAccount(account3);
-			juan.addAccount(account4);
-			clientRepository.save((juan));
-			accountRepository.save(account3);
-			accountRepository.save(account4);
-			Transaction five = new Transaction(TransactionType.DEBIT, -600, "compras del super", LocalDateTime.now());
-			Transaction six = new Transaction(TransactionType.DEBIT, -3000, "pago de tarjeta", LocalDateTime.now());
-			Transaction seven = new Transaction(TransactionType.DEBIT, -3700, "compras del bazar", LocalDateTime.now());
-			Transaction eight = new Transaction(TransactionType.DEBIT, -3000, "pago de deudas", LocalDateTime.now());
-			account3.addTransaction(five);
-			account4.addTransaction(six);
-			account3.addTransaction(seven);
-			account4.addTransaction(eight);
-			transactionRepository.save(five);
-			transactionRepository.save(six);
-			transactionRepository.save(seven);
-			transactionRepository.save(eight);
-
-
-
+			Loan Hipotecario = new Loan("Hipotecario", 500000, Arrays.asList(12, 24, 36, 48, 60));
+			Loan Personal = new Loan("Personal", 500000, Arrays.asList(6, 12, 24));
+			Loan Automotriz = new Loan("Automotriz", 500000, Arrays.asList(12, 24, 36, 48, 60));
 		};
 	}
 }
