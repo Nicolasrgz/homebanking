@@ -23,7 +23,7 @@ public class MindhubBrothersApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository) {
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository) {
 		return args -> {
 			Client melba = new Client("melba", "morel", "melba@mindhub.com");
 			clientRepository.save(melba);
@@ -53,7 +53,11 @@ public class MindhubBrothersApplication {
 
 			Loan Hipotecario = new Loan("Hipotecario", 500000, Arrays.asList(12, 24, 36, 48, 60));
 			Loan Personal = new Loan("Personal", 500000, Arrays.asList(6, 12, 24));
-			Loan Automotriz = new Loan("Automotriz", 500000, Arrays.asList(12, 24, 36, 48, 60));
+			Loan Automotriz = new Loan("Automotriz", 500000, Arrays.asList(6, 12, 24, 36));
+
+			loanRepository.save(Hipotecario);
+			loanRepository.save(Personal);
+			loanRepository.save(Automotriz);
 		};
 	}
 }
