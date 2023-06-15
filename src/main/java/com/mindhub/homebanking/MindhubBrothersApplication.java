@@ -1,10 +1,7 @@
 package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.LoanRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,7 +20,7 @@ public class MindhubBrothersApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository) {
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository) {
 		return args -> {
 			Client melba = new Client("melba", "morel", "melba@mindhub.com");
 			clientRepository.save(melba);
@@ -51,13 +48,17 @@ public class MindhubBrothersApplication {
 			transactionRepository.save(three);
 			transactionRepository.save(four);
 
-			Loan Hipotecario = new Loan("Hipotecario", 500000, Arrays.asList(12, 24, 36, 48, 60));
-			Loan Personal = new Loan("Personal", 500000, Arrays.asList(6, 12, 24));
-			Loan Automotriz = new Loan("Automotriz", 500000, Arrays.asList(6, 12, 24, 36));
+			Loan Hipotecario = new Loan("Hipotecario", 500.000, Arrays.asList(12, 24, 36, 48, 60));
+			Loan Personal = new Loan("Personal", 500.000, Arrays.asList(6, 12, 24));
+			Loan Automotriz = new Loan("Automotriz", 500.000, Arrays.asList(6, 12, 24, 36));
 
 			loanRepository.save(Hipotecario);
 			loanRepository.save(Personal);
 			loanRepository.save(Automotriz);
+
+			ClientLoan prestamo1 = new ClientLoan(400.000, 60, Hipotecario);
+			Hipotecario.addClientLoans(prestamo1);
+			clientLoanRepository.save(prestamo1);
 		};
 	}
 }

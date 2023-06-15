@@ -14,19 +14,18 @@ public class ClientLoan {
     private double amount;
     private int payments;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="debtor_id")
+    @JoinColumn(name="debtor")
     private Client debtor;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "loan_id")
+    @JoinColumn(name = "loan")
     private Loan loan;
 
     public ClientLoan(){}
 
-    public ClientLoan(double amount, int payments, Client debtor, Loan loan) {
+    public ClientLoan(double amount, int payments, Loan loan) {
         this.amount = amount;
         this.payments = payments;
-        this.debtor = debtor;
         this.loan = loan;
     }
 
