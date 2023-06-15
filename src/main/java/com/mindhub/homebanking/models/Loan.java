@@ -4,7 +4,6 @@ import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -70,11 +69,9 @@ public class Loan {
         this.payments = payments;
     }
 
-    @JsonIgnore
     public List<Client> getClients(){
         return clientLoans.stream().map(ClientLoan::getDebtor).collect(Collectors.toList());
     }
-
     public void addClientLoans(ClientLoan clientLoan){
         clientLoan.setLoan(this);
         clientLoans.add(clientLoan);

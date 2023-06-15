@@ -75,10 +75,10 @@ public class Client {
         accounts.add(account);
     }
 
-    @JsonIgnore
     public List<Loan> getLoans() {
     return clientLoans.stream().map(ClientLoan::getLoan).collect(Collectors.toList());
     }
+
     public void addClientLoans(ClientLoan clientLoan){
         clientLoan.setDebtor(this);
         clientLoans.add(clientLoan);
