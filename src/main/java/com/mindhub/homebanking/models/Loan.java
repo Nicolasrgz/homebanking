@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -69,6 +70,7 @@ public class Loan {
         this.payments = payments;
     }
 
+    @JsonIgnore
     public List<Client> getClients(){
         return clientLoans.stream().map(ClientLoan::getDebtor).collect(Collectors.toList());
     }
