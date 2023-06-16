@@ -23,7 +23,7 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/web/pages/manager.html">Home</a>
+                <a class="nav-link active" aria-current="page" href="/web/index.html">Home</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link active" href="#">Accounts</a>
@@ -133,6 +133,9 @@
           </div>
         </div>
       </div>
+      <div class="h1 text-center" v-if="loansSort.length == 0">
+        <h3>usted no posee ningun prestamo</h3>
+    </div>
 </div>
 
 <div id="coinmarketcap-widget-coin-price-block" coins="1,1027,825,1958,5426,7653,1839,3890,1966,5994,6538" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
