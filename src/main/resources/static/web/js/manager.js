@@ -10,17 +10,13 @@ const app = createApp({
   },
   created() {
     this.loadData()
-
   },
-  methods: {
-    
-    loadData(){
-         axios.get('http://localhost:8080/rest/clients')
+  methods: { 
+   loadData(){
+         axios.get('http://localhost:8080/api/clients')
               .then(response => {
                 this.json = response.data;
-                this.clients = response.data._embedded.clients
                 console.log(this.json)
-                console.log(this.clients)
               })
               .catch(err => {
                 console.error(err);
@@ -53,7 +49,7 @@ const app = createApp({
     },
 
     deleteUser(id){
-      axios.delete(id)
+      axios.delete('http://localhost:8080/api/clients/' + id)
       .then(res => {
         console.log(res)
         console.log("user delete")
@@ -61,6 +57,7 @@ const app = createApp({
       })
       .catch(err => console.log(err))
     }
+    
 
   }
 })

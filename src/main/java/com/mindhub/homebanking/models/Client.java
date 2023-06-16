@@ -74,11 +74,11 @@ public class Client {
         account.setClient(this);
         accounts.add(account);
     }
-
+    @JsonIgnore
     public List<Loan> getLoans() {
     return clientLoans.stream().map(ClientLoan::getLoan).collect(Collectors.toList());
     }
-
+    @JsonIgnore
     public void addClientLoans(ClientLoan clientLoan){
         clientLoan.setDebtor(this);
         clientLoans.add(clientLoan);

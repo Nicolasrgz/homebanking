@@ -8,7 +8,7 @@
     <title>homebanking</title>
 </head>
 <body>
-<div class="layout" id="app">
+<div class="layout" >
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
             <div class="container-fluid">
@@ -40,7 +40,7 @@
         </div>
     </header>
 
-    <main>
+    <main id="app">
  
         <div class="form">
               <form class="form" @submit.prevent="addClients">
@@ -68,16 +68,16 @@
                     <th>#</th>
                 </tr>
             </thead>
-            <tbody v-for="client in clients" :key="client.id">
+            <tbody v-for="client in json" :key="client.id">
                 <tr class="text-center">
                     <td >{{client.firstName}}</td>
                     <td >{{client.lastName}}</td>
                     <td >{{client.email}}</td>
-                    <td><span><i role="button" class="bi bi-trash3" @click="deleteUser(client._links.self.href)"></i></span></td>
+                    <td><span><i role="button" class="bi bi-trash3" @click="deleteUser(client.id)"></i></span></td>
                 </tr>
             </tbody>
         </table>
-        <div class="h1 text-center" v-if="clients.length == 0">
+        <div class="h1 text-center" v-if="json.length == 0">
             <h3>no hay usuarios ingresados</h3>
         </div>
     </div>
@@ -110,7 +110,7 @@
 </div>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<!-- <script src="/web/js/manager.js"></script> -->
+<script src="/web/js/manager.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -55,11 +56,11 @@ public class ClientLoan {
     public void setDebtor(Client debtor) {
         this.debtor = debtor;
     }
-
+    @JsonIgnore
     public Loan getLoan() {
         return loan;
     }
-
+    @JsonIgnore
     public void setLoan(Loan loan) {
         this.loan = loan;
     }
