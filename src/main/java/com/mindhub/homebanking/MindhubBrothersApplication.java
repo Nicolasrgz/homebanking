@@ -57,6 +57,7 @@ public class MindhubBrothersApplication {
 			Personal.addClientLoans(prestamo2);
 			clientLoanRepository.save(prestamo1);
 			clientLoanRepository.save(prestamo2);
+
 			Card card1 = new Card("melba morel", CardType.DEBIT, CardColor.GOLD, "0000 1111 2222 3333", 189,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
 			Card card2 = new Card("melba morel", CardType.CREDIT, CardColor.TITANIUM, "0000 1111 2222 3334", 777,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
 			melba.addCards(card1);

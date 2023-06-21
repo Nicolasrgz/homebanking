@@ -50,7 +50,8 @@
           <div class="container-accounts-data color-white text-center" >
             <h4>Account n°: {{user.number}}</h4>
             <h4>Creation date: <br>{{user.creationDate}}</br></h4>
-            <h4>Balance: <br>{{user.balance}}</br></h4>
+            <h4>Balance: <br><format-currency :value="user.balance"></format-currency></br></h4>
+
             <a :href="'/web/pages/account.html?id=' + user.id">
               <button class="button-btn">
                 <span>more info</span>
@@ -65,7 +66,7 @@
           <div class="container-accounts-data color-white text-center" >
             <h4>Payments: <br>{{user.payments}}</h4>
             <h4>Loan: <br>{{user.loanName}}</h4>
-            <h4>Amount: <br>{{user.amount}}</h4>
+            <h4>Amount: <br><format-currency  :value="user.amount"></format-currency></br></h4>
           </div>
         </div>
       </div>
