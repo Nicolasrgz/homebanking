@@ -1,12 +1,7 @@
 package com.mindhub.homebanking;
 
-import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.Client;
-import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.*;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +9,8 @@ import org.springframework.context.annotation.Bean;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootApplication
 public class MindhubBrothersApplication {
@@ -23,9 +20,9 @@ public class MindhubBrothersApplication {
 	}
 
 	@Bean
-	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository){
+	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository) {
 		return args -> {
-			Client melba = new Client("melba","morel", "melba@mindhub.com");
+			Client melba = new Client("melba", "morel", "melba@mindhub.com");
 			clientRepository.save(melba);
 
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
@@ -51,6 +48,24 @@ public class MindhubBrothersApplication {
 			transactionRepository.save(three);
 			transactionRepository.save(four);
 
+			Loan Hipotecario = new Loan("Hipotecario", 500000, Arrays.asList(12, 24, 36, 48, 60));
+			Loan Personal = new Loan("Personal", 500000, Arrays.asList(6, 12, 24));
+			Loan Automotriz = new Loan("Automotriz", 500000, Arrays.asList(6, 12, 24, 36));
+
+			loanRepository.save(Hipotecario);
+			loanRepository.save(Personal);
+			loanRepository.save(Automotriz);
+
+			ClientLoan prestamo1 = new ClientLoan(400000, 60);
+			ClientLoan prestamo2 = new ClientLoan(50000, 12);
+			melba.addClientLoans(prestamo1);
+			melba.addClientLoans(prestamo2);
+			Hipotecario.addClientLoans(prestamo1);
+			Personal.addClientLoans(prestamo2);
+			clientLoanRepository.save(prestamo1);
+			clientLoanRepository.save(prestamo2);
+
+
 
 			Client juan = new Client("juan", "rondon", "juna@gmail.com");
 			clientRepository.save((juan));
@@ -73,9 +88,14 @@ public class MindhubBrothersApplication {
 			transactionRepository.save(six);
 			transactionRepository.save(seven);
 			transactionRepository.save(eight);
-
-
-
+			ClientLoan prestamo3 = new ClientLoan(100000, 24);
+			ClientLoan prestamo4 = new ClientLoan(200000, 36);
+			juan.addClientLoans(prestamo3);
+			juan.addClientLoans(prestamo4);
+			Personal.addClientLoans(prestamo3);
+			Automotriz.addClientLoans(prestamo4);
+			clientLoanRepository.save(prestamo3);
+			clientLoanRepository.save(prestamo4);
 		};
 	}
 }

@@ -40,9 +40,9 @@
 </header>
 <main id="app">
 <div class="user-main" >
-    <div >
+    <!-- <div >
        <div class="conteiner-card">
-        <img class="img-user" src="../img/user.png" alt="">
+        <img class="img-user" src="/web/img/user.png" alt="">
         <h3 class="h3-card-user">{{this.melba.firstName}} {{this.melba.lastName}}</h3>
             <div class="card">
                 <div class="card__info">
@@ -80,10 +80,11 @@
                         </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="container">
         <div class="row row-edit">
           <div class="col-md-6 text-center">
+            <h2>CUENTAS</h2>
             <table class="table">
               <thead>
                 <tr>
@@ -103,6 +104,29 @@
                     </path></svg></div>    
                   </a>
                   </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="row row-edit">
+          <div class="col-md-6 text-center">
+            <h2>PRESTAMOS</h2>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th class="col-4">amount</th>
+                  <th>loanName</th>
+                  <th>payments</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr v-for="user of loansSort">
+                  <td>{{user.payments}}</td>
+                  <td>{{user.loanName}}</td>
+                  <td>${{user.amount.toFixed(2)}}</td>
                 </tr>
               </tbody>
             </table>
@@ -136,7 +160,7 @@
     <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinPriceBlock.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script src="/web/js/accoutns.js"></script>
+    <script src="/web/js/accounts.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -6,7 +6,8 @@ const app = createApp({
             melba: [],
             melbaAccounts: [],
             melbaSort: [],
-            
+            melbaLoans: [],
+            loansSort: []
         }
     },
     created(){
@@ -17,18 +18,20 @@ const app = createApp({
             axios.get("http://localhost:8080/api/clients/1")
             .then(response => {
                 this.melba = response.data
-                this.melbaAccounts = response.data.accounts
+                this.melbaAccounts = this.melba.accounts
                 this.melbaSort = this.melbaAccounts.sort((a,b)=> a.id - b.id)
+                this.melbaLoans = this.melba.loans
+                this.loansSort = this.melbaLoans.sort((a,b)=> a.id - b.id)
+                console.log(this.melba)
                 console.log(this.melbaSort)     
+                console.log(this.melbaLoans)
+                console.log(this.loansSort)
             })
             .catch(err => {
                 console.error(err);
               });
         }
     },
-    computed:{
-
-    }
 })
 app.mount("#app")
 
