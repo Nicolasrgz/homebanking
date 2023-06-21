@@ -7,6 +7,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="/web/style/style.css">
     <link rel="shortcut icon" href="/web/img/imagenbank.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <title>Your Accounts</title>
 </head>
 <body >
@@ -40,96 +44,28 @@
 </header>
 <main id="app">
 <div class="user-main" >
-    <!-- <div >
-       <div class="conteiner-card">
-        <img class="img-user" src="/web/img/user.png" alt="">
-        <h3 class="h3-card-user">{{this.melba.firstName}} {{this.melba.lastName}}</h3>
-            <div class="card">
-                <div class="card__info">
-                    <div class="card__logo">MasterCard</div>
-                    <div class="card__chip">
-                        <svg class="card__chip-lines" role="img" width="20px" height="20px" viewBox="0 0 100 100" aria-label="Chip">
-                            <g opacity="0.8">
-                                <polyline points="0,50 35,50" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="0,20 20,20 35,35" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="50,0 50,35" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="65,35 80,20 100,20" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="100,50 65,50" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="35,35 65,35 65,65 35,65 35,35" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="0,80 20,80 35,65" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="50,100 50,65" fill="none" stroke="#000" stroke-width="2"></polyline>
-                                <polyline points="65,65 80,80 100,80" fill="none" stroke="#000" stroke-width="2"></polyline>
-                            </g>
-                        </svg>
-                        <div class="card__chip-texture"></div>
-                    </div>
-                      <div class="card__type">debit</div>
-                      <div class="card__number">
-                        <span class="card__digit-group">0123</span>
-                        <span class="card__digit-group">4567</span>
-                        <span class="card__digit-group">8901</span>
-                        <span class="card__digit-group">2345</span>
-                    </div>
-                      <div class="card__valid-thru" aria-label="Valid thru">Valid<br>thru</div>
-                      <div class="card__exp-date"><time datetime="2038-01">01/30</time></div>
-                      <div class="card__name" aria-label="Dee Stroyer">melba morel</div>
-                      <div class="card__vendor" role="img" aria-labelledby="card-vendor">
-                      <span id="card-vendor" class="card__vendor-sr">Mastercard</span>
-                    </div>
-                <div class="card__texture"></div>
-                        </div>
-            </div>
-        </div>
-    </div> -->
-    <div class="container">
-        <div class="row row-edit">
-          <div class="col-md-6 text-center">
-            <h2>Accounts</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="col-4">Account n°</th>
-                  <th>Creation date</th>
-                  <th>Balance</th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="user of melbaSort">
-                  <td>{{user.number}}</td>
-                  <td>{{user.creationDate}}</td>
-                  <td>${{user.balance.toFixed(2)}}</td>
-                  <td><a :href="'/web/pages/account.html?id=' + user.id" class="Btn">
-                    <div class="sign"><svg viewBox="0 0 512 512"><path d="M377.9 105.9L500.7 228.7c7.2 7.2 11.3 17.1 11.3 27.3s-4.1 20.1-11.3 27.3L377.9 406.1c-6.4 6.4-15 9.9-24 9.9c-18.7 0-33.9-15.2-33.9-33.9l0-62.1-128 0c-17.7 0-32-14.3-32-32l0-64c0-17.7 14.3-32 32-32l128 0 0-62.1c0-18.7 15.2-33.9 33.9-33.9c9 0 17.6 3.6 24 9.9zM160 96L96 96c-17.7 0-32 14.3-32 32l0 256c0 17.7 14.3 32 32 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-64 0c-53 0-96-43-96-96L0 128C0 75 43 32 96 32l64 0c17.7 0 32 14.3 32 32s-14.3 32-32 32z">
-                    </path></svg></div>    
-                  </a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+  <h2 class="animate__animated animate__zoomInLeft">ACCOUNTS</h2>
+      <div class="d-flex container-gap">
+        <div class="card-accounts" v-for="user of melbaSort">
+          <div class="container-accounts-data color-white text-center" >
+            <h4>Account n°: {{user.number}}</h4>
+            <h4>Creation date: <br>{{user.creationDate}}</br></h4>
+            <h4>Balance: <br>{{user.balance}}</br></h4>
+            <a :href="'/web/pages/account.html?id=' + user.id">
+              <button class="button-btn">
+                <span>more info</span>
+              </button>
+            </a>
           </div>
         </div>
       </div>
-      <div class="container">
-        <div class="row row-edit">
-          <div class="col-md-6 text-center">
-            <h2>LOANS</h2>
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="col-4">Payments</th>
-                  <th>Loan</th>
-                  <th>Amount</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="user of loansSort">
-                  <td>{{user.payments}}</td>
-                  <td>{{user.loanName}}</td>
-                  <td>${{user.amount.toFixed(2)}}</td>
-                </tr>
-              </tbody>
-            </table>
+      <h2 class="animate__animated animate__zoomInLeft">LOANS</h2>
+      <div class="d-flex container-gap">
+        <div class="card-accounts" v-for="user of loansSort">
+          <div class="container-accounts-data color-white text-center" >
+            <h4>Payments: <br>{{user.payments}}</h4>
+            <h4>Loan: <br>{{user.loanName}}</h4>
+            <h4>Amount: <br>{{user.amount}}</h4>
           </div>
         </div>
       </div>
@@ -137,8 +73,6 @@
         <h3>you do not have any loan</h3>
     </div>
 </div>
-
-<div id="coinmarketcap-widget-coin-price-block" coins="1,1027,825,1958,5426,7653,1839,3890,1966,5994,6538" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
 </main>
 <footer class="bg-body-tertiary" data-bs-theme="dark">
 <div class="footer " >
@@ -158,9 +92,6 @@
 </div>
 </footer>
 </div>
-      
-       
-    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinPriceBlock.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="/web/js/accounts.js"></script>
