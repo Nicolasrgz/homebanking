@@ -17,6 +17,7 @@ public class ClientDTO {
     private String email;
     private Set<AccountDTO> accounts;
     private Set<ClientLoanDTO> loans;
+    private Set<CardDTO> cards;
     public ClientDTO() {}
 
     public ClientDTO(Client client) {
@@ -30,10 +31,18 @@ public class ClientDTO {
                 .collect(Collectors.toSet());
         this.loans = client.getClientLoans()
                 .stream()
-                .map(ClientLoanDTO::new)
+                .map(clientLoan -> new ClientLoanDTO(clientLoan))
                 .collect(Collectors.toSet());
-               ;
+        this.cards = client.getCards()
+                .stream()
+                .map(card -> new CardDTO(card))//no olvidar que el constructor que usamos en cards lleva por parametros Card card
+                .collect(Collectors.toSet());
     }
+
+    public Set<CardDTO> getCards() {
+        return cards;
+    }
+
     public Set<ClientLoanDTO> getLoans() {
         return loans;
     }

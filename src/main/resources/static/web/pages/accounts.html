@@ -7,14 +7,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="/web/style/style.css">
     <link rel="shortcut icon" href="/web/img/imagenbank.png" type="image/x-icon">
-    <title>your accounts</title>
+    <title>Your Accounts</title>
 </head>
 <body >
 <div class="layout">
   <header>
     <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/web/index.html">
                 <img src="/web/img/imagenbank.png"  width="30" height="24" class="d-inline-block align-text-top">
             </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,8 +29,8 @@
                 <a class="nav-link active" href="#">Accounts</a>
               </li>
               <li class="nav-item ">
-                <a class="nav-link active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Transfer
+                <a class="nav-link active" href="../pages/cards.html">
+                  Cards
                 </a>
               </li>
             </ul>
@@ -84,12 +84,12 @@
     <div class="container">
         <div class="row row-edit">
           <div class="col-md-6 text-center">
-            <h2>CUENTAS</h2>
+            <h2>Accounts</h2>
             <table class="table">
               <thead>
                 <tr>
-                  <th class="col-4">Cuenta n°</th>
-                  <th>Fecha de creación</th>
+                  <th class="col-4">Account n°</th>
+                  <th>Creation date</th>
                   <th>Balance</th>
                   <th></th>
                 </tr>
@@ -113,13 +113,13 @@
       <div class="container">
         <div class="row row-edit">
           <div class="col-md-6 text-center">
-            <h2>PRESTAMOS</h2>
+            <h2>LOANS</h2>
             <table class="table">
               <thead>
                 <tr>
-                  <th class="col-4">cuotas</th>
-                  <th>prestamo</th>
-                  <th>monto</th>
+                  <th class="col-4">Payments</th>
+                  <th>Loan</th>
+                  <th>Amount</th>
                 </tr>
               </thead>
               <tbody>
@@ -134,7 +134,7 @@
         </div>
       </div>
       <div class="h1 text-center" v-if="loansSort.length == 0">
-        <h3>usted no posee ningun prestamo</h3>
+        <h3>you do not have any loan</h3>
     </div>
 </div>
 
