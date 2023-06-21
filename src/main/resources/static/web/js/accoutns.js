@@ -4,7 +4,9 @@ const app = createApp({
     data(){
         return{
             melba: [],
-            melbaAccounts: []
+            melbaAccounts: [],
+            melbaSort: [],
+            
         }
     },
     created(){
@@ -16,7 +18,8 @@ const app = createApp({
             .then(response => {
                 this.melba = response.data
                 this.melbaAccounts = response.data.accounts
-                console.log(this.melbaAccounts)     
+                this.melbaSort = this.melbaAccounts.sort((a,b)=> a.id - b.id)
+                console.log(this.melbaSort)     
             })
             .catch(err => {
                 console.error(err);

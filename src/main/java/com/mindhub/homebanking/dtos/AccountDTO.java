@@ -3,6 +3,9 @@ package com.mindhub.homebanking.dtos;
 import com.mindhub.homebanking.models.Account;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class AccountDTO {
     private long Id;
@@ -10,44 +13,37 @@ public class AccountDTO {
     private LocalDate creationDate;
     private double balance;
 
-    public AccountDTO(){}
+    private Set<TransactionDTO> transactions;
 
-    public AccountDTO(Account account){
+    public AccountDTO() {
+    }
+
+    public AccountDTO(Account account) {
         this.Id = account.getId();
         this.balance = account.getBalance();
         this.creationDate = account.getCreationDate();
         this.number = account.getNumber();
+        this.transactions = account.getTransactions()
+                .stream()
+                .map(transaction -> new TransactionDTO(transaction))
+                .collect(Collectors.toSet());
+    }
+
+    public Set<TransactionDTO> getAccounts() {
+        return transactions;
     }
 
     public long getId() {
         return Id;
     }
-
-    public void setId(long id) {
-        Id = id;
-    }
-
     public String getNumber() {
         return number;
     }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
     public LocalDate getCreationDate() {
         return creationDate;
     }
-
-    public void setCreationDate(LocalDate creationDate) {
-        this.creationDate = creationDate;
-    }
-
     public double getBalance() {
         return balance;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
 }
