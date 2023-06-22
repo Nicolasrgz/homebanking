@@ -96,7 +96,7 @@ public class MindhubBrothersApplication {
 			clientLoanRepository.save(prestamo3);
 			clientLoanRepository.save(prestamo4);
 			Card card3 = new Card("juan Rondo", CardType.DEBIT, CardColor.SILVER, "1234 1111 2222 3333", 100,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
-			juan.addCards(card3);
+			melba.addCards(card3);
 			cardRepository.save(card3);
 		};
 	}
