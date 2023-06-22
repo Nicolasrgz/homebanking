@@ -23,7 +23,7 @@ public class MindhubBrothersApplication {
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository
 	, CardRepository cardRepository) {
 		return args -> {
-			Client melba = new Client("melba", "morel", "melba@mindhub.com");
+			Client melba = new Client("melba", "morel", "melba@mindhub.com","superman");
 			clientRepository.save(melba);
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
 			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
@@ -66,7 +66,7 @@ public class MindhubBrothersApplication {
 			cardRepository.save(card2);
 
 
-			Client juan = new Client("juan", "Rondo", "juna@gmail.com");
+			Client juan = new Client("juan", "Rondo", "juna@gmail.com", "superman");
 			clientRepository.save((juan));
 			Account account3 = new Account("VIN003", LocalDate.now(), 5000);
 			Account account4 = new Account("VIN004", LocalDate.now().plusDays(1), 7500);
