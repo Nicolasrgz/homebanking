@@ -17,18 +17,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class WebAuthentication extends GlobalAuthenticationConfigurerAdapter {
 
     @Autowired
-    private ClientRepository clientRepository;
+    ClientRepository clientRepository;
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception{
         auth.userDetailsService(inputEmail -> {
             Client client = clientRepository.findByEmail(inputEmail);
             if (client != null){
-                return new User(client.getEmail(),client.getPassword(),
-                        AuthorityUtils.createAuthorityList("CLIENT"));
-            }
-            else {
-                throw new UsernameNotFoundException("Unknow user:"+ inputEmail );
+                if (client.getEmail().equals("admin@gmail.com")){
+                    return new User(client.getEmail(), client.getPassword(), AuthorityUtils.createAuthorityList("ADMIN"));
+                }else {
+                    return new User(client.getEmail(),client.getPassword(), AuthorityUtils.createAuthorityList("CLIENT"));
+                }
+            }  else {
+                throw new UsernameNotFoundException("Unknown user:"+ inputEmail );
             }
 
         });

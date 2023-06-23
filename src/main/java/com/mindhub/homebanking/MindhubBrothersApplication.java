@@ -29,9 +29,6 @@ private PasswordEncoder passwordEncoder;
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository
 	, CardRepository cardRepository) {
 		return args -> {
-			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("admin-code"));
-			clientRepository.save(admin);
-
 			Client melba = new Client("melba", "morel", "melba@mindhub.com",passwordEncoder.encode("superman"));
 			clientRepository.save(melba);
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
@@ -107,6 +104,9 @@ private PasswordEncoder passwordEncoder;
 			Card card3 = new Card("juan Rondo", CardType.DEBIT, CardColor.SILVER, "1234 1111 2222 3333", 100,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
 			melba.addCards(card3);
 			cardRepository.save(card3);
+
+			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("admin-code"));
+			clientRepository.save(admin);
 		};
 	}
 }
