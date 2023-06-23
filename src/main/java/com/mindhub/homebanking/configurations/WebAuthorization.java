@@ -21,17 +21,24 @@ public class WebAuthorization {
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
             http.authorizeRequests()
+                    .antMatchers("/web/pages/manager.html").hasAuthority("ADMIN")
+                    .antMatchers("/h2-console/login.do").hasAuthority("ADMIN")
+
+                    .antMatchers("/rest/clients").hasAuthority("ADMIN")
+                    .antMatchers("/rest/accounts").hasAuthority("ADMIN")
+                    .antMatchers("/rest/loans").hasAuthority("ADMIN")
+                    .antMatchers("/rest/cards").hasAuthority("ADMIN")
+                    .antMatchers("/rest/transactions").hasAuthority("ADMIN")
+
                     .antMatchers("/web/pages/accounts.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/cards.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/account.html").hasAuthority("CLIENT")
 
                     .antMatchers("/public/web/index.html").permitAll()
+                    .antMatchers("/api/login").permitAll()
                     .antMatchers("/public/web/pages/contactUs.html").permitAll()
-                    .antMatchers("/public/web/pages/aboutUs.html").permitAll()
-                    .antMatchers("/public/api/login").permitAll()
+                    .antMatchers("/public/web/pages/aboutUs.html").permitAll();
 
-                    .antMatchers("/admin/web/pages/manager.html").hasAuthority("ADMIN")
-                    .antMatchers("/admin/h2/console").hasAuthority("ADMIN");
 
 
 
@@ -43,33 +50,27 @@ public class WebAuthorization {
 
                     .loginPage("/api/login");
 
+            http.logout()
 
-
-            http.logout().logoutUrl("/api/logout");
+                    .logoutUrl("/api/logout");
 
 
         // turn off checking for CSRF tokens
-
         http.csrf().disable();
 
         //disabling frameOptions so h2-console can be accessed
-
         http.headers().frameOptions().disable();
 
         // if user is not authenticated, just send an authentication failure response
-
         http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 
         // if login is successful, just clear the flags asking for authentication
-
         http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
 
         // if login fails, just send an authentication failure response
-
         http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
 
         // if logout is successful, just send a success response
-
         http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
 
         return http.build();

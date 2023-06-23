@@ -655,3 +655,8 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
 .cont-card-c{
   margin: 3rem;
 }
+
+.img-register{
+  width: 20rem;
+  height: 20rem;
+}
