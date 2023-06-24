@@ -10,93 +10,97 @@
     <title>Clover Bank</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="/web/img/imagenbank.png"  width="30" height="24" class="d-inline-block align-text-top">
+<div class="layout-1">
+  <header >
+    <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/web/img/imagenbank.png"  width="30" height="24" class="d-inline-block align-text-top">
+            </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="/web/pages/accounts.html">Accounts</a>
+              </li>
+              <li class="nav-item ">
+                <a class="nav-link active" href="/web/pages/cards.html">
+                  Cards
                 </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="/web/pages/accounts.html">Accounts</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link active" href="/web/pages/cards.html">
-                      Cards
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav> 
-          <div class="h1">
-            <h1 class="text-center">Clover Bank</h1>
-        </div>
-    </header>
-<main id="app">
-  <div class="container-logins d-flex justify-content-evenly">
-      <!-- <div class="index-form">
-        <form class="form m-2">
-            <p class="title">Register</p>
-            <p class="message">Sign up now and get full access to our app.</p>
-                <div class="flex">
-                <label>
-                    <input required="" placeholder="" type="text" class="input">
-                    <span>Name</span>
-                </label>
+              </li>
         
-                <label>
-                    <input required="" placeholder="" type="text" class="input">
-                    <span>last name</span>
-                </label>
-            </div>  
-                    
-            <label>
-                <input required="" placeholder="" type="email" class="input">
-                <span>Email</span>
-            </label> 
-                
-            <label>
-                <input required="" placeholder="" type="password" class="input">
-                <span>Password</span>
-            </label>
-            <label>
-                <input required="" placeholder="" type="password" class="input">
-                <span>confirm password</span>
-            </label>
-            <button class="submit">Submit</button>
-        </form>
-    </div> -->
-    <div class="index-form d-flex">
-      <div>
-        <img class="img-register" src="../web/img/imagenbank.png" alt="">
-      </div>
-      <div>
-        <form class="form m-2" @submit.prevent="submit">
-          <p class="title">Login</p>
-          <p class="message">Sign up now and get full access to our app.</p>        
-          <label for="email">
-              <input v-model="email" id="email" required="" placeholder="" type="email" class="input">
-              <span>Email</span>
-          </label> 
-              
-          <label for="pass">
-              <input v-model="password" id="pass" required="" placeholder="" type="text" class="input">
-              <span>Password</span>
-          </label>
-          <button class="submit" type="submit" @click.prevent="submit">Submit</button>
-      </form>
-      </div>
+            </ul>
+      
+          </div>
+        </div>
+      </nav> 
+      <div class="h1">
+        <h1 class="text-center">Clover Bank</h1>
     </div>
+</header>
+<main id="app">
+<div class="container-logins d-flex justify-content-evenly">
+  <!-- <div class="index-form">
+    <form class="form m-2">
+        <p class="title">Register</p>
+        <p class="message">Sign up now and get full access to our app.</p>
+            <div class="flex">
+            <label>
+                <input required="" placeholder="" type="text" class="input">
+                <span>Name</span>
+            </label>
+    
+            <label>
+                <input required="" placeholder="" type="text" class="input">
+                <span>last name</span>
+            </label>
+        </div>  
+                
+        <label>
+            <input required="" placeholder="" type="email" class="input">
+            <span>Email</span>
+        </label> 
+            
+        <label>
+            <input required="" placeholder="" type="password" class="input">
+            <span>Password</span>
+        </label>
+        <label>
+            <input required="" placeholder="" type="password" class="input">
+            <span>confirm password</span>
+        </label>
+        <button class="submit">Submit</button>
+    </form>
+</div> -->
+<div class="index-form d-flex">
+  <div>
+    <img class="img-register" src="../web/img/imagenbank.png" alt="">
   </div>
+  <div>
+    <form class="form m-2" @submit.prevent="submit">
+      <p class="title">Login</p>
+      <p class="message">Sign up now and get full access to our app.</p>        
+      <label for="email">
+          <input v-model="email" id="email" required="" placeholder="" type="email" class="input">
+          <span>Email</span>
+      </label> 
+          
+      <label for="pass">
+          <input v-model="password" id="pass" required="" placeholder="" type="text" class="input">
+          <span>Password</span>
+      </label>
+      <button class="submit" type="submit" @click.prevent="submit">log out</button>
+  </form>
+  </div>
+</div>
+</div>
 </main>
+</div>
     <div id="coinmarketcap-widget-coin-price-block" coins="1,1027,825,1958,5426,7653,1839,3890,1966,5994,6538" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
     <footer class="bg-body-tertiary" data-bs-theme="dark">
         <div class="footer " >

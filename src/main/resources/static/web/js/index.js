@@ -30,9 +30,10 @@ methods: {
     .catch(error => {
       // Inicio de sesión fallido
       // Mostrar mensaje de error al usuario
-      alert('Error al iniciar sesión');
+      alert('Su usuario no se encuentra registrado');
     });
-  }
+  },
+
 }
 
 
