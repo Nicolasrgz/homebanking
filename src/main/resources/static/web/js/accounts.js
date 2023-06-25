@@ -15,7 +15,7 @@ const app = createApp({
     },
     methods:{
         user(){
-            axios.get("http://localhost:8080/api/clients/1")
+            axios.get("http://localhost:8080/api/clients/current")
             .then(response => {
                 this.melba = response.data
                 this.melbaAccounts = this.melba.accounts

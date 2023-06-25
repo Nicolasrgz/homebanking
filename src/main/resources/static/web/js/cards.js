@@ -3,7 +3,7 @@ const {createApp} = Vue;
 const app = createApp({
     data(){
         return{
-            melba: [],
+            client: {},
             card: [],
             type: [],
         }
@@ -13,10 +13,10 @@ const app = createApp({
     },
     methods:{
         user(){
-            axios.get("http://localhost:8080/api/clients/1")
+            axios.get("http://localhost:8080/api/clients/current")
             .then(response => {
-                this.melba = response.data
-                this.card = this.melba.cards
+                this.client = response.data
+                this.card = this.client.cards
                 this.type = this.card.type
             
                 console.log(this.card)
