@@ -67,49 +67,63 @@
 
 <main id="app">
   <section >
-    <div class="d-flex m-5 ">
-      <div>
+    <div class="d-flex m-3 ">
+      <div class="m-5">
         <img class="img-intro" src="/web/img/pexels-olia-danilevich-8145352.jpg" alt="">
       </div>
-      <div>
-        <p class="color-white p-t">En nuestro banco, nos enorgullece ofrecer un servicio excepcional y productos financieros de alta calidad. Nuestros valores fundamentales incluyen la integridad, la transparencia y el compromiso con nuestros clientes. Creemos que estos valores son esenciales para construir relaciones duraderas y de confianza con nuestros clientes. Al elegir nuestro banco, puedes estar seguro de que siempre pondremos tus intereses en primer lugar.</p>
+      <div class="m-5">
+        <p class="color-white p-t">At our bank, we pride ourselves on offering exceptional service and high-quality financial products. Our core values ​​include integrity, transparency, and commitment to our clients. We believe that these values ​​are essential to build lasting and trusting relationships with our clients. By choosing our bank, you can be sure that we will always put your interests first.</p>
       </div>
     </div>
   </section>
-<div class="container-logins d-flex justify-content-evenly">
+  <section >
+    <div class="d-flex m-5 ">
+      <div class="m-5">
+        <p class="color-white p-t">Are you looking for a reliable and safe bank for your financial needs? Do not look any further! At our bank, we offer a wide variety of accounts and financial products designed to meet your needs. Whether you're looking for a savings account, a checking account, or a credit card, we've got you covered. Open an account with us today and start enjoying the benefits of being part of our banking family!</p>
+      </div>
+      <div class="m-5">
+        <img class="img-intro" src="/web/img/pexels-ylanite-koppens-796602.jpg" alt="">
+      </div>
+    </div>
+  </section>
+<div class="container-logins d-flex justify-content-center flex-column">
+  <div class="h2-forms">
+    <h2 class="text-center m-5">register and discover a world of possibilities</h2>
+  </div>
   <div class="index-form">
+    <div class="m-5">
+      <img class="img-form" src="/web/img/pexels-photo-730547.jpeg" alt="">
+    </div>
+   <div>
     <form class="form m-2" @submit.prevent="register">
-        <p class="title">Register</p>
-        <p class="message">Sign up now and get full access to our app.</p>
-            <div class="flex">
-            <label for="name">
-                <input id="name" required="" v-model="firstNameR"  placeholder="" type="text" class="input">
-                <span>Name</span>
-            </label>
-    
-            <label for="lastname">
-                <input id="lastname" required="" v-model="lastNameR"  placeholder="" type="text" class="input">
-                <span>last name</span>
-            </label>
-        </div>  
-                
-        <label for="email">
-            <input id="email" required=""  v-model="emailR" placeholder="" type="email" class="input">
-            <span>Email</span>
-        </label> 
-            
-        <label for="password">
-            <input id="password" required="" v-model="passwordR" placeholder="" type="text" class="input">
-            <span>Password</span>
-        </label>
-        <button class="submit" type="submit"  @click.prevent="register">Submit</button>
-    </form>
+      <p class="title">Register</p>
+      <p class="message">Sign up now and get full access to our app.</p>
+          
+          <label for="name">
+              <input id="name" required="" v-model="firstNameR"  placeholder="" type="text" class="input">
+              <span>Name</span>
+          </label>
+  
+          <label for="lastname">
+              <input id="lastname" required="" v-model="lastNameR"  placeholder="" type="text" class="input">
+              <span>last name</span>
+          </label>
+           
+      <label for="email">
+          <input id="email" required=""  v-model="emailR" placeholder="" type="email" class="input">
+          <span>Email</span>
+      </label> 
+          
+      <label for="password">
+          <input id="password" required="" v-model="passwordR" placeholder="" type="text" class="input">
+          <span>Password</span>
+      </label>
+      <button class="submit" type="submit"  @click.prevent="register">Submit</button>
+  </form>
+   </div>
 </div> 
 
 <div class="index-form d-flex">
-  <div>
-    <img class="img-register" src="../web/img/imagenbank.png" alt="">
-  </div>
   <div>
     <form class="form m-2" @submit.prevent="submit">
       <p class="title">Login</p>
@@ -127,6 +141,7 @@
   </form>
   </div>
 </div>
+
 </div>
 </main>
 </div>
