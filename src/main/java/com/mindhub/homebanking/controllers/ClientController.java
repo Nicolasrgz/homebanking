@@ -66,7 +66,6 @@ public class ClientController {
     }
 
     @RequestMapping("/clients/current")
-
     public ClientDTO getAll(Authentication authentication) {
       return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
 

@@ -15,6 +15,16 @@ const app = createApp({
     created(){
     },
 methods: {
+  resetLogin(){
+    this.email = ""
+    this.password = ""
+  },
+  resetRegister(){
+    firstNameR= ""
+    lastNameR= ""
+    passwordR= ""
+    emailR= ""
+  },
   submit() {
     const formData = new URLSearchParams();
     formData.append('email', this.email);
@@ -26,7 +36,9 @@ methods: {
       }
     })
     .then(response => {
+      this.resetLogin()
       window.location.href = '/web/pages/accounts.html';
+      this.resetLogin()
     })
     .catch(error => {
       alert('Su usuario no se encuentra registrado');
@@ -66,6 +78,7 @@ methods: {
     .then(response => {
       alert("your user was successfully registered")
       this.submit2()
+      this.resetRegister()
     })
     .catch(error => {
       alert('Su usuario ya se encuentra registrado');

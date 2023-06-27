@@ -59,7 +59,7 @@ public class WebAuthorization {
 
             http.logout()
 
-                    .logoutUrl("/api/logout");
+                    .logoutUrl("/api/logout").deleteCookies("JSESSIONID");
 
 
         // turn off checking for CSRF tokens

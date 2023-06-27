@@ -10,7 +10,7 @@
     <title>Clover Bank</title>
 </head>
 <body>
-<div class="layout-1">
+<div class="layout-1" id="app">
   <header >
     <nav>
       <div class="contain-btn-a d-flex justify-content-evenly ">
@@ -34,11 +34,13 @@
               Cards
           </span>
         </a>
-        <a class="btn-c m-2">
-          <span class="box">
-            Benefits
-          </span>
-        </a>
+        <div class="input-group d-flex justify-content-end ">
+          <form  @submit.prevent="submit">
+          <label for="email"><input v-model="email" type="email" class="input1 m-1" id="Email" name="Email" placeholder="user@..." autocomplete="off"></label>
+          <label for="pass"> <input type="password" v-model="password" class="input1 m-1" id="password" name="password" placeholder="password" autocomplete="off"></label>
+          <input class="button--submit" @click.prevent="submit" value="log in" type="submit">
+          </form>
+      </div>
       </div>
     </nav>
 </header>
@@ -65,7 +67,7 @@
   </button>
 </div>
 
-<main id="app">
+<main >
   <section >
     <div class="d-flex m-3 ">
       <div class="m-5">
@@ -114,8 +116,8 @@
           <span>Email</span>
       </label> 
           
-      <label for="password">
-          <input id="password" required="" v-model="passwordR" placeholder="" type="text" class="input">
+      <label for="password2">
+          <input id="password2" required="" v-model="passwordR" placeholder="" type="text" class="input">
           <span>Password</span>
       </label>
       <button class="submit" type="submit"  @click.prevent="register">Submit</button>
@@ -123,29 +125,12 @@
    </div>
 </div> 
 
-<div class="index-form d-flex">
-  <div>
-    <form class="form m-2" @submit.prevent="submit">
-      <p class="title">Login</p>
-      <p class="message">Sign up now and get full access to our app.</p>        
-      <label for="email">
-          <input v-model="email" id="email" required="" placeholder="" type="email" class="input">
-          <span>Email</span>
-      </label> 
-          
-      <label for="pass">
-          <input v-model="password" id="pass" required="" placeholder="" type="text" class="input">
-          <span>Password</span>
-      </label>
-      <button class="submit" type="submit" @click.prevent="submit">log out</button>
-  </form>
-  </div>
-</div>
+
 
 </div>
 </main>
 </div>
-     <footer class="bg-body-tertiary" data-bs-theme="dark">
+<footer class="bg-body-tertiary" data-bs-theme="dark">
         <div class="footer " >
             <div class="card-footer">
                 <a class="social-link1">
@@ -161,7 +146,7 @@
                 </a>
               </div>             
         </div>
-    </footer>
+</footer>
    
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>

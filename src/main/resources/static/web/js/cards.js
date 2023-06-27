@@ -26,6 +26,19 @@ const app = createApp({
                 console.error(err);
               });
         },
+        LogOut(){
+            axios.post('/api/logout')
+            .then(response => {
+              // Inicio de sesión exitoso
+              // Redireccionar a accounts.html
+              window.location.href = '/web/index.html';
+            })
+            .catch(error => {
+              // Inicio de sesión fallido
+              // Mostrar mensaje de error al usuario
+              alert('Error al iniciar sesión');
+            });
+          },
         
     },
 })
