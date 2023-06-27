@@ -32,10 +32,13 @@ private PasswordEncoder passwordEncoder;
 			Client melba = new Client("melba", "morel", "melba@mindhub.com",passwordEncoder.encode("superman"));
 			clientRepository.save(melba);
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
-			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
 			melba.addAccount(account1);
-			melba.addAccount(account2);
 			accountRepository.save(account1);
+
+
+			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
+			melba.addAccount(account2);
+
 			accountRepository.save(account2);
 			Transaction one = new Transaction(TransactionType.CREDIT, 3000, "venta de un perro", LocalDateTime.now());
 			Transaction two = new Transaction(TransactionType.DEBIT, -3000, "pago de alquiler", LocalDateTime.now());

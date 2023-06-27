@@ -48,11 +48,7 @@ public class WebAuthorization {
 
             http.formLogin()
 
-                    .usernameParameter("firstName")
-                    .usernameParameter("lastName")
                     .usernameParameter("email")
-
-
                     .passwordParameter("password")
 
                     .loginPage("/api/login");
