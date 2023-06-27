@@ -37,7 +37,7 @@ public class AccountController {
     @RequestMapping(path = "/clients/current/accounts", method = RequestMethod.POST)
     public ResponseEntity<Object> createAccount(Authentication authentication) {
         Client client = clientRepository.findByEmail(authentication.getName());
-        if (client.getAccounts().size() <= 3) {
+        if (client.getAccounts().size() <= 2) {
             String accountNumber;
             do {
                 accountNumber = "VIN-" + (long) ((Math.random() * (99999999 - 10000000)) + 10000000);

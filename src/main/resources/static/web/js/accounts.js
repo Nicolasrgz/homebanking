@@ -44,6 +44,14 @@ const app = createApp({
             alert('Error al iniciar sesión');
           });
         },
+        createdAccount(){
+          axios.post("/api/clients/current/accounts")
+          .then(res => {
+            alert("cuenta creada")
+            window.location.href = '/web/pages/accounts.html'
+          })
+          .catch(err => alert("limite de cuentas alcanzado"))
+        }
     },
 })
 
