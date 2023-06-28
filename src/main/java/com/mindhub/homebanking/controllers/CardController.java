@@ -51,7 +51,7 @@ public class CardController {
             cardNumber = String.format("%04d-%04d-%04d-%04d", (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000));
         } while (cardRepository.findByNumber(cardNumber) != null);
 
-        Card card = new Card(type, color, client.getFirstName() + client.getLastName(), cardNumber, cvvNumber, LocalDateTime.now().plusYears(5), LocalDateTime.now());
+        Card card = new Card(type, color, client.getFirstName()+ " " + client.getLastName(), cardNumber, cvvNumber, LocalDateTime.now().plusYears(5), LocalDateTime.now());
         client.addCards(card);
         cardRepository.save(card);
 

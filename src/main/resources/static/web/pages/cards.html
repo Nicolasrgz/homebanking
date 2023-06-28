@@ -51,7 +51,7 @@
 <main >
   <div v-if="this.card.length <= 6">
     <h2>you don't own cards, CREATE ONE!</h2>
-    <a class="btn-c m-2" href="/web/pages/create-cards.html">
+    <a class="btn-c m-2 btc" href="/web/pages/create-cards.html">
       <span class="box">
           Create card 
       </span>
@@ -198,7 +198,7 @@
                 <p class="date_8264">{{user.fromDate.slice(2,7)}}</p>
                 <p class="name">{{user.cardholder}}</p>
             </div>
-            <div :class="{'flip-card-back-gold': user.color === 'GOLD', 'flip-card-back': user.color === 'TITANIUM'}">
+            <div :class="{'flip-card-back-gold': user.color === 'GOLD', 'flip-card-back': user.color === 'TITANIUM', 'flip-card-back-platinium': user.color === 'SILVER'}">
                 <div class="strip"></div>
                 <div class="mstrip"></div>
                 <div class="sstrip">

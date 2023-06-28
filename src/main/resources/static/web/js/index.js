@@ -36,7 +36,6 @@ methods: {
       }
     })
     .then(response => {
-      this.resetLogin()
       window.location.href = '/web/pages/accounts.html';
       this.resetLogin()
     })

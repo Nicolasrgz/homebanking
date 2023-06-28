@@ -23,9 +23,9 @@ const app = createApp({
               }
             })
             .then(response => {
-              window.location.search = "web/pages/cards.html"  
               alert("your user was successfully registered")
-              
+              window.location.href = "/web/pages/cards.html"  
+ 
             })
             .catch(error => {
               alert('excede su limite de creacion de tarjetas');
