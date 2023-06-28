@@ -67,12 +67,12 @@ private PasswordEncoder passwordEncoder;
 			clientLoanRepository.save(prestamo1);
 			clientLoanRepository.save(prestamo2);
 
-			Card card1 = new Card("melba morel", CardType.DEBIT, CardColor.GOLD, "0000 1111 2222 3333", 189,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
-			Card card2 = new Card("melba morel", CardType.CREDIT, CardColor.TITANIUM, "0000 1111 2222 3334", 777,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
-			melba.addCards(card1);
-			melba.addCards(card2);
-			cardRepository.save(card1);
-			cardRepository.save(card2);
+			//Card card1 = new Card("melba morel", CardType.DEBIT, CardColor.GOLD, "0000 1111 2222 3333", 189,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
+			//Card card2 = new Card("melba morel", CardType.CREDIT, CardColor.TITANIUM, "0000 1111 2222 3334", 777,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
+//			melba.addCards(card1);
+//			melba.addCards(card2);
+//			cardRepository.save(card1);
+//			cardRepository.save(card2);
 
 
 			Client juan = new Client("juan", "Rondo", "juna@gmail.com", passwordEncoder.encode("juan123"));
@@ -104,9 +104,9 @@ private PasswordEncoder passwordEncoder;
 			Automotriz.addClientLoans(prestamo4);
 			clientLoanRepository.save(prestamo3);
 			clientLoanRepository.save(prestamo4);
-			Card card3 = new Card("juan Rondo", CardType.DEBIT, CardColor.SILVER, "1234 1111 2222 3333", 100,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
-			melba.addCards(card3);
-			cardRepository.save(card3);
+			//Card card3 = new Card("juan Rondo", CardType.DEBIT, CardColor.SILVER, "1234 1111 2222 3333", 100,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
+			//melba.addCards(card3);
+			//cardRepository.save(card3);
 
 			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("admin-code"));
 			clientRepository.save(admin);

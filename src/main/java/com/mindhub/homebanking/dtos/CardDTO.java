@@ -19,14 +19,14 @@ public class CardDTO {
     public CardDTO (){}
 
     public CardDTO(Card card) {
-        this.id =  card.getId();
-        this.cardholder = card.getCardholder();
         this.type = card.getType();
         this.color = card.getColor();
+        this.cardholder = card.getCardholder();
         this.number = card.getNumber();
         this.cvv = card.getCvv();
         this.thruDate = card.getThruDate();
         this.fromDate = card.getFromDate();
+        this.id =  card.getId();
     }
 
     public long getId() {

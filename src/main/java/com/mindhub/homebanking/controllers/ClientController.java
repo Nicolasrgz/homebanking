@@ -38,7 +38,7 @@ public class ClientController {
                 .map(ClientDTO::new)
                 .orElse(null);
     }
-    @RequestMapping(path = "/clients", method = RequestMethod.POST)
+    @PostMapping("/clients")
     public ResponseEntity<Object> register(
             @RequestParam String firstName,
             @RequestParam String lastName,
