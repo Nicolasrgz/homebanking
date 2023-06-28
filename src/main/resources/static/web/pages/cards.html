@@ -49,6 +49,14 @@
     </nav>
 </header>
 <main >
+  <div v-if="this.card.length == 0">
+    <h2>you don't own cards, CREATE ONE!</h2>
+    <a class="btn-c m-2" href="/web/pages/create-cards.html">
+      <span class="box">
+          Create card 
+      </span>
+    </a>
+  </div>
   <h2 class="animate__animated animate__zoomInLeft text-center">your Cards</h2>
 <div class="container-up d-flex justify-content-evenly">
   <div class="debit-card">
