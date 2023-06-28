@@ -31,23 +31,62 @@ public class CardController {
             @RequestParam CardColor color,
             @RequestParam CardType type,
             Authentication authentication) {
+        String cardNumber;
+        long cvvNumber;
+
+        CardType cardTypeD = CardType.DEBIT;
+        CardType cardTypeC = CardType.CREDIT;
+
+        CardColor gold = CardColor.GOLD;
+        CardColor silver = CardColor.SILVER;
+        CardColor titanium = CardColor.TITANIUM;
+
         Client client = clientRepository.findByEmail(authentication.getName());
-        if (client.getCards().size() <= 2) {
-            String cardNumber;
-            long cvvNumber;
-            do {
-                cardNumber = String.format("%04d-%04d-%04d-%04d", (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000));
-            } while (cardRepository.findByNumber(cardNumber) != null);
 
-            do {
-                cvvNumber =  (long) ((Math.random() * (999 - 100)) + 100);
-            } while (cardRepository.findByCvv(cvvNumber) != null);
+        if (client.getCards().size() <= 6 ) {
 
-            Card card = new Card(client.getFirstName() + client.getLastName(), type, color, cardNumber, cvvNumber, LocalDateTime.now().plusYears(5), LocalDateTime.now());
-            client.addCards(card);
-            cardRepository.save(card);
+            if ( cardRepository.findByType(cardTypeD) <= 3 ){
+
+                if (cardRepository.findByColor(gold) == 1 && cardRepository.findByColor(silver) == 1 && cardRepository.findByColor(titanium) == 1){
+                    do {
+                        cardNumber = String.format("%04d-%04d-%04d-%04d", (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000));
+                    } while (cardRepository.findByNumber(cardNumber) != null);
+
+                    do {
+                        cvvNumber =  (long) ((Math.random() * (999 - 100)) + 100);
+                    } while (cardRepository.findByCvv(cvvNumber) != null);
+
+                    Card card = new Card(client.getFirstName() + client.getLastName(), type, color, cardNumber, cvvNumber, LocalDateTime.now().plusYears(5), LocalDateTime.now());
+                    client.addCards(card);
+                    cardRepository.save(card);
+                }else {
+                    return new ResponseEntity<>("already owns a card of that color", HttpStatus.FORBIDDEN);
+                }
+            }else {
+                return new ResponseEntity<>("The client already has 3 registered debit cards.", HttpStatus.FORBIDDEN);
+            }
+            if (cardRepository.findByType(cardTypeC) <= 3){
+
+                if (cardRepository.findByColor(gold) == 1 && cardRepository.findByColor(silver) == 1 && cardRepository.findByColor(titanium) == 1){
+                    do {
+                        cardNumber = String.format("%04d-%04d-%04d-%04d", (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000));
+                    } while (cardRepository.findByNumber(cardNumber) != null);
+
+                    do {
+                        cvvNumber =  (long) ((Math.random() * (999 - 100)) + 100);
+                    } while (cardRepository.findByCvv(cvvNumber) != null);
+
+                    Card card = new Card(client.getFirstName() + client.getLastName(), type, color, cardNumber, cvvNumber, LocalDateTime.now().plusYears(5), LocalDateTime.now());
+                    client.addCards(card);
+                    cardRepository.save(card);
+                }else {
+                    return new ResponseEntity<>("already owns a card of that color", HttpStatus.FORBIDDEN);
+                }
+            }else {
+                return new ResponseEntity<>("The client already has 3 registered credit cards.", HttpStatus.FORBIDDEN);
+            }
         }else {
-            return new ResponseEntity<>("Client already has 3 cards registered", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("Client already has 6 cards registered", HttpStatus.FORBIDDEN);
         }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
