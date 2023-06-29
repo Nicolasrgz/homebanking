@@ -22,6 +22,10 @@ footer{
 
 }
 
+header{
+  background-color: #413e3e;
+}
+
 h2{
   color: white;
   margin: 1rem;
@@ -221,9 +225,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
     transform: scale(1);
   }
 }
-
-
-
 
 
 .credit {
@@ -644,8 +645,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   transform: rotateY(180deg);
 }
 
-
-
 .h2-cards{
   display: flex;
   justify-content: center;
@@ -758,9 +757,7 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   background: transparent;
 }
 
-header{
-  background-color: #413e3e;
-}
+
 
 .img-carrousel{
   height: 25rem;
@@ -893,33 +890,95 @@ li{
   color: white;
 }
 
-.form-abc {
-  font-family: Arial, sans-serif;
-  margin: 20px;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.label-abc {
-  display: block;
-  margin-bottom: 10px;
-}
-
-.select-abc {
-  padding: 5px;
-  margin-bottom: 20px;
-}
-
-.submit-abc {
-  padding: 10px 20px;
-  background-color: #4CAF50;
+h1{
   color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
 }
 
-.submit-abc:hover {
-  background-color: #3e8e41;
+.form-card-created {
+  background-color: #15172b;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 20rem;
+  padding: 20px;
+  width: 20rem;
 }
+
+.title-t {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.input-container {
+  height: 50px;
+  width: 100%;
+}
+
+.ic1 {
+  margin-top: 40px;
+}
+
+.ic2 {
+  margin-top: 30px;
+}
+
+.input-3 {
+  background-color: #303245;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.input-3:focus ~ .cut {
+  transform: translateY(8px);
+}
+
+.input-3:focus ~ .iLabel {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input-3:not(:focus) ~ .iLabel {
+  color: #808097;
+}
+
+.input-3:focus ~ .iLabel {
+  color: #dc2f55;
+}
+
+.submit-3 {
+  background-color: #08d;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  text-align: center;
+  width: 100%;
+}
+
+.submit-3:active {
+  background-color: #06b;
+}
+
+label{
+  color: white;
+} 
