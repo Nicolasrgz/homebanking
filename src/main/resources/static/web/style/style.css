@@ -245,7 +245,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
 
 .form {
   display: flex;
- 
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -757,8 +756,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   background: transparent;
 }
 
-
-
 .img-carrousel{
   height: 25rem;
   object-fit: cover;
@@ -982,3 +979,42 @@ h1{
 label{
   color: white;
 } 
+
+@media only screen and (min-width:320px) and (max-width: 1048px){
+  .contain-btn-a{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .input-group{
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+  }
+  .button--submit{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .index-section{
+    flex-direction: column !important;
+  }
+  .img-form{
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    
+  }
+}
+
+@media only screen and (min-width:320px) and (max-width:549px){
+  .img-form, .img-intro{
+    width: 20rem;
+    height: 20rem;
+  }
+
+  form{
+    width: 20rem !important;
+    height: 27rem !important;
+  }
+}
