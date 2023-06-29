@@ -253,7 +253,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   background-color: #fff;
   padding: 20px;
   border-radius: 20px;
-
 }
 
 .title {
@@ -1014,7 +1013,31 @@ label{
   }
 
   form{
-    width: 20rem !important;
+    width: 16rem !important;
     height: 27rem !important;
+  }
+
+}
+
+@media only screen and (min-width:320px) and (max-width:1024px){
+  .container-gap{
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }  
+  .container-up{
+    flex-direction: column;
+  }
+  .debit-card, .credit-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .li-create-cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }
