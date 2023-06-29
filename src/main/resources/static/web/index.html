@@ -10,73 +10,127 @@
     <title>Clover Bank</title>
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">
-                    <img src="/web/img/imagenbank.png"  width="30" height="24" class="d-inline-block align-text-top">
-                </a>
-              <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link active" href="/web/pages/accounts.html">Accounts</a>
-                  </li>
-                  <li class="nav-item ">
-                    <a class="nav-link active" href="/web/pages/cards.html">
-                      Cards
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav> 
-          <div class="h1">
-            <h1 class="text-center">Clover Bank</h1>
-        </div>
-    </header>
-    <main id="app">
-<div class="index-form">
-    <form class="form m-2">
-        <p class="title">Register</p>
-        <p class="message">Sign up now and get full access to our app.</p>
-            <div class="flex">
-            <label>
-                <input required="" placeholder="" type="text" class="input">
-                <span>Name</span>
-            </label>
-    
-            <label>
-                <input required="" placeholder="" type="text" class="input">
-                <span>last name</span>
-            </label>
-        </div>  
-                
-        <label>
-            <input required="" placeholder="" type="email" class="input">
-            <span>Email</span>
-        </label> 
-            
-        <label>
-            <input required="" placeholder="" type="password" class="input">
-            <span>Password</span>
-        </label>
-        <label>
-            <input required="" placeholder="" type="password" class="input">
-            <span>confirm password</span>
-        </label>
-        <button class="submit">Submit</button>
-        <p class="signin"> Do you already have an account?<a href="#"></a>Log in</p>
-    </form>
+<div class="layout-1" id="app">
+  <header >
+    <nav>
+      <div class="contain-btn-a d-flex justify-content-evenly ">
+        <a class="btn-c m-2" href="#">
+          <span class="box">
+              Home
+          </span>
+        </a class="btn-c">
+        <a class="btn-c m-2" href="#">
+          <span class="box">
+              Contact
+          </span>
+        </a>
+        <a class="btn-c m-2" href="#">
+          <span class="box">
+              About us
+          </span>
+        </a>
+        <a class="btn-c m-2" href="#">
+          <span class="box">
+              Cards
+          </span>
+        </a>
+        <div class="input-group d-flex justify-content-end ">
+          <form  @submit.prevent="submit">
+          <label for="email"><input v-model="email" type="email" class="input1 m-1" id="Email" name="Email" placeholder="user@..." autocomplete="off"></label>
+          <label for="pass"> <input type="password" v-model="password" class="input1 m-1" id="password" name="password" placeholder="password" autocomplete="off"></label>
+          <input class="button--submit" @click.prevent="submit" value="log in" type="submit">
+          </form>
+      </div>
+      </div>
+    </nav>
+</header>
+
+<div id="carouselExampleFade" class="carousel slide carousel-fade">
+  <div class="carousel-inner">
+    <div class="carousel-item active ">
+      <img src="/web/img/pexels-fox-1595385.jpg" class="d-block w-100 img-carrousel" alt="...">
+    </div>
+    <div class="carousel-item ">
+      <img src="/web/img/pexels-mikael-blomkvist-6476783.jpg" class="d-block w-100 img-carrousel" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/web/img/pexels-mikhail-nilov-8297031.jpg" class="d-block w-100 img-carrousel" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
 </div>
-    </main>
-    <div id="coinmarketcap-widget-coin-price-block" coins="1,1027,825,1958,5426,7653,1839,3890,1966,5994,6538" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
-    <footer class="bg-body-tertiary" data-bs-theme="dark">
+
+<main >
+  <section >
+    <div class="d-flex m-3 ">
+      <div class="m-5">
+        <img class="img-intro" src="/web/img/pexels-olia-danilevich-8145352.jpg" alt="">
+      </div>
+      <div class="m-5">
+        <p class="color-white p-t">At our bank, we pride ourselves on offering exceptional service and high-quality financial products. Our core values ​​include integrity, transparency, and commitment to our clients. We believe that these values ​​are essential to build lasting and trusting relationships with our clients. By choosing our bank, you can be sure that we will always put your interests first.</p>
+      </div>
+    </div>
+  </section>
+  <section >
+    <div class="d-flex m-5 ">
+      <div class="m-5">
+        <p class="color-white p-t">Are you looking for a reliable and safe bank for your financial needs? Do not look any further! At our bank, we offer a wide variety of accounts and financial products designed to meet your needs. Whether you're looking for a savings account, a checking account, or a credit card, we've got you covered. Open an account with us today and start enjoying the benefits of being part of our banking family!</p>
+      </div>
+      <div class="m-5">
+        <img class="img-intro" src="/web/img/pexels-ylanite-koppens-796602.jpg" alt="">
+      </div>
+    </div>
+  </section>
+<div class="container-logins d-flex justify-content-center flex-column">
+  <div class="h2-forms">
+    <h2 class="text-center m-5">register and discover a world of possibilities</h2>
+  </div>
+  <div class="index-form">
+    <div class="m-5">
+      <img class="img-form" src="/web/img/pexels-photo-730547.jpeg" alt="">
+    </div>
+   <div>
+    <form class="form m-2" @submit.prevent="register">
+      <p class="title">Register</p>
+      <p class="message">Sign up now and get full access to our app.</p>
+          
+          <label for="name">
+              <input id="name" required="" v-model="firstNameR"  placeholder="" type="text" class="input">
+              <span>Name</span>
+          </label>
+  
+          <label for="lastname">
+              <input id="lastname" required="" v-model="lastNameR"  placeholder="" type="text" class="input">
+              <span>last name</span>
+          </label>
+           
+      <label for="email">
+          <input id="email" required=""  v-model="emailR" placeholder="" type="email" class="input">
+          <span>Email</span>
+      </label> 
+          
+      <label for="password2">
+          <input id="password2" required="" v-model="passwordR" placeholder="" type="text" class="input">
+          <span>Password</span>
+      </label>
+      <button class="submit" type="submit"  @click.prevent="register">Submit</button>
+  </form>
+   </div>
+</div> 
+
+
+
+</div>
+</main>
+</div>
+<footer class="bg-body-tertiary" data-bs-theme="dark">
         <div class="footer " >
             <div class="card-footer">
                 <a class="social-link1">
@@ -92,11 +146,11 @@
                 </a>
               </div>             
         </div>
-    </footer>
-    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinPriceBlock.js"></script>
+</footer>
+   
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src=""></script>
+<script src="/web/js/index.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

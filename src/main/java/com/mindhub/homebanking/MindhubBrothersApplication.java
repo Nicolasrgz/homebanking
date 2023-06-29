@@ -2,10 +2,13 @@ package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +18,9 @@ import java.util.List;
 @SpringBootApplication
 public class MindhubBrothersApplication {
 
+@Autowired
+private PasswordEncoder passwordEncoder;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MindhubBrothersApplication.class, args);
 	}
@@ -23,7 +29,7 @@ public class MindhubBrothersApplication {
 	public CommandLineRunner initData(ClientRepository clientRepository, AccountRepository accountRepository, TransactionRepository transactionRepository, LoanRepository loanRepository, ClientLoanRepository clientLoanRepository
 	, CardRepository cardRepository) {
 		return args -> {
-			Client melba = new Client("melba", "morel", "melba@mindhub.com");
+			Client melba = new Client("melba", "morel", "melba@mindhub.com",passwordEncoder.encode("superman"));
 			clientRepository.save(melba);
 			Account account1 = new Account("VIN001", LocalDate.now(), 5000);
 			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500);
@@ -66,7 +72,7 @@ public class MindhubBrothersApplication {
 			cardRepository.save(card2);
 
 
-			Client juan = new Client("juan", "Rondo", "juna@gmail.com");
+			Client juan = new Client("juan", "Rondo", "juna@gmail.com", passwordEncoder.encode("juan123"));
 			clientRepository.save((juan));
 			Account account3 = new Account("VIN003", LocalDate.now(), 5000);
 			Account account4 = new Account("VIN004", LocalDate.now().plusDays(1), 7500);
@@ -98,6 +104,9 @@ public class MindhubBrothersApplication {
 			Card card3 = new Card("juan Rondo", CardType.DEBIT, CardColor.SILVER, "1234 1111 2222 3333", 100,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
 			melba.addCards(card3);
 			cardRepository.save(card3);
+
+			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("admin-code"));
+			clientRepository.save(admin);
 		};
 	}
 }

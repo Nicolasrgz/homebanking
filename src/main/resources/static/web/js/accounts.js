@@ -15,7 +15,7 @@ const app = createApp({
     },
     methods:{
         user(){
-            axios.get("http://localhost:8080/api/clients/1")
+            axios.get("http://localhost:8080/api/clients/current")
             .then(response => {
                 this.melba = response.data
                 this.melbaAccounts = this.melba.accounts
@@ -30,7 +30,20 @@ const app = createApp({
             .catch(err => {
                 console.error(err);
               });
-        }
+        },
+        LogOut(){
+          axios.post('/api/logout')
+          .then(response => {
+            // Inicio de sesión exitoso
+            // Redireccionar a accounts.html
+            window.location.href = '/web/index.html';
+          })
+          .catch(error => {
+            // Inicio de sesión fallido
+            // Mostrar mensaje de error al usuario
+            alert('Error al iniciar sesión');
+          });
+        },
     },
 })
 
