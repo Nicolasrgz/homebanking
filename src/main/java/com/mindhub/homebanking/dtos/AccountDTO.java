@@ -25,7 +25,7 @@ public class AccountDTO {
         this.number = account.getNumber();
         this.transactions = account.getTransactions()
                 .stream()
-                .map(TransactionDTO::new)
+                .map(transaction -> new TransactionDTO(transaction))
                 .collect(Collectors.toSet());
     }
 

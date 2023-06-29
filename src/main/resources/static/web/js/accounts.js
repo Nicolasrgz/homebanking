@@ -33,5 +33,18 @@ const app = createApp({
         }
     },
 })
-app.mount("#app")
 
+app.component('format-currency', {
+  props: ['value'],
+  template: `{{formattedValue}}`,
+  computed: {
+    formattedValue() {
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency',
+        currency: 'USD'
+      }).format(this.value);
+    }
+  }
+})
+
+app.mount("#app")

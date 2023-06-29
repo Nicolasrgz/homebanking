@@ -24,7 +24,7 @@ const app = createApp({
             .then((response) => {
               this.accountsP = response.data;
               this.account = this.accountsP.accounts;
-              this.accountSort = this.account.sort((a, b) => a.id - b.id);
+              this.accountSort = this.account.sort((a, b) => b.id - a.id);
               document.title = `details of ${this.accountsP.number}`;
               console.log(this.account);
             })

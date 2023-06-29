@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/web/style/style.css">
-    <link rel="shortcut icon" href="/web/img/imagenbank.png" type="image/x-icon">
-    <title>homebanking</title>
+    <link rel="stylesheet" href="../web/style/style.css">
+    <link rel="shortcut icon" href="../web/img/imagenbank.png" type="image/x-icon">
+    <title>Clover Bank</title>
 </head>
 <body>
-<div class="layout" >
     <header>
         <nav class="navbar navbar-expand-lg bg-body-tertiary " data-bs-theme="dark">
             <div class="container-fluid">
@@ -28,8 +28,8 @@
                     <a class="nav-link active" href="/web/pages/accounts.html">Accounts</a>
                   </li>
                   <li class="nav-item ">
-                    <a class="nav-link active" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                      Transfer
+                    <a class="nav-link active" href="/web/pages/cards.html">
+                      Cards
                     </a>
                   </li>
                 </ul>
@@ -37,60 +37,45 @@
             </div>
           </nav> 
           <div class="h1">
-            <h1 class="text-center">HOMEBANKING</h1>
+            <h1 class="text-center">Clover Bank</h1>
         </div>
     </header>
-
     <main id="app">
- 
-        <div class="index-form">
-              <form class="form" @submit.prevent="addClients">
-                <span class="signup">Client manager</span>
-
-                <input type="text"v-model="newclient.name"  placeholder="Name" class="form--input" >
-                <input v-model="newclient.lastName" type="text" placeholder="lastName" class="form--input">
-                <input v-model="newclient.email" type="email" placeholder="Email" class="form--input">
-
-                <button class="form--submit">
-                    Add Client
-                </button>
-            </form>
-        </div>
-    <div class="h1">
-        <h2 class="text-center">Client list</h2>
-    </div>
-    <div class="table d-flex flex-column">
-        <table class="table table-dark table-striped table-edit">
-            <thead >
-                <tr class="text-center ">
-                    <th >Name</th>
-                    <th >LastName</th>
-                    <th >Email</th>
-                    <th>#</th>
-                </tr>
-            </thead>
-            <tbody v-for="client in json" :key="client.id">
-                <tr class="text-center">
-                    <td >{{client.firstName}}</td>
-                    <td >{{client.lastName}}</td>
-                    <td >{{client.email}}</td>
-                    <td><span><i role="button" class="bi bi-trash3" @click="deleteUser(client.id)"></i></span></td>
-                </tr>
-            </tbody>
-        </table>
-        <div class="h1 text-center" v-if="json.length == 0">
-            <h3>no hay usuarios ingresados</h3>
-        </div>
-    </div>
-<div class="h1">
-    <h3>Client REST response</h3>
-</div>
-<div class="pre-div">
-    <pre>
-        {{this.json}}
-      </pre>
+<div class="index-form">
+    <form class="form m-2">
+        <p class="title">Register</p>
+        <p class="message">Sign up now and get full access to our app.</p>
+            <div class="flex">
+            <label>
+                <input required="" placeholder="" type="text" class="input">
+                <span>Name</span>
+            </label>
+    
+            <label>
+                <input required="" placeholder="" type="text" class="input">
+                <span>last name</span>
+            </label>
+        </div>  
+                
+        <label>
+            <input required="" placeholder="" type="email" class="input">
+            <span>Email</span>
+        </label> 
+            
+        <label>
+            <input required="" placeholder="" type="password" class="input">
+            <span>Password</span>
+        </label>
+        <label>
+            <input required="" placeholder="" type="password" class="input">
+            <span>confirm password</span>
+        </label>
+        <button class="submit">Submit</button>
+        <p class="signin"> Do you already have an account?<a href="#"></a>Log in</p>
+    </form>
 </div>
     </main>
+    <div id="coinmarketcap-widget-coin-price-block" coins="1,1027,825,1958,5426,7653,1839,3890,1966,5994,6538" currency="USD" theme="light" transparent="false" show-symbol-logo="true"></div>
     <footer class="bg-body-tertiary" data-bs-theme="dark">
         <div class="footer " >
             <div class="card-footer">
@@ -108,10 +93,10 @@
               </div>             
         </div>
     </footer>
-</div>
+    <script type="text/javascript" src="https://files.coinmarketcap.com/static/widget/coinPriceBlock.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="/web/js/manager.js"></script>
+<script src=""></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 </body>
 </html>

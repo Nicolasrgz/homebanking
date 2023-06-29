@@ -49,7 +49,7 @@ const app = createApp({
     },
 
     deleteUser(id){
-      axios.delete('http://localhost:8080/api/clients/' + id)
+      axios.delete(`http://localhost:8080/api/clients/${id}` )
       .then(res => {
         console.log(res)
         console.log("user delete")
