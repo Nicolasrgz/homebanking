@@ -29,6 +29,7 @@ public class WebAuthorization {
                     .antMatchers("/rest/loans").hasAuthority("ADMIN")
                     .antMatchers("/rest/cards").hasAuthority("ADMIN")
                     .antMatchers("/rest/transactions").hasAuthority("ADMIN")
+                    .antMatchers("/api/accounts/{id}").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
 
 
