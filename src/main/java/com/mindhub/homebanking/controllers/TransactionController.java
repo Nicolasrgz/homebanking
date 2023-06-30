@@ -29,6 +29,7 @@ public class TransactionController {
     private AccountRepository accountRepository;
     @Autowired
     private TransactionRepository transactionRepository;
+
     @Transactional
     @PostMapping("/transactions")
     public ResponseEntity<Object> transaction(@RequestParam Double amount,
@@ -47,15 +48,15 @@ public class TransactionController {
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
         }
         //Verifies that the account number of both origin and destination exists in our database
-        if (accountRepository.findByAccountNumber(numberAccountOrigin) != null && accountRepository.findByAccountNumber(numberAccountDestiny) != null) {
-            return new ResponseEntity<>("You cannot make transfers to the same account number", HttpStatus.FORBIDDEN);
+        if (accountRepository.findByAccountNumber(numberAccountOrigin) == null || accountRepository.findByAccountNumber(numberAccountDestiny) == null) {
+            return new ResponseEntity<>("One or both account numbers do not exist in our database", HttpStatus.FORBIDDEN);
         }
         //Verify that the account numbers are different
         if (!numberAccountOrigin.equals(numberAccountDestiny)) {
-            return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("The account numbers must be different", HttpStatus.FORBIDDEN);
         }
         //verifies that the source account has funds
-        if (accountOrigin.getBalance() > 0){
+        if (accountOrigin.getBalance() < amount){
             return new ResponseEntity<>("your account does not have enough funds to make the transfer", HttpStatus.FORBIDDEN);
         }
         //Verify that the source account belongs to the authenticated client
