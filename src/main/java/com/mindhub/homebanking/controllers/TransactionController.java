@@ -52,7 +52,7 @@ public class TransactionController {
             return new ResponseEntity<>("One or both account numbers do not exist in our database", HttpStatus.FORBIDDEN);
         }
         //Verify that the account numbers are different
-        if (!numberAccountOrigin.equals(numberAccountDestiny)) {
+        if (numberAccountOrigin.equals(numberAccountDestiny)) {
             return new ResponseEntity<>("The account numbers must be different", HttpStatus.FORBIDDEN);
         }
         //verifies that the source account has funds
@@ -66,11 +66,21 @@ public class TransactionController {
 
         Transaction transactionCredit = new Transaction(TransactionType.CREDIT, amount, description, LocalDateTime.now());
         Transaction transactionDebit = new Transaction(TransactionType.DEBIT, amount, description, LocalDateTime.now());
+
         accountOrigin.addTransaction(transactionCredit);
         accountDestiny.addTransaction(transactionDebit);
 
         transactionRepository.save(transactionCredit);
         transactionRepository.save(transactionDebit);
+
+        Double credit = accountOrigin.getBalance() - amount;
+        Double debit = accountDestiny.getBalance() + amount;
+
+        accountOrigin.setBalance(credit);
+        accountDestiny.setBalance(debit);
+
+        accountRepository.save(accountOrigin);
+        accountRepository.save(accountDestiny);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
