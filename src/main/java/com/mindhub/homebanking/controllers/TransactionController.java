@@ -56,8 +56,12 @@ public class TransactionController {
             return new ResponseEntity<>("The account numbers must be different", HttpStatus.FORBIDDEN);
         }
         //verifies that the source account has funds
-        if (accountOrigin.getBalance() < amount){
+        if (accountOrigin.getBalance() < amount && accountOrigin.getBalance() > 0){
             return new ResponseEntity<>("your account does not have enough funds to make the transfer", HttpStatus.FORBIDDEN);
+        }
+        //verifico que el monto sea mayor a 0
+        if (amount <= 0) {
+            return new ResponseEntity<>("The transfer amount must be greater than 0", HttpStatus.FORBIDDEN);
         }
         //Verify that the source account belongs to the authenticated client
         if (!accountOrigin.getClient().equals(client)){

@@ -49,17 +49,18 @@
     </nav>
 </header>
 <main >
-    <form >
-        <label for="amount">Monto:</label>
-        <input type="number" id="amount" v-model="this.amount" name="amount"><br><br>
-        <label for="description">Descripción:</label>
-        <input type="text" id="description" v-model="this.description" name="description"><br><br>
-        <label for="numberAccountOrigin">Número de cuenta de origen:</label>
-        <input type="text" id="numberAccountOrigin" v-model="this.numberAccountOrigin" name="numberAccountOrigin"><br><br>
-        <label for="numberAccountDestiny">Número de cuenta de destino:</label>
-        <input type="text" id="numberAccountDestiny" v-model="this.numberAccountDestiny" name="numberAccountDestiny"><br><br>
-        <input type="submit" @click.prevent="createTransfer()" value="Enviar">
-    </form>
+  <form>
+    <label for="amount">Monto:</label>
+    <input type="number" id="amount" v-model="amount" name="amount"><br><br>
+    <label for="description">Descripción:</label>
+    <input type="text" id="description" v-model="description" name="description"><br><br>
+    <label for="numberAccountOrigin">Número de cuenta de origen:</label>
+    <input type="text" id="numberAccountOrigin" v-model="numberAccountOrigin" name="numberAccountOrigin"><br><br>
+    <label for="numberAccountDestiny">Número de cuenta de destino:</label>
+    <input type="text" id="numberAccountDestiny" v-model="numberAccountDestiny" name="numberAccountDestiny"><br><br>
+    <input type="submit" @click.prevent="createTransfer()" value="Enviar">
+</form>
+
 </main>
 </div>
 <footer class="bg-body-tertiary" data-bs-theme="dark">

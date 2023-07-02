@@ -69,11 +69,13 @@
               <tbody>
                 <tr v-for="element in account">
                   <td>{{element.id}}</td>
-                  <td><p :class="{ 'credit': element.type === 'CREDIT', 'debit': element.type === 'DEBIT' }">{{element.type}}</p></td>
+                  <td><p :class="{ 'debit': element.type === 'CREDIT', 'credit': element.type === 'DEBIT' }">{{element.type}}</p></td>
                   <td>{{element.description}}</td>
-                  <td><p :class="{ 'credit': element.type === 'CREDIT', 'debit': element.type === 'DEBIT' }">${{element.amount}}</p></td>
+                  <td v-if="element.type == 'DEBIT'"><p class="debit">$ {{element.amount}}</p></td>
+                  <td v-if="element.type == 'CREDIT'" ><p class="credit">$-{{element.amount}}</p></td>
                   <td>{{element.date}}</td>
                 </tr>
+                <!-- v-if="element.type == 'CREDIT'" -->
               </tbody>
             </table>
           </div>
