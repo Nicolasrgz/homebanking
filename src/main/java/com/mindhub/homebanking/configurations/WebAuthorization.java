@@ -34,6 +34,7 @@ public class WebAuthorization {
 
                     .antMatchers("/web/pages/accounts.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/cards.html").hasAuthority("CLIENT")
+                    .antMatchers("/web/pages/create-cards.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/account.html").hasAuthority("CLIENT")
 
 
@@ -48,11 +49,7 @@ public class WebAuthorization {
 
             http.formLogin()
 
-                    .usernameParameter("firstName")
-                    .usernameParameter("lastName")
                     .usernameParameter("email")
-
-
                     .passwordParameter("password")
 
                     .loginPage("/api/login");

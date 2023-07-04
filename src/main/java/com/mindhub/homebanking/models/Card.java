@@ -24,10 +24,10 @@ public class Card {
 
     public Card (){}
 
-    public Card(String cardholder, CardType type, CardColor color, String number, long cvv, LocalDateTime fromDate,LocalDateTime thruDate) {
-        this.cardholder = cardholder;
+    public Card( CardType type,CardColor color, String cardholder, String number, long cvv, LocalDateTime fromDate,LocalDateTime thruDate) {
         this.type = type;
         this.color = color;
+        this.cardholder = cardholder;
         this.number = number;
         this.cvv = cvv;
         this.fromDate = fromDate;

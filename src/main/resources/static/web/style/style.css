@@ -22,6 +22,10 @@ footer{
 
 }
 
+header{
+  background-color: #413e3e;
+}
+
 h2{
   color: white;
   margin: 1rem;
@@ -223,9 +227,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
 }
 
 
-
-
-
 .credit {
   color: green;
 }
@@ -244,7 +245,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
 
 .form {
   display: flex;
- 
   justify-content: center;
   align-items: center;
   gap: 8px;
@@ -253,7 +253,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   background-color: #fff;
   padding: 20px;
   border-radius: 20px;
-
 }
 
 .title {
@@ -644,8 +643,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   transform: rotateY(180deg);
 }
 
-
-
 .h2-cards{
   display: flex;
   justify-content: center;
@@ -756,10 +753,6 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   outline: none;
   border: none;
   background: transparent;
-}
-
-header{
-  background-color: #413e3e;
 }
 
 .img-carrousel{
@@ -887,4 +880,164 @@ header{
 /* button click effect*/
 .Btn:active {
   transform: translate(2px ,2px);
+}
+
+li{
+  color: white;
+}
+
+h1{
+  color: white;
+}
+
+.form-card-created {
+  background-color: #15172b;
+  border-radius: 20px;
+  box-sizing: border-box;
+  height: 20rem;
+  padding: 20px;
+  width: 20rem;
+}
+
+.title-t {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 600;
+  margin-top: 30px;
+}
+
+.subtitle {
+  color: #eee;
+  font-family: sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.input-container {
+  height: 50px;
+  width: 100%;
+}
+
+.ic1 {
+  margin-top: 40px;
+}
+
+.ic2 {
+  margin-top: 30px;
+}
+
+.input-3 {
+  background-color: #303245;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  font-size: 18px;
+  height: 100%;
+  outline: 0;
+  padding: 4px 20px 0;
+  width: 100%;
+}
+
+.input-3:focus ~ .cut {
+  transform: translateY(8px);
+}
+
+.input-3:focus ~ .iLabel {
+  transform: translateY(-30px) translateX(10px) scale(0.75);
+}
+
+.input-3:not(:focus) ~ .iLabel {
+  color: #808097;
+}
+
+.input-3:focus ~ .iLabel {
+  color: #dc2f55;
+}
+
+.submit-3 {
+  background-color: #08d;
+  border-radius: 12px;
+  border: 0;
+  box-sizing: border-box;
+  color: #eee;
+  cursor: pointer;
+  font-size: 18px;
+  height: 50px;
+  margin-top: 38px;
+  text-align: center;
+  width: 100%;
+}
+
+.submit-3:active {
+  background-color: #06b;
+}
+
+label{
+  color: white;
+} 
+
+@media only screen and (min-width:320px) and (max-width: 1048px){
+  .contain-btn-a{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .input-group{
+    flex-direction: column !important;
+    flex-wrap: wrap !important;
+    justify-content: flex-start !important;
+  }
+  .button--submit{
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .index-section{
+    flex-direction: column !important;
+  }
+  .img-form{
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
+    
+  }
+}
+
+@media only screen and (min-width:320px) and (max-width:549px){
+  .img-form, .img-intro{
+    width: 20rem;
+    height: 20rem;
+  }
+
+  form{
+    width: 16rem !important;
+    height: 27rem !important;
+  }
+
+}
+
+@media only screen and (min-width:320px) and (max-width:1024px){
+  .container-gap{
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }  
+  .container-up{
+    flex-direction: column;
+  }
+  .debit-card, .credit-card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .li-create-cards{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
