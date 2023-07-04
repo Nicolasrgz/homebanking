@@ -43,6 +43,12 @@ const app = createApp({
           });
         },
    },
+   computed: {
+    sortedAccount() {
+        return this.account.slice().sort((a, b) => b.id - a.id);
+    }
+}
+
 })
 
 app.mount('#app')

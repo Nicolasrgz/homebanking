@@ -13,6 +13,19 @@ const app = createApp({
 
     },
     methods:{
+      LogOut(){
+        axios.post('/api/logout')
+        .then(response => {
+          // Inicio de sesión exitoso
+          // Redireccionar a accounts.html
+          window.location.href = '/web/index.html';
+        })
+        .catch(error => {
+          // Inicio de sesión fallido
+          // Mostrar mensaje de error al usuario
+          alert('Error al iniciar sesión');
+        });
+      },
       createTransfer() {
         swal({
             title: "Are you sure?",
@@ -108,6 +121,7 @@ const app = createApp({
         });
     }
     
-  }    
+  },
+      
 })
 app.mount("#app")

@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="/web/style/style.css">
     <link rel="shortcut icon" href="/web/img/imagenbank.png" type="image/x-icon">
-    <title></title>
+    <title>Account</title>
 </head>
 <body>
 <div class="layout" id="app">
@@ -29,14 +29,14 @@
               Accounts
           </span>
         </a>
-        <a class="btn-c m-2" href="#">
+        <a class="btn-c m-2" href="/web/pages/transfer.html">
           <span class="box">
-              contact 
+              Transfer 
           </span>
         </a>
         <a class="btn-c m-2" href="#">
           <span class="box">
-              About us 
+              contact 
           </span>
         </a>
         <button class="Btn m-2" @click.prevent="LogOut()">
@@ -67,14 +67,15 @@
                 </tr>
               </thead>
               <tbody>
-                <tr v-for="(element, index) in account">
+                <tr v-for="(element, index) in sortedAccount">
                   <td>{{index + 1}}</td>
                   <td><p :class="{ 'debit': element.type === 'CREDIT', 'credit': element.type === 'DEBIT' }">{{element.type}}</p></td>
                   <td>{{element.description}}</td>
-                  <td v-if="element.type == 'DEBIT'"><p class="credit">$ {{element.amount}}</p></td>
+                  <td v-if="element.type == 'DEBIT'"><p class="credit">${{element.amount}}</p></td>
                   <td v-if="element.type == 'CREDIT'"><p class="debit">$-{{element.amount}}</p></td>
-                  <td>{{element.date}}</td>
-              </tr>    
+                  <td>{{element.date.slice(2,10)}}-{{ new Date(element.date).toLocaleString([], { hour: '2-digit', minute: '2-digit' }) }}</td>
+              </tr>
+              
               </tbody>
             </table>
           </div>
