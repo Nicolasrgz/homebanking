@@ -1041,3 +1041,7 @@ label{
     align-items: center;
   }
 }
+
+[v-cloak] {
+  display: none;
+}

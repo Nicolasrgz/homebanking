@@ -40,13 +40,15 @@ public class TransactionController {
 
         Client client = clientRepository.findByEmail(authentication.getName());//cliente autenticado
 
-        Account accountOrigin = accountRepository.findByNumber(numberAccountOrigin);//cuenta origen
-        Account accountDestiny = accountRepository.findByNumber(numberAccountDestiny);//cuenta destino
-
         //Check if the fields are empty
         if (amount.isNaN() || description.isBlank() || numberAccountOrigin.isBlank() || numberAccountDestiny.isBlank()) {
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
         }
+
+        Account accountOrigin = accountRepository.findByNumber(numberAccountOrigin);//cuenta origen
+        Account accountDestiny = accountRepository.findByNumber(numberAccountDestiny);//cuenta destino
+
+
         //Verifies that the account number of both origin and destination exists in our database
         if (accountRepository.findByNumber(numberAccountOrigin) == null || accountRepository.findByNumber(numberAccountDestiny) == null) {
             return new ResponseEntity<>("One or both account numbers do not exist in our database", HttpStatus.FORBIDDEN);

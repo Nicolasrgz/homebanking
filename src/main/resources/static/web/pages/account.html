@@ -49,39 +49,38 @@
     </nav>
 </header>
 <main >
-  <div v-if="loading">
-    <p>loading</p>
-  </div>
-  <h1 v-if="loading === false" class="text-center m-3" ><b>ACCOUNT N°:</b> {{accountsP.number}}</h1>
-      <div class="container">
-        <div class="row row-edit">
-          <div class=" text-center">
-            <table class="table" v-if="loading === false">
-              <thead>
-                <tr>
-                  <th>number:</th>
-                  <th class="col-4">type:</th>
-                  <th>description:</th>
-                  <th>amount:</th>
-                  <th>date:</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="(element, index) in sortedAccount">
-                  <td>{{index + 1}}</td>
-                  <td><p :class="{ 'debit': element.type === 'CREDIT', 'credit': element.type === 'DEBIT' }">{{element.type}}</p></td>
-                  <td>{{element.description}}</td>
-                  <td v-if="element.type == 'DEBIT'"><p class="credit">${{element.amount}}</p></td>
-                  <td v-if="element.type == 'CREDIT'"><p class="debit">$-{{element.amount}}</p></td>
-                  <td>{{element.date.slice(2,10)}}-{{ new Date(element.date).toLocaleString([], { hour: '2-digit', minute: '2-digit' }) }}</td>
-              </tr>
-              
-              </tbody>
-            </table>
-          </div>
-        </div>
+<div >
+  <h1 v-cloak v-if="loading === false" class="text-center m-3" ><b>ACCOUNT N°:</b> {{accountsP.number}}</h1>
+  <div class="container" v-cloak>
+    <div class="row row-edit">
+      <div class=" text-center">
+        <table class="table" v-if="loading === false">
+          <thead>
+            <tr>
+              <th>number:</th>
+              <th class="col-4">type:</th>
+              <th>description:</th>
+              <th>amount:</th>
+              <th>date:</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(element, index) in sortedAccount">
+              <td>{{index + 1}}</td>
+              <td><p :class="{ 'debit': element.type === 'CREDIT', 'credit': element.type === 'DEBIT' }">{{element.type}}</p></td>
+              <td>{{element.description}}</td>
+              <td v-if="element.type == 'DEBIT'"><p class="credit">${{element.amount}}</p></td>
+              <td v-if="element.type == 'CREDIT'"><p class="debit">$-{{element.amount}}</p></td>
+              <td>{{element.date.slice(2,10)}}-{{ new Date(element.date).toLocaleString([], { hour: '2-digit', minute: '2-digit' }) }}</td>
+          </tr>
+          
+          </tbody>
+        </table>
       </div>
+    </div>
   </div>
+</div>
+</div>
 </main>
 </div>
 <footer class="bg-body-tertiary" data-bs-theme="dark">
