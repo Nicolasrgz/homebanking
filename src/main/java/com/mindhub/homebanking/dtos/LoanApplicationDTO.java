@@ -1,23 +1,22 @@
 package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Loan;
-import com.mindhub.homebanking.models.LoanName;
 
 import java.util.List;
 
 public class LoanApplicationDTO {
     private long id;
     private Double amount;
-    private List<Integer> payments;
+    private Integer payments;
     private String numberAccountDestiny;
-    private LoanName name;
+    private String name;
 
-    LoanApplicationDTO(){}
+    public LoanApplicationDTO(){}
 
-    LoanApplicationDTO(Loan loan,String numberAccountDestiny, LoanName name){
-        this.id = loan.getId();
-        this.amount = loan.getMaxAmount();
-        this.payments = loan.getPayments();
+    public LoanApplicationDTO(long id, Double amount, Integer payments, String numberAccountDestiny, String name) {
+        this.id = id;
+        this.amount = amount;
+        this.payments = payments;
         this.numberAccountDestiny = numberAccountDestiny;
         this.name = name;
     }
@@ -30,7 +29,7 @@ public class LoanApplicationDTO {
         return amount;
     }
 
-    public List<Integer> getPayments() {
+    public Integer getPayments() {
         return payments;
     }
 
@@ -38,7 +37,7 @@ public class LoanApplicationDTO {
         return numberAccountDestiny;
     }
 
-    public LoanName getName() {
+    public String getName() {
         return name;
     }
 }

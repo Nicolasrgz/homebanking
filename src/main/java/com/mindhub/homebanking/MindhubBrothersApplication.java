@@ -58,22 +58,16 @@ private PasswordEncoder passwordEncoder;
 			loanRepository.save(Hipotecario);
 			loanRepository.save(Personal);
 			loanRepository.save(Automotriz);
+
 			ClientLoan prestamo1 = new ClientLoan(400000, 60);
 			ClientLoan prestamo2 = new ClientLoan(50000, 12);
 			melba.addClientLoans(prestamo1);
 			melba.addClientLoans(prestamo2);
+
 			Hipotecario.addClientLoans(prestamo1);
 			Personal.addClientLoans(prestamo2);
 			clientLoanRepository.save(prestamo1);
 			clientLoanRepository.save(prestamo2);
-
-			//Card card1 = new Card("melba morel", CardType.DEBIT, CardColor.GOLD, "0000 1111 2222 3333", 189,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
-			//Card card2 = new Card("melba morel", CardType.CREDIT, CardColor.TITANIUM, "0000 1111 2222 3334", 777,LocalDateTime.now().plusYears(5), LocalDateTime.now() );
-//			melba.addCards(card1);
-//			melba.addCards(card2);
-//			cardRepository.save(card1);
-//			cardRepository.save(card2);
-
 
 			Client juan = new Client("juan", "Rondo", "juna@gmail.com", passwordEncoder.encode("juan123"));
 			clientRepository.save((juan));
