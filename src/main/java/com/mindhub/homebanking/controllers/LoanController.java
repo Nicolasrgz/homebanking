@@ -44,7 +44,7 @@ public class LoanController {
         //cliente autenticado
         Client client = clientRepository.findByEmail(authentication.getName());
 
-//diferentes prestamos que puede acceder
+        //diferentes prestamos que puede acceder
         Loan mortgage = loanRepository.findByName("MORTGAGE");
         if (mortgage == null) {
             mortgage = new Loan("MORTGAGE", 500000, Arrays.asList(12, 24, 36, 48, 60));

@@ -43,9 +43,9 @@
               Created Account
             </span>
           </a>
-          <a class="btn-c m-2" href="#">
+          <a class="btn-c m-2" href="/web/pages/loan-application.html">
             <span class="box">
-                contact 
+                Loans 
             </span>
           </a>
         <button class="Btn m-2" @click.prevent="LogOut()">
@@ -79,7 +79,7 @@
         </div>
       </div>
       <h2 class="animate__animated animate__zoomInLeft">LOANS</h2>
-      <div class="d-flex container-gap">
+      <div class="d-flex justify-content-center container-gap flex-wrap">
         <div class="card-accounts" v-for="user of loansSort">
           <div class="container-accounts-data color-white text-center" >
             <h4>Payments: <br>{{user.payments}}</h4>
