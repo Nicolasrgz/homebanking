@@ -12,7 +12,7 @@ public class Transaction {
     @GenericGenerator(name = "native", strategy = "native")
     private long id;
     private TransactionType type;
-    private double amount;
+    private Double amount;
     private String description;
     private LocalDateTime date;
    @ManyToOne(fetch = FetchType.EAGER)
@@ -20,7 +20,7 @@ public class Transaction {
     private Account account;
 
     public Transaction (){}
-    public Transaction(TransactionType type, double amount, String description, LocalDateTime date) {
+    public Transaction(TransactionType type, Double amount, String description, LocalDateTime date) {
         this.type = type;
         this.amount = amount;
         this.description = description;
@@ -47,11 +47,11 @@ public class Transaction {
         this.type = type;
     }
 
-    public double getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(double amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 

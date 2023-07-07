@@ -33,19 +33,19 @@
               Cards
           </span>
         </a>
-        <a class="btn-c m-2" href="#">
+        <a class="btn-c m-2" href="/web/pages/transfer.html">
           <span class="box">
-              About us
-          </span>
-        </a>
-        <a class="btn-c m-2" href="#">
-          <span class="box">
-              contact 
+              Transfer
           </span>
         </a>
           <a class="btn-c m-2" href="#" @click="createdAccount()" v-if="this.melbaSort.length <= 2">
             <span class="box">
               Created Account
+            </span>
+          </a>
+          <a class="btn-c m-2" href="#">
+            <span class="box">
+                contact 
             </span>
           </a>
         <button class="Btn m-2" @click.prevent="LogOut()">
@@ -111,6 +111,7 @@
 </div>
 </footer>
 </div>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="/web/js/accounts.js"></script>
