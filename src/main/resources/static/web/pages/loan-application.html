@@ -55,28 +55,50 @@
     <div class="m-5 form-img-b">
         <img class="img-form" src="/web/img/prestamos.jpeg" alt="">
     </div>
-    <div>
+    <div class="div-loans">
         <form >
-            <div class="d-flex flex-column">
-              <select name="" id="" v-model="selectType">
-                <option v-for="element in loans" :value="element.id">
+          <div class="container-form-loans">
+            <div class="d-flex flex-column textInputWrapper" >
+              <select name="" id="" v-model="selectType" class="textInput">
+                <option v-for="element in loans" :value="element.name">
                   {{ element.name }}
                 </option>
               </select>
-              
-                <select name="" id="" v-model="selectPayments">
-                    <option  v-for="element in loans" :value="element.id">
-                      {{ element.payments }}
-                    </option>
-    
-                </select>
-                <label for="number">
-                    <input type="number" v-model="amount" name="" id="number">
-                </label>
-                <label for="number">
-                    <input type="text" name="" id="number">
-                </label>
             </div>
+          
+            <div v-if="selectType" >
+              <div v-if="selectType == 'MORTGAGE'" class="d-flex flex-column textInputWrapper">
+                <select  name="" id="" v-model="selectPayments" class="textInput">
+                  <option  v-for="element in loansPaymentsMortgage" value="{{element}}">{{element}}</option>
+                </select>
+              </div>
+              <div v-if="selectType == 'PERSONNEL'" class="d-flex flex-column textInputWrapper">
+                <select  name="" id="" v-model="selectPayments" class="textInput">
+                  <option v-for="element in loansPaymentsPersonnel" value="{{element}}">{{element}}</option>
+                </select>
+              </div>
+              <div v-if="selectType == 'AUTOMOTIVE'" class="d-flex flex-column textInputWrapper">
+                <select  name="" id="" v-model="selectPayments" class="textInput">
+                  <option v-for="element in loansPaymentsAutomotive" value="{{element}}">{{element}}</option>
+                </select>
+              </div>
+            </div>
+
+              <div class="d-flex flex-column textInputWrapper">
+                <select  name="" id="" v-model="selectAccount" class="textInput">
+                  <option v-for="element in clientAccounts" value="{{element.number}}">{{element.number}}</option>
+                </select>
+              <label for="number">
+                  <input type="text" name="" id="number" class="textInput">
+              </label>
+              </div>
+
+              <div class="d-flex justify-content-center align-center">
+                <button class="button-ui">
+                  Apply
+                </button>
+              </div>
+          </div>
         </form>
     </div>
 </div>
@@ -100,6 +122,7 @@
           </a>
         </div>             
 </footer>
+    <script src="https://cdn.jsdelivr.net/npm/cleave.js@1"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script src="/web/js/loan-application.js"></script>
