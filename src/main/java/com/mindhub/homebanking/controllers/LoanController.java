@@ -5,6 +5,7 @@ import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import com.mindhub.homebanking.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,19 +23,19 @@ import java.util.stream.Collectors;
 public class LoanController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
-    private LoanRepository loanRepository;
+    private LoanService loanService;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransferService transferService;
     @Autowired
-    private ClientLoanRepository clientLoanRepository;
+    private ClientLoanService clientLoanService;
 
     @GetMapping("/loans")
     public List<LoanDTO> getLoans() {
-        return loanRepository.findAll().stream().map(LoanDTO::new).collect(Collectors.toList());
+        return loanService.getLoans();
     }
 
     @Transactional
@@ -42,23 +43,23 @@ public class LoanController {
     public ResponseEntity<Object> createLoans(@RequestBody
                                               LoanApplicationDTO loan, Authentication authentication){
         //cliente autenticado
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
 
         //diferentes prestamos que puede acceder
-        Loan mortgage = loanRepository.findByName("MORTGAGE");
+        Loan mortgage = loanService.findByName("MORTGAGE");
         if (mortgage == null) {
             mortgage = new Loan("MORTGAGE", 500000, Arrays.asList(12, 24, 36, 48, 60));
-            loanRepository.save(mortgage);
+            loanService.loanSave(mortgage);
         }
-        Loan personnel = loanRepository.findByName("PERSONNEL");
+        Loan personnel = loanService.findByName("PERSONNEL");
         if (personnel == null) {
             personnel = new Loan("PERSONNEL", 100000, Arrays.asList(6, 12, 24));
-            loanRepository.save(personnel);
+            loanService.loanSave(personnel);
         }
-        Loan automotive = loanRepository.findByName("AUTOMOTIVE");
+        Loan automotive = loanService.findByName("AUTOMOTIVE");
         if (automotive == null) {
             automotive = new Loan("AUTOMOTIVE", 300000, Arrays.asList(6, 12, 24, 36));
-            loanRepository.save(automotive);
+            loanService.loanSave(automotive);
         }
 
 
@@ -67,10 +68,10 @@ public class LoanController {
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
         }
 
-        Account accountDestiny = accountRepository.findByNumber(loan.getNumberAccountDestiny());//cuenta destino
+        Account accountDestiny = accountService.findByNumber(loan.getNumberAccountDestiny());//cuenta destino
 
         //verifico que el nombre del prestamo exista
-        if (loanRepository.findByName(loan.getName()) == null) {
+        if (loanService.findByName(loan.getName()) == null) {
             return new ResponseEntity<>("the loan you are requesting does not exist", HttpStatus.FORBIDDEN);
         }
         //el monto debe ser mayor a 0
@@ -78,17 +79,17 @@ public class LoanController {
             return new ResponseEntity<>("the amount has to be greater than 0", HttpStatus.FORBIDDEN);
         }
         //verifico que las cuotas sean del prestamo
-        if (loanRepository.findByPayments(loan.getPayments()) == null){
+        if (loanService.findByPayments(loan.getPayments()) == null){
             return new ResponseEntity<>("the installment you are trying to select does not belong to the loan", HttpStatus.FORBIDDEN);
         }
 
         //verifico que el monto no sea mayor al maximo del prestamo
-        Loan loanType = loanRepository.findByName(loan.getName());
+        Loan loanType = loanService.findByName(loan.getName());
         if (loan.getAmount() > loanType.getMaxAmount()) {
             return new ResponseEntity<>("the requested amount exceeds the loan limit", HttpStatus.FORBIDDEN);
         }
         //verifico que la cuenta de destino exista
-        if (accountRepository.findByNumber(loan.getNumberAccountDestiny()) == null){
+        if (accountService.findByNumber(loan.getNumberAccountDestiny()) == null){
             return new ResponseEntity<>("destination account does not exist", HttpStatus.FORBIDDEN);
         }
         //Verify that the source account belongs to the authenticated client
@@ -96,7 +97,7 @@ public class LoanController {
             return new ResponseEntity<>("The destination account does not belong to the authenticated client", HttpStatus.FORBIDDEN);
         }
 
-        List<Loan> loans = loanRepository.findByPayments(loan.getPayments());
+        List<Loan> loans = loanService.findByPayments(loan.getPayments());
         if (loans.isEmpty()) {
             return new ResponseEntity<>("the installment you are trying to select does not belong to the loan", HttpStatus.FORBIDDEN);
         }
@@ -108,25 +109,25 @@ public class LoanController {
 
         if (loan.getName().equals("AUTOMOTIVE")){
             automotive.addClientLoans(loan1);
-            clientLoanRepository.save(loan1);
+            clientLoanService.clientLoanSave(loan1);
         }
         if (loan.getName().equals("PERSONNEL")){
             personnel.addClientLoans(loan1);
-            clientLoanRepository.save(loan1);
+            clientLoanService.clientLoanSave(loan1);
         }
         if (loan.getName().equals("MORTGAGE")){
             mortgage.addClientLoans(loan1);
-            clientLoanRepository.save(loan1);
+            clientLoanService.clientLoanSave(loan1);
         }
 
         Transaction transactionCredit = new Transaction(TransactionType.CREDIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now());
         accountDestiny.addTransaction(transactionCredit);
-        transactionRepository.save(transactionCredit);
+        transferService.saveTransfer(transactionCredit);
 
         Double credit = accountDestiny.getBalance() + loan.getAmount();
 
         accountDestiny.setBalance(credit);
-        accountRepository.save(accountDestiny);
+        accountService.saveAccount(accountDestiny);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

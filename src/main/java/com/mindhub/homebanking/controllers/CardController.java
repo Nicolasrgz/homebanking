@@ -4,6 +4,9 @@ import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +20,9 @@ import java.time.LocalDateTime;
 public class CardController {
 
     @Autowired
-    private AccountRepository accountRepository;
+    private ClientService clientService;
     @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private CardRepository cardRepository;
-
+    private CardService cardService;
 
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> createCards(
@@ -33,27 +33,27 @@ public class CardController {
         String cardNumber;
         long cvvNumber = (long) ((Math.random() * (999 - 100)) + 100);
 
-        Client client = clientRepository.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
 
         if (client.getCards().size() >= 6) {
             return new ResponseEntity<>("Client already has 6 cards registered", HttpStatus.FORBIDDEN);
         }
 
-        if (cardRepository.countByTypeAndClient(type, client) >= 3) {
+        if (cardService.countByTypeAndClient(type,client) >= 3) {
             return new ResponseEntity<>("The client already has 3 registered " + type + " cards.", HttpStatus.FORBIDDEN);
         }
 
-        if (cardRepository.countByColorAndTypeAndClient(color, type, client) >= 1) {
+        if ( cardService.countByColorAndTypeAndClient(color, type, client) >= 1) {
             return new ResponseEntity<>("The client already has a " + color + " " + type + " card.", HttpStatus.FORBIDDEN);
         }
 
         do {
             cardNumber = String.format("%04d-%04d-%04d-%04d", (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000));
-        } while (cardRepository.findByNumber(cardNumber) != null);
+        } while (cardService.findByNumber(cardNumber) != null);
 
         Card card = new Card(type, color, client.getFirstName()+ " " + client.getLastName(), cardNumber, cvvNumber, LocalDateTime.now().plusYears(5), LocalDateTime.now());
         client.addCards(card);
-        cardRepository.save(card);
+        cardService.cardSave(card);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -5,6 +5,8 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.ClientRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,22 +23,20 @@ import java.util.stream.Collectors;
 public class ClientController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @RequestMapping("/clients")
     public List<ClientDTO> getClients(){
-        return clientRepository.findAll().stream().map(client -> new ClientDTO(client)).collect(Collectors.toList());
+        return clientService.getClients();
     }
 
     @RequestMapping("/clients/{id}")
     public ClientDTO getClient(@PathVariable Long id){
-        return clientRepository.findById(id)
-                .map(ClientDTO::new)
-                .orElse(null);
+        return clientService.findByIdDTO(id);
     }
     @PostMapping("/clients")
     public ResponseEntity<Object> register(
@@ -49,22 +49,22 @@ public class ClientController {
             return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
         }
 
-        if (clientRepository.findByEmail(email) != null) {
+        if (clientService.findByEmail(email) != null) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        clientRepository.save(client);
+        clientService.saveClient(client);
 
 
         String accountNumber;
         do {
             accountNumber = "VIN-" + (long) ((Math.random() * (99999999 - 10000000)) + 10000000);
-        } while (accountRepository.findByNumber(accountNumber) != null);
+        } while (accountService.findByNumber(accountNumber) != null);
 
         Account account = new Account(accountNumber, LocalDate.now(), 0.0);
         client.addAccount(account);
-        accountRepository.save(account);
+        accountService.saveAccount(account);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
@@ -72,6 +72,6 @@ public class ClientController {
 
     @RequestMapping("/clients/current")
     public ClientDTO getAll(Authentication authentication) {
-      return new ClientDTO(clientRepository.findByEmail(authentication.getName()));
+      return new ClientDTO(clientService.findByEmail(authentication.getName()));
     }
 }
