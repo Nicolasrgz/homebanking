@@ -53,15 +53,30 @@ const app = createApp({
           console.error(err);
         });
     },
-    loanCreated(){
-        axios.post("http://localhost:8080/api/loans")
-        .then(res => {
+  loanCreated() {
+    // Obtén el valor del campo de texto
+    let amount = document.querySelector('#number').value;
 
-        })
-        .catch(err => {
-            console.error(err);
-          });
-    }
+    // Elimina los caracteres no numéricos
+    amount = amount.replace(/[^0-9]/g, '');
+
+    // Convierte la cadena a un número
+    amount = parseInt(amount);
+
+    axios.post("http://localhost:8080/api/loans", {
+      name: this.selectType,
+      amount: amount,
+      numberAccountDestiny: this.selectAccount,
+      payments: this.selectPayments
+    })
+      .then(res => {
+        alert("prestamo realizado")
+        window.location.href = "/web/pages/accounts.html"
+      })
+      .catch(err => {
+        console.error(err);
+      });
+  }
   }
 })
 
