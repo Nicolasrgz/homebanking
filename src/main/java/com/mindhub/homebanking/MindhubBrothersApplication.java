@@ -61,6 +61,7 @@ private PasswordEncoder passwordEncoder;
 			loanRepository.save(mortgage);
 			loanRepository.save(personnel);
 			loanRepository.save(automotive);
+
 //
 //			ClientLoan prestamo1 = new ClientLoan(400000, 60);
 //			ClientLoan prestamo2 = new ClientLoan(50000, 12);

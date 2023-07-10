@@ -41,27 +41,9 @@ public class LoanController {
     @Transactional
     @PostMapping("/loans")
     public ResponseEntity<Object> createLoans(@RequestBody
-                                              LoanApplicationDTO loan, Authentication authentication){
+                                              LoanApplicationDTO loan,Loan loans, Authentication authentication){
         //cliente autenticado
         Client client = clientService.findByEmail(authentication.getName());
-
-        //diferentes prestamos que puede acceder
-        Loan mortgage = loanService.findByName("MORTGAGE");
-        if (mortgage == null) {
-            mortgage = new Loan("MORTGAGE", 500000, Arrays.asList(12, 24, 36, 48, 60));
-            loanService.loanSave(mortgage);
-        }
-        Loan personnel = loanService.findByName("PERSONNEL");
-        if (personnel == null) {
-            personnel = new Loan("PERSONNEL", 100000, Arrays.asList(6, 12, 24));
-            loanService.loanSave(personnel);
-        }
-        Loan automotive = loanService.findByName("AUTOMOTIVE");
-        if (automotive == null) {
-            automotive = new Loan("AUTOMOTIVE", 300000, Arrays.asList(6, 12, 24, 36));
-            loanService.loanSave(automotive);
-        }
-
 
         //verifica que los campos esten completos
         if (loan.getAmount().isNaN() || loan.getNumberAccountDestiny().isBlank()|| loan.getPayments() == null){
@@ -97,8 +79,8 @@ public class LoanController {
             return new ResponseEntity<>("The destination account does not belong to the authenticated client", HttpStatus.FORBIDDEN);
         }
 
-        List<Loan> loans = loanService.findByPayments(loan.getPayments());
-        if (loans.isEmpty()) {
+        List<Loan> payment = loanService.findByPayments(loan.getPayments());
+        if (payment.isEmpty()) {
             return new ResponseEntity<>("the installment you are trying to select does not belong to the loan", HttpStatus.FORBIDDEN);
         }
 
@@ -108,15 +90,15 @@ public class LoanController {
         loan1.setDebtor(client);
 
         if (loan.getName().equals("AUTOMOTIVE")){
-            automotive.addClientLoans(loan1);
+            loanService.findByName("AUTOMOTIVE").addClientLoans(loan1);
             clientLoanService.clientLoanSave(loan1);
         }
         if (loan.getName().equals("PERSONNEL")){
-            personnel.addClientLoans(loan1);
+            loanService.findByName("PERSONNEL").addClientLoans(loan1);
             clientLoanService.clientLoanSave(loan1);
         }
         if (loan.getName().equals("MORTGAGE")){
-            mortgage.addClientLoans(loan1);
+            loanService.findByName("MORTGAGE").addClientLoans(loan1);
             clientLoanService.clientLoanSave(loan1);
         }
 
