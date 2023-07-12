@@ -22,11 +22,7 @@ public class WebAuthorization {
             http.authorizeRequests()
                     .antMatchers("/web/pages/manager.html").hasAuthority("ADMIN")
                     .antMatchers("/h2-console/login.do").hasAuthority("ADMIN")
-                    .antMatchers("/rest/clients").hasAuthority("ADMIN")
-                    .antMatchers("/rest/accounts").hasAuthority("ADMIN")
-                    .antMatchers("/rest/loans").hasAuthority("ADMIN")
-                    .antMatchers("/rest/cards").hasAuthority("ADMIN")
-                    .antMatchers("/rest/transactions").hasAuthority("ADMIN")
+                    .antMatchers("/rest/**").hasAuthority("ADMIN")
                     .antMatchers("/api/accounts/{id}").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
 
@@ -34,14 +30,21 @@ public class WebAuthorization {
                     .antMatchers("/web/pages/accounts.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/cards.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/create-cards.html").hasAuthority("CLIENT")
+                    .antMatchers("/web/pages/loan-application.html").hasAuthority("CLIENT")
+                    .antMatchers("/web/pages/transfer.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/account.html").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
 
 
+                    .antMatchers(HttpMethod.GET, "/api/loans").permitAll()
                     .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
-                    .antMatchers("/public/web/index.html").permitAll()
+                    .antMatchers("/web/index.html").permitAll()
+                    .antMatchers("/web/pages/style/style.css").permitAll()
+                    .antMatchers("/web/pages/js/**").permitAll()
+                    .antMatchers("/web/pages/img/**").permitAll()
                     .antMatchers("/api/login").permitAll()
-                    .antMatchers("/public/web/pages/contactUs.html").permitAll()
-                    .antMatchers("/public/web/pages/aboutUs.html").permitAll();
+                    .antMatchers("/web/pages/contactUs.html").permitAll()
+                    .antMatchers("/web/pages/aboutUs.html").permitAll();
 
 
             http.formLogin()
