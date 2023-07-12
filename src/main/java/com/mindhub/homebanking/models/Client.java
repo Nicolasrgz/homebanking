@@ -1,4 +1,6 @@
 package com.mindhub.homebanking.models;
+import com.mindhub.homebanking.dtos.ClientLoanDTO;
+import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -93,7 +95,7 @@ public class Client {
     }
     @JsonIgnore
     public List<Loan> getLoans() {
-    return clientLoans.stream().map(clientLoan -> clientLoan.getLoan()).collect(Collectors.toList());
+    return clientLoans.stream().map(ClientLoan::getLoan).collect(Collectors.toList());
     }
 
     public void addClientLoans(ClientLoan clientLoan){
@@ -105,4 +107,6 @@ public class Client {
         card.setClient(this);
         cards.add(card);
     }
+
+
 }

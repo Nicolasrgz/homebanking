@@ -4,9 +4,9 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.repositories.AccountRepository;
-import com.mindhub.homebanking.repositories.ClientRepository;
-import com.mindhub.homebanking.repositories.TransactionRepository;
+import com.mindhub.homebanking.services.AccountService;
+import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +24,11 @@ import java.time.LocalDateTime;
 public class TransactionController {
 
     @Autowired
-    private ClientRepository clientRepository;
+    private ClientService clientService;
     @Autowired
-    private AccountRepository accountRepository;
+    private AccountService accountService;
     @Autowired
-    private TransactionRepository transactionRepository;
+    private TransferService transferService;
 
     @Transactional
     @PostMapping("/transactions")
@@ -38,17 +38,19 @@ public class TransactionController {
                                               @RequestParam String numberAccountDestiny,
                                               Authentication authentication  ){
 
-        Client client = clientRepository.findByEmail(authentication.getName());//cliente autenticado
-
-        Account accountOrigin = accountRepository.findByNumber(numberAccountOrigin);//cuenta origen
-        Account accountDestiny = accountRepository.findByNumber(numberAccountDestiny);//cuenta destino
+        Client client = clientService.findByEmail(authentication.getName());//cliente autenticado
 
         //Check if the fields are empty
         if (amount.isNaN() || description.isBlank() || numberAccountOrigin.isBlank() || numberAccountDestiny.isBlank()) {
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
         }
+
+        Account accountOrigin = accountService.findByNumber(numberAccountOrigin);//cuenta origen
+        Account accountDestiny = accountService.findByNumber(numberAccountDestiny);//cuenta destino
+
+
         //Verifies that the account number of both origin and destination exists in our database
-        if (accountRepository.findByNumber(numberAccountOrigin) == null || accountRepository.findByNumber(numberAccountDestiny) == null) {
+        if (accountService.findByNumber(numberAccountOrigin) == null || accountService.findByNumber(numberAccountDestiny) == null) {
             return new ResponseEntity<>("One or both account numbers do not exist in our database", HttpStatus.FORBIDDEN);
         }
         //Verify that the account numbers are different
@@ -74,8 +76,8 @@ public class TransactionController {
         accountOrigin.addTransaction(transactionCredit);
         accountDestiny.addTransaction(transactionDebit);
 
-        transactionRepository.save(transactionCredit);
-        transactionRepository.save(transactionDebit);
+        transferService.saveTransfer(transactionCredit);
+        transferService.saveTransfer(transactionDebit);
 
         Double credit = accountOrigin.getBalance() - amount;
         Double debit = accountDestiny.getBalance() + amount;
@@ -83,8 +85,8 @@ public class TransactionController {
         accountOrigin.setBalance(credit);
         accountDestiny.setBalance(debit);
 
-        accountRepository.save(accountOrigin);
-        accountRepository.save(accountDestiny);
+        accountService.saveAccount(accountOrigin);
+        accountService.saveAccount(accountDestiny);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

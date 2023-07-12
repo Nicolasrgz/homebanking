@@ -18,7 +18,6 @@ public class Loan {
     private long id;
     private String name;
     private double maxAmount;
-
     @ElementCollection
     private List<Integer> payments;
 

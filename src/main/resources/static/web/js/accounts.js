@@ -51,6 +51,9 @@ const app = createApp({
             window.location.href = '/web/pages/accounts.html'
           })
           .catch(err => alert("limite de cuentas alcanzado"))
+        },
+        redirection(){
+          return window.location.href = "/web/pages/loan-application.html"
         }
     },
 })
