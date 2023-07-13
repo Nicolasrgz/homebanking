@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.models;
 
+import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.repositories.*;
 import org.junit.jupiter.api.Test;
@@ -65,5 +66,16 @@ public class RepositoriesTest {
         assertThat(color, hasItem(hasProperty("color", is(CardColor.GOLD))));
     }
 
+    @Test
+    public void existNumberAccount(){
+        List<Account> accounts = accountRepository.findAll();
+        assertThat(accounts, hasItem((hasProperty("number",is ("VIN001")))));
+    }
 
+    @Test
+    public void getAccount(){
+        List<AccountDTO> accounts = accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toList());;
+        assertThat(accounts,is(not(empty())));
+    }
 }
+

@@ -3,6 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class CardController {
             @RequestParam CardType type,
             Authentication authentication) {
 
+        long cvvNumber = CardUtils.getCvvNumber();
         String cardNumber;
-        long cvvNumber = (long) ((Math.random() * (999 - 100)) + 100);
 
         Client client = clientService.findByEmail(authentication.getName());
 
@@ -44,7 +45,7 @@ public class CardController {
         }
 
         do {
-            cardNumber = String.format("%04d-%04d-%04d-%04d", (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000), (int)(Math.random()*10000));
+            cardNumber = CardUtils.getCardNumber();
         } while (cardService.findByNumber(cardNumber) != null);
 
         Card card = new Card(type, color, client.getFirstName()+ " " + client.getLastName(), cardNumber, cvvNumber, LocalDateTime.now().plusYears(5), LocalDateTime.now());
@@ -53,6 +54,7 @@ public class CardController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
 }
 
