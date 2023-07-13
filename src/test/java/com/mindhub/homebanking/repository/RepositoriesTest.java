@@ -1,8 +1,10 @@
-package com.mindhub.homebanking.models;
+package com.mindhub.homebanking.repository;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.dtos.ClientDTO;
+import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.*;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -49,9 +51,9 @@ public class RepositoriesTest {
     }
 
     @Test
-    public void getClient(){
-        List<ClientDTO> clientDTOS = clientRepository.findAll().stream().map(ClientDTO::new).collect(Collectors.toList());
-        assertThat(clientDTOS,is(not(empty())));
+    public void existClient(){
+        List<Client> clientList = clientRepository.findAll();
+        assertThat(clientList,is(not(empty())));
     }
 
     @Test
@@ -63,7 +65,7 @@ public class RepositoriesTest {
     @Test
     public void existColorCard(){
         List<Card> color = cardRepository.findAll();
-        assertThat(color, hasItem(hasProperty("color", is(CardColor.GOLD))));
+        assertThat(color, hasItem(hasProperty("color", Matchers.is(CardColor.GOLD))));
     }
 
     @Test
@@ -73,9 +75,21 @@ public class RepositoriesTest {
     }
 
     @Test
-    public void getAccount(){
-        List<AccountDTO> accounts = accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toList());;
+    public void existAccount(){
+        List<Account> accounts = accountRepository.findAll();
         assertThat(accounts,is(not(empty())));
+    }
+
+    @Test
+    public void existTransactions(){
+        List<Transaction> transaction = transactionRepository.findAll();
+        assertThat(transaction,is(not(empty())));
+    }
+
+    @Test
+    public void existTransaction(){
+        List<Transaction> transaction = transactionRepository.findAll();
+        assertThat(transaction, notNullValue());
     }
 }
 
