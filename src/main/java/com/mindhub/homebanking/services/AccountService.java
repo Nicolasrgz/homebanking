@@ -9,7 +9,7 @@ public interface AccountService {
 
     List<AccountDTO>getAccounts();
 
-    Account findById (Long id);
+    Account findById (long id);
 
     Account findByNumber (String number);
 

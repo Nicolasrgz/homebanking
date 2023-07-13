@@ -21,7 +21,7 @@ public class WebAuthorization {
 
             http.authorizeRequests()
                     .antMatchers("/web/pages/manager.html").hasAuthority("ADMIN")
-                    .antMatchers("/h2-console/login.do").hasAuthority("ADMIN")
+                    .antMatchers("/h2-console/login.do").hasAuthority("CLIENT")
                     .antMatchers("/rest/**").hasAuthority("ADMIN")
                     .antMatchers("/api/accounts/{id}").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")

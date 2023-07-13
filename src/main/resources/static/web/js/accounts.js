@@ -54,6 +54,20 @@ const app = createApp({
         },
         redirection(){
           return window.location.href = "/web/pages/loan-application.html"
+        },
+        deleteAccount(event){
+          // Obtener el ID de la tarjeta desde el atributo data-id del botón
+          let accountId = event.target.getAttribute('data-id');
+      
+          axios.delete("/api/clients/current/accounts?id=" + accountId)
+          .then(res =>{
+            window.location.href = "/web/pages/accounts.html"
+          })
+          .catch(error => {
+            // Inicio de sesión fallido
+            // Mostrar mensaje de error al usuario
+            alert('error');
+          });
         }
     },
 })

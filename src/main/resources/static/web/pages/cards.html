@@ -67,7 +67,7 @@
       <h2 class="text-center">debit</h2>
     </div>
     <div class="cont-card-c"v-for="user of card">
-      <div class="flip-card"v-if="user.type == 'DEBIT'" >
+      <div class="flip-card" v-if="user.type == 'DEBIT'" >
         <div class="flip-card-inner" >
             <div :class="{ 'gold': user.color === 'GOLD', 'flip-card-front': user.color === 'TITANIUM', 'platinium': user.color === 'SILVER'}">
                 <p class="heading_8264">MASTERCARD</p>
@@ -134,6 +134,9 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div v-if="user.type == 'DEBIT'">
+      <input class="submit" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">
     </div>
     </div>
   </div>
@@ -210,8 +213,12 @@
             </div>
         </div>
     </div>
+    <div v-if="user.type == 'CREDIT'">
+      <input class="submit" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">
+    </div>
     </div>
   </div>
+
 </div>
 </div>
 </main>

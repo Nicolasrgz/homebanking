@@ -22,7 +22,7 @@ public class AccountServiceImplement implements AccountService {
     }
 
     @Override
-    public Account findById(Long id) {
+    public Account findById(long id) {
         return accountRepository.findById(id).orElse(null);
     }
 

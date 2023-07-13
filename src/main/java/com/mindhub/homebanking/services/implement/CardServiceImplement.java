@@ -33,4 +33,9 @@ public class CardServiceImplement implements CardService {
     public void cardSave(Card card) {
         cardRepository.save(card);
     }
+
+    @Override
+    public Card findById(long id) {
+        return cardRepository.findById(id);
+    }
 }

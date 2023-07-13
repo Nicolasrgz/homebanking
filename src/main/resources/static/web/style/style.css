@@ -602,7 +602,7 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   transform: rotateY(180deg);
 }
 
-.flip-card-front, .flip-card-back, .gold, .flip-card-back-gold ,.flip-card-back-platinium, .platinium{
+.flip-card-front, .flip-card-back, .gold, .flip-card-back-gold ,.flip-card-back-platinium, .platinium, .deprecated, .flip-card-back-d{
   box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
   position: absolute;
   display: flex;
@@ -645,6 +645,17 @@ box-shadow:  5px 5px 10px #afafaf,-5px -5px 20px #ffffff;
   box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
   background-color: #C0C0C0;
   transform: rotateY(180deg);
+}
+
+.flip-card-back-d {
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+  background-color: #a70d0d;
+  transform: rotateY(180deg);
+}
+
+.deprecated{
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+  background-color: 		#a70d0d;
 }
 
 .h2-cards{

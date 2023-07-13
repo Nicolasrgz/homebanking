@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.services.CardService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.utils.CardUtils;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
@@ -20,7 +22,8 @@ public class CardController {
     private ClientService clientService;
     @Autowired
     private CardService cardService;
-
+    @Autowired
+    private CardRepository cardRepository;
     @PostMapping("/clients/current/cards")
     public ResponseEntity<Object> createCards(
             @RequestParam CardColor color,
@@ -55,6 +58,19 @@ public class CardController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @DeleteMapping("/clients/current/card")
+    public ResponseEntity<Object> deleteCard(@RequestParam Long id, Authentication authentication){
+        Client client = clientService.findByEmail(authentication.getName());
+        Card card = cardService.findById(id);
+
+        if (!card.getClient().equals(client)){
+            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+        }
+
+        cardRepository.delete(card);
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
 

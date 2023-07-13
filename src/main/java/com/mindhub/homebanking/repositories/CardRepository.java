@@ -7,6 +7,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 @RepositoryRestResource
 public interface CardRepository extends JpaRepository<Card, Long> {
      Card findByNumber(String number);
+     Card findById(long id);
      long countByTypeAndClient(CardType type, Client client);
      long countByColorAndTypeAndClient(CardColor color, CardType type, Client client);
 }
