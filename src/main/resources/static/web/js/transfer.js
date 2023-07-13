@@ -12,6 +12,13 @@ const app = createApp({
     created(){
 
     },
+    mounted() {
+        new Cleave('#amount', {
+          numeral: true,
+          numeralThousandsGroupStyle: 'thousand',
+          prefix: '$'
+        });
+      },
     methods:{
       LogOut(){
         axios.post('/api/logout')
@@ -36,6 +43,15 @@ const app = createApp({
         })
         .then((willTransfer) => {
             if (willTransfer) {
+                // Obtén el valor del campo de texto
+                this.amount = document.querySelector('#amount').value;
+
+                // Elimina los caracteres no numéricos
+                this.amount = this.amount.replace(/[^0-9]/g, '');
+
+                // Convierte la cadena a un número
+                this.amount = parseInt(this.amount);
+
                 // El usuario confirmó la transferencia
                 // Aquí va el código para realizar la transferencia
                 const formData = new URLSearchParams();
