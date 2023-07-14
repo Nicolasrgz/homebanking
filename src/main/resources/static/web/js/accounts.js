@@ -7,7 +7,8 @@ const app = createApp({
             melbaAccounts: [],
             melbaSort: [],
             melbaLoans: [],
-            loansSort: []
+            loansSort: [],
+            typeAccount: "",
         }
     },
     created(){
@@ -45,7 +46,7 @@ const app = createApp({
           });
         },
         createdAccount(){
-          axios.post("/api/clients/current/accounts")
+          axios.post(`/api/clients/current/accounts?type=${this.typeAccount}`)
           .then(res => {
             alert("cuenta creada")
             window.location.href = '/web/pages/accounts.html'

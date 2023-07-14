@@ -12,7 +12,6 @@ public class AccountDTO {
     private String number;
     private LocalDate creationDate;
     private double balance;
-
     private Set<TransactionDTO> transactions;
 
     public AccountDTO() {
@@ -25,7 +24,7 @@ public class AccountDTO {
         this.number = account.getNumber();
         this.transactions = account.getTransactions()
                 .stream()
-                .map(transaction -> new TransactionDTO(transaction))
+                .map(TransactionDTO::new)
                 .collect(Collectors.toSet());
     }
 

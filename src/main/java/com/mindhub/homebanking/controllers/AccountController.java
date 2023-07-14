@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
@@ -46,15 +47,18 @@ public class AccountController {
     }
 
     @PostMapping("/clients/current/accounts")
-    public ResponseEntity<Object> createAccount(Authentication authentication) {
+    public ResponseEntity<Object> createAccount(@RequestParam AccountType type,
+                                                Authentication authentication) {
+
         Client client = clientService.findByEmail(authentication.getName());
+
         if (client.getAccounts().size() <= 2) {
             String accountNumber;
             do {
                 accountNumber = "VIN-" + (long) ((Math.random() * (99999999 - 10000000)) + 10000000);
             } while (accountService.findByNumber(accountNumber) != null);
 
-            Account account = new Account(accountNumber, LocalDate.now(), 0.0);
+            Account account = new Account(accountNumber, LocalDate.now(), 0.0, type);
             client.addAccount(account);
             accountService.saveAccount(account);
 
@@ -64,6 +68,7 @@ public class AccountController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
     @Transactional
     @DeleteMapping("/clients/current/accounts")
     public ResponseEntity<Object> deleteAccount(@RequestParam Long id, Authentication authentication){

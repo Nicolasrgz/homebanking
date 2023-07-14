@@ -31,10 +31,10 @@ private PasswordEncoder passwordEncoder;
 		return args -> {
 			Client melba = new Client("melba", "morel", "melba@mindhub.com",passwordEncoder.encode("superman"));
 			clientRepository.save(melba);
-			Account account1 = new Account("VIN001", LocalDate.now(), 5000.00);
+			Account account1 = new Account("VIN001", LocalDate.now(), 5000.00, AccountType.ORDINARY);
 			melba.addAccount(account1);
 			accountRepository.save(account1);
-			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500.00);
+			Account account2 = new Account("VIN002", LocalDate.now().plusDays(1), 7500.00, AccountType.SAVING);
 			melba.addAccount(account2);
 			accountRepository.save(account2);
 
