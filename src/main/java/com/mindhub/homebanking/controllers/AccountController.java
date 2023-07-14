@@ -8,6 +8,8 @@ import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.TransferService;
+import com.mindhub.homebanking.utils.AccountUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +27,8 @@ public class AccountController {
     private AccountService accountService;
     @Autowired
     private ClientService clientService;
-
     @Autowired
-    private AccountRepository accountRepository;
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private TransferService transferService;
 
     @GetMapping("/accounts")
     public List<AccountDTO> getAccounts() {
@@ -55,7 +54,7 @@ public class AccountController {
         if (client.getAccounts().size() <= 2) {
             String accountNumber;
             do {
-                accountNumber = "VIN-" + (long) ((Math.random() * (99999999 - 10000000)) + 10000000);
+                accountNumber = AccountUtils.getAccountNumber();
             } while (accountService.findByNumber(accountNumber) != null);
 
             Account account = new Account(accountNumber, LocalDate.now(), 0.0, type);
@@ -78,9 +77,9 @@ public class AccountController {
         if(!account.getClient().equals(client)){
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
-        transactionRepository.deleteByAccount(account);
+        transferService.deleteAccount(account);
 
-        accountRepository.delete(account);
+        accountService.deleteAccount(account);
 
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }

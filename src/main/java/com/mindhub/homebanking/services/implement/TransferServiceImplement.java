@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.services.implement;
 
+import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.repositories.TransactionRepository;
 import com.mindhub.homebanking.services.TransferService;
@@ -13,5 +14,10 @@ public class TransferServiceImplement implements TransferService {
     @Override
     public void saveTransfer(Transaction transaction) {
         transactionRepository.save(transaction);
+    }
+
+    @Override
+    public void deleteAccount(Account account) {
+        transactionRepository.deleteByAccount(account);
     }
 }

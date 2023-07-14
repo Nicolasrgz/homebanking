@@ -14,4 +14,5 @@ public interface AccountService {
     Account findByNumber (String number);
 
     void saveAccount(Account account);
+    void deleteAccount (Account account);
 }
