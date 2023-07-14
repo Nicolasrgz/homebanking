@@ -85,18 +85,23 @@ public class LoanController {
         ClientLoan loan1 = new ClientLoan( totalAmount, loan.getPayments());
         loan1.setDebtor(client);
 
-        if (loan.getName().equals("AUTOMOTIVE")){
-            loanService.findByName("AUTOMOTIVE").addClientLoans(loan1);
-            clientLoanService.clientLoanSave(loan1);
+        if(loan.getName().equals(loanService.findByName(loan.getName()).getName())){
+             loanService.findByName(loan.getName()).addClientLoans(loan1);
+             clientLoanService.clientLoanSave(loan1);
         }
-        if (loan.getName().equals("PERSONNEL")){
-            loanService.findByName("PERSONNEL").addClientLoans(loan1);
-            clientLoanService.clientLoanSave(loan1);
-        }
-        if (loan.getName().equals("MORTGAGE")){
-            loanService.findByName("MORTGAGE").addClientLoans(loan1);
-            clientLoanService.clientLoanSave(loan1);
-        }
+
+//        if (loan.getName().equals("AUTOMOTIVE")){
+//            loanService.findByName("AUTOMOTIVE").addClientLoans(loan1);
+//            clientLoanService.clientLoanSave(loan1);
+//        }
+//        if (loan.getName().equals("PERSONNEL")){
+//            loanService.findByName("PERSONNEL").addClientLoans(loan1);
+//            clientLoanService.clientLoanSave(loan1);
+//        }
+//        if (loan.getName().equals("MORTGAGE")){
+//            loanService.findByName("MORTGAGE").addClientLoans(loan1);
+//            clientLoanService.clientLoanSave(loan1);
+//        }
 
         Transaction transactionCredit = new Transaction(TransactionType.CREDIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now());
         accountDestiny.addTransaction(transactionCredit);
@@ -109,4 +114,32 @@ public class LoanController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
+    @PostMapping("/loans/created")
+    public ResponseEntity<Object> createLoanAdmin(Authentication authentication,
+                                                  Loan loan,
+                                                  @RequestParam String name,
+                                                  @RequestParam Double maxAmount,
+                                                  @RequestParam List<Integer> payments){
+
+        Client client = clientService.findByEmail(authentication.getName());
+
+        if(name.isBlank() || maxAmount.isNaN() || payments.isEmpty()){
+            return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
+        }
+
+        if(maxAmount <= 0){
+            return new ResponseEntity<>("the amount has to be greater than 0", HttpStatus.FORBIDDEN);
+        }
+
+        if (loanService.findByName(name) != null){
+            return new ResponseEntity<>("a loan with the same name already exists", HttpStatus.FORBIDDEN);
+        }
+
+        Loan loanCreated = new Loan(name, maxAmount, payments);
+        loanService.loanSave(loanCreated);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
 }
