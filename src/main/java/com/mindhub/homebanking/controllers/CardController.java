@@ -13,6 +13,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -58,19 +59,29 @@ public class CardController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/clients/current/card")
-    public ResponseEntity<Object> deleteCard(@RequestParam Long id, Authentication authentication){
-        Client client = clientService.findByEmail(authentication.getName());
-        Card card = cardService.findById(id);
-
-        if (!card.getClient().equals(client)){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//    @DeleteMapping("/clients/current/card")
+//    public ResponseEntity<Object> deleteCard(@RequestParam Long id, Authentication authentication){
+//        Client client = clientService.findByEmail(authentication.getName());
+//        Card card = cardService.findById(id);
+//
+//        if (!card.getClient().equals(client)){
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
+//
+//        cardRepository.delete(card);
+//
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
+        @PostMapping("/{Id}/deactivate")
+        public ResponseEntity<?> deactivateCard(@PathVariable Long Id) {
+            Optional<Card> cardOpt = cardRepository.findById(Id);
+            if (cardOpt.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            Card card = cardOpt.get();
+            card.setIsActive(true);
+            cardRepository.save(card);
+            return ResponseEntity.ok().build();
         }
-
-        cardRepository.delete(card);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-
 }
 

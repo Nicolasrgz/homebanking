@@ -68,20 +68,25 @@ public class AccountController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @Transactional
-    @DeleteMapping("/clients/current/accounts")
-    public ResponseEntity<Object> deleteAccount(@RequestParam Long id, Authentication authentication){
-        Client client = clientService.findByEmail(authentication.getName());
-        Account account = accountService.findById(id);
-
-        if(!account.getClient().equals(client)){
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
-        transferService.deleteAccount(account);
-
-        accountService.deleteAccount(account);
-
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
+//    @Transactional
+//    @DeleteMapping("/clients/current/accounts")
+//    public ResponseEntity<Object> deleteAccount(@RequestParam Long id, Authentication authentication){
+//        Client client = clientService.findByEmail(authentication.getName());
+//        Account account = accountService.findById(id);
+//
+//        if(!account.getClient().equals(client)){
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
+//
+//        if (account.getBalance() > 0){
+//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
+//        }
+//
+//        transferService.deleteAccount(account);
+//
+//        accountService.deleteAccount(account);
+//
+//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+//    }
 
 }

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="/web/style/style.css">
-    <link rel="shortcut icon" href="/web/img/imagenbank.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/web/img/logo.jpeg" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital@1&display=swap" rel="stylesheet">
@@ -77,6 +77,7 @@
       <div class="d-flex container-gap">
         <div class="card-accounts" v-for="user of melbaSort">
           <div class="container-accounts-data color-white text-center" >
+            <!-- <h4>Account n°: {{user.number}}</h4> -->
             <h4>Account n°: {{user.number}}</h4>
             <h4>Creation date: <br>{{user.creationDate}}</br></h4>
             <h4>Balance: <br><format-currency :value="user.balance"></format-currency></br></h4>
@@ -88,33 +89,34 @@
             </a>
             <div>
               <button class="button-ui " type="submit" @click.prevent="deleteAccount($event)" v-bind:data-id="user.id" value="delete">
-                Apply
+                Delete
               </button>
             </div>
           </div>
 
         </div>
       </div>
-
-      <h2 class="animate__animated animate__zoomInLeft">LOANS</h2>
-      <div class="d-flex justify-content-center container-gap flex-wrap m-5">
-        <div class="card-accounts" v-for="user of loansSort">
-          <div class="container-accounts-data color-white text-center" >
-            <h4>Payments: <br>{{user.payments}}</h4>
-            <h4>Loan: <br>{{user.loanName}}</h4>
-            <h4>Amount: <br><format-currency  :value="user.amount"></format-currency></br></h4>
-          </div>
-        </div>
+</div>
+<div class="user-main" v-cloak>
+  <h2 class="animate__animated animate__zoomInLeft">LOANS</h2>
+  <div class="d-flex justify-content-center container-gap flex-wrap m-5">
+    <div class="card-accounts" v-for="user of loansSort">
+      <div class="container-accounts-data color-white text-center" >
+        <h4>Payments: <br>{{user.payments}}</h4>
+        <h4>Loan: <br>{{user.loanName}}</h4>
+        <h4>Amount: <br><format-currency  :value="user.amount"></format-currency></br></h4>
       </div>
-      <div class="h1 text-center" v-if="loansSort.length == 0">
-        <h3>you do not have any loan</h3>
+    </div>
+  </div>
+  <div class="h1 text-center" v-if="loansSort.length == 0">
+    <h3>you do not have any loan</h3>
 
-    </div>
-    <div class="m-5">
-      <button class="button-ui " @click="redirection()">
-        Apply
-      </button>
-    </div>
+</div>
+<div class="m-2">
+  <button class="button-ui " @click="redirection()">
+    Apply
+  </button>
+</div>
 </div>
 </main>
 <footer class="bg-body-tertiary" data-bs-theme="dark">
