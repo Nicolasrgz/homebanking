@@ -56,15 +56,15 @@
     </nav>
 </header>
 <main >
-<div v-cloak>
-  <h2 class="animate__animated animate__zoomInLeft text-center">your Cards</h2>
+<div v-cloak class="user-main">
+  <h2 class="animate__animated animate__zoomInLeft text-center">YOUR CARDS</h2>
   <div v-if="this.card.length === 0" class="text-center">
     <h2>You don't own cards, create one!</h2>
   </div>
 <div class="container-up d-flex justify-content-evenly">
   <div class="debit-card">
     <div v-if="this.card.length >= 1">
-      <h2 class="text-center">debit</h2>
+      <h2 class="text-center">DEBIT</h2>
     </div>
     <div class="cont-card-c" v-for="user of card" >
       <div class="flip-card" v-if="user.type == 'DEBIT' && user.active != true"  >
@@ -136,15 +136,15 @@
             </div>
         </div>
     </div>
-    <div v-if="user.type == 'DEBIT'">
-      <input class="submit" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">
+    <div v-if="user.type == 'DEBIT'" class="d-flex justify-content-center align-center m-3">
+      <input class="button-ui" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">
     </div>
     </div>
     
   </div>
   <div class="credit-card">
     <div v-if="this.card.length >= 1">
-      <h2 class="text-center animate__animated animate__zoomInLeft">credit</h2>
+      <h2 class="text-center animate__animated animate__zoomInLeft">CREDIT</h2>
     </div>
     <div class="cont-card-c"  v-for="user of card">
       <div class="flip-card" v-if="user.type == 'CREDIT'">
@@ -215,8 +215,8 @@
             </div>
         </div>
     </div>
-    <div v-if="user.type == 'CREDIT'">
-      <input class="submit" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">
+    <div v-if="user.type == 'CREDIT'" class="d-flex justify-content-center align-center m-3">
+      <input class="button-ui" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">
     </div>
     </div>
   </div>

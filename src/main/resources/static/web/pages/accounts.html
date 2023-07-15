@@ -77,7 +77,7 @@
       <div class="d-flex container-gap">
         <div class="card-accounts" v-for="user of melbaSort">
           <div class="container-accounts-data color-white text-center" >
-            <!-- <h4>Account n°: {{user.number}}</h4> -->
+            <h4>account type: {{user.accountType}}</h4>
             <h4>Account n°: {{user.number}}</h4>
             <h4>Creation date: <br>{{user.creationDate}}</br></h4>
             <h4>Balance: <br><format-currency :value="user.balance"></format-currency></br></h4>
@@ -100,7 +100,7 @@
 <div class="user-main" v-cloak>
   <h2 class="animate__animated animate__zoomInLeft">LOANS</h2>
   <div class="d-flex justify-content-center container-gap flex-wrap m-5">
-    <div class="card-accounts" v-for="user of loansSort">
+    <div class="card-accounts-l" v-for="user of loansSort">
       <div class="container-accounts-data color-white text-center" >
         <h4>Payments: <br>{{user.payments}}</h4>
         <h4>Loan: <br>{{user.loanName}}</h4>
