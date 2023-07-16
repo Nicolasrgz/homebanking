@@ -14,11 +14,6 @@
   <header class="bg-body-tertiary" data-bs-theme="dark">
     <nav>
       <div class="contain-btn-a d-flex justify-content-evenly ">
-        <a class="btn-c m-2" href="/web/index.html">
-          <span class="box">
-              Home
-          </span>
-        </a class="btn-c">
         <a class="btn-c m-2" href="/web/pages/cards.html">
           <span class="box">
              Cards
@@ -53,61 +48,61 @@
 
 <div class="index-form index-section user-main">
 
-    <div class="div-loans">
-        <form v-cloak>
-          <div class="">
-
-            <div class="d-flex flex-column textInputWrapper">
-              <label for="">
-                select the loan
-                <select name="" id="" v-model="selectType" class="textInput">
-                  <option v-for="element in loans" :value="element.name">
-                    {{ element.name }}
-                  </option>
-                </select>
-              </label>
-            </div>
-          
-            <div v-if="selectType">
-              <div class="d-flex flex-column textInputWrapper">
-                <label for="">
-                  select the payments
-                  <select name="" id="" v-model="selectPayments" class="textInput">
-                    <option v-for="element in selectedLoan.payments" :value="element">
-                      {{ element }}
-                    </option>
-                  </select>
-                </label>
-              </div>
-            </div>
-
-          </div>
-        
-              <div class="d-flex flex-column textInputWrapper">
-                <label for="">
-                  select the account
-                  <select  name="" id="" v-model="selectAccount" class="textInput">
-                    <option v-for="element in clientAccounts" :value="element.number">{{element.number}}</option>
-                  </select>
-                </label>
-              <label for="number">
-                select the amount
-                  <input type="text" name="" id="number" class="textInput">
-              </label>
-              </div>
-
-              <div class="d-flex justify-content-center align-center m-5">
-                <button class="button-ui" @click.prevent="loanCreated()">
-                  Apply
-                </button>
-              </div>
-        </form>
-    </div>
-    
-    <div class="m-5 form-img-b d-flex">
+    <div class="div-loans d-flex">   
       <div class="m-5">
         <img class="img-form" src="/web/img/prestamos.jpeg" alt="">
       </div>
+      <div class="g-5">
+
+        <div class="d-flex flex-column m-4">
+          <label for="">
+            select the loan
+          </label>
+          <select name="" id="" v-model="selectType" class="input-3">
+            <option v-for="element in loans" :value="element.name">
+              {{ element.name }}
+            </option>
+          </select>
+        </div>
+      
+        <div v-if="selectType">
+          <div class="d-flex flex-column m-4">
+            <label for="">
+              select the payments
+            </label>
+            <select name="" id="" v-model="selectPayments" class="input-3">
+              <option v-for="element in selectedLoan.payments" :value="element">
+                {{ element }}
+              </option>
+            </select>
+          </div>
+        </div>
+    
+          <div class="d-flex flex-column m-4">
+            <label for="">
+              select the account
+            </label>
+            <select  name="" id="" v-model="selectAccount" class="input-3">
+              <option v-for="element in clientAccounts" :value="element.number">{{element.number}}</option>
+            </select>
+          </div>
+
+          <div class="d-flex flex-column m-4">
+            <label for="number">
+              select the amount
+            </label>
+            <input type="text" name="" id="number" class="input-3">
+          </div>
+
+          <div class="d-flex justify-content-center align-center">
+            <button class="button-ui-l" @click.prevent="loanCreated()">
+              Apply
+            </button>
+          </div>
+      </div>
+    </div>
+    
+    <!-- <div class="m-5 form-img-b d-flex">
       <div class="info m-5">
         <h2>How to request a loan</h2>
           <ol>
@@ -118,7 +113,7 @@
             <li>Verify that the requested amount does not exceed the loan limit.</li>
           </ol>
       </div>
-  </div>
+  </div> -->
 </div>
 
 </main>

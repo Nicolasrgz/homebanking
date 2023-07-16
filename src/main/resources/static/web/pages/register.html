@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <link rel="stylesheet" href="sweetalert2.min.css">
-    <link rel="stylesheet" href="../web/style/style.css">
+    <link rel="stylesheet" href="/web/style/style.css">
     <link rel="shortcut icon" href="../web/img/logo.jpeg" type="image/x-icon">
     <title>Clover Bank</title>
 </head>
@@ -15,7 +15,7 @@
   <header class="bg-body-tertiary" data-bs-theme="dark">
     <nav>
       <div class="contain-btn-a d-flex justify-content-evenly ">
-        <a class="btn-c m-2" href="#">
+        <a class="btn-c m-2" href="/web/index.html">
           <span class="box">
               Home
           </span>
@@ -30,11 +30,6 @@
               About us
           </span>
         </a>
-        <a class="btn-c m-2" href="/web/pages/register.html">
-          <span class="box">
-              Register
-          </span>
-        </a>
         <div class="input-group d-flex justify-content-end ">
           <form  @submit.prevent="submit">
           <label for="email"><input v-model="email" type="email" class="button-ui-i" id="Email" name="Email" placeholder="user@..." autocomplete="off"></label>
@@ -47,50 +42,50 @@
     </nav>
 </header>
 
-<div id="carouselExampleFade" class="carousel slide carousel-fade">
-  <div class="carousel-inner">
-    <div class="carousel-item active ">
-      <img src="/web/img/pexels-fox-1595385.jpg" class="d-block w-100 img-carrousel" alt="...">
-    </div>
-    <div class="carousel-item ">
-      <img src="/web/img/pexels-mikael-blomkvist-6476783.jpg" class="d-block w-100 img-carrousel" alt="...">
-    </div>
-    <div class="carousel-item">
-      <img src="/web/img/pexels-mikhail-nilov-8297031.jpg" class="d-block w-100 img-carrousel" alt="...">
+<main >
+  <div class="user-main">
+    <div class="container-logins d-flex justify-content-center flex-column ">
+      <div class="h2-forms">
+        <h2 class="text-center m-5">register and discover a world of possibilities</h2>
+      </div>
+    
+      <div class="index-form index-section">
+        <div class="m-5 form-img-b">
+          <img class="img-form" src="/web/img/_d9885811-18bf-4141-97d5-cf52603bffdc.jpg" alt="">
+        </div>
+       <div>
+        <form class="form m-2" @submit.prevent="register">
+          <p class="title">Register</p>
+          <p class="message">Sign up now and get full access to our app.</p>
+              
+              <label for="name">
+                  <input id="name" required="" v-model="firstNameR"  placeholder="" type="text" class="input">
+                  <span>Name</span>
+              </label>
+      
+              <label for="lastname">
+                  <input id="lastname" required="" v-model="lastNameR"  placeholder="" type="text" class="input">
+                  <span>last name</span>
+              </label>
+               
+          <label for="email">
+              <input id="email" required=""  v-model="emailR" placeholder="" type="email" class="input">
+              <span>Email</span>
+          </label> 
+              
+          <label for="password2">
+              <input id="password2" required="" v-model="passwordR" placeholder="" type="password" class="input">
+              <span>Password</span>
+          </label>
+          <button class="submit" type="submit"  @click.prevent="register">Submit</button>
+      </form>
+       </div>
+    </div> 
+    
+    
+    
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
-  </button>
-</div>
-
-<main >
-  <section >
-    <div class="d-flex m-3 index-section">
-      <div class="m-5 d-flex justify-content-center align-center">
-        <img class="img-intro" src="/web/img/pexels-olia-danilevich-8145352.jpg" alt="">
-      </div>
-      <div class="m-5">
-        <p class="color-white p-t">At our bank, we pride ourselves on offering exceptional service and high-quality financial products. Our core values ​​include integrity, transparency, and commitment to our clients. We believe that these values ​​are essential to build lasting and trusting relationships with our clients. By choosing our bank, you can be sure that we will always put your interests first.</p>
-      </div>
-    </div>
-  </section>
-  <section >
-    <div class="d-flex m-3 index-section">
-      <div class="m-5 d-flex justify-content-center align-center ">
-        <img class="img-intro" src="/web/img/pexels-photo-730547.jpeg" alt="">
-      </div>
-      <div class="m-5">
-        <p class="color-white p-t">Are you looking for a reliable and safe bank for your financial needs? Do not look any further! At our bank, we offer a wide variety of accounts and financial products designed to meet your needs. Whether you're looking for a savings account, a checking account, or a credit card, we've got you covered. Open an account with us today and start enjoying the benefits of being part of our banking family!</p>
-      </div>
-    </div>
-  </section>
-
 </main>
 </div>
 <footer class="bg-body-tertiary" data-bs-theme="dark">
