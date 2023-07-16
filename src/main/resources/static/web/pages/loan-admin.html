@@ -51,48 +51,20 @@
             <div class="d-flex flex-column textInputWrapper" >
               <label for="">
                 select the loan
-                <select name="" id="" v-model="selectType" class="textInput">
-                  <option v-for="element in loans" :value="element.name">
-                    {{ element.name }}
-                  </option>
-                </select>
+                <input type="text" class="textInput">
               </label>
             </div>
           
-            <div v-if="selectType" >
-              <div v-if="selectType == 'MORTGAGE'" class="d-flex flex-column textInputWrapper">
+            <div  >
+              <div class="d-flex flex-column textInputWrapper">
                 <label for="">
                   select the payments
-                  <select  name="" id="" v-model="selectPayments" class="textInput">
-                    <option  v-for="element in loansPaymentsMortgage" :value="element">{{element}}</option>
-                  </select>
-                </label>
-              </div>
-              <div v-if="selectType == 'PERSONNEL'" class="d-flex flex-column textInputWrapper">
-                <label for="">
-                  select the payments
-                  <select  name="" id="" v-model="selectPayments" class="textInput">
-                    <option v-for="element in loansPaymentsPersonnel" :value="element">{{element}}</option>
-                  </select>
-                </label>
-              </div>
-              <div v-if="selectType == 'AUTOMOTIVE'" class="d-flex flex-column textInputWrapper">
-                <label for="">
-                  select the payments
-                  <select  name="" id="" v-model="selectPayments" class="textInput">
-                    <option v-for="element in loansPaymentsAutomotive" :value="element">{{element}}</option>
-                  </select>
+                  <input type="text" class="textInput">
                 </label>
               </div>
             </div>
 
               <div class="d-flex flex-column textInputWrapper">
-                <label for="">
-                  select the account
-                  <select  name="" id="" v-model="selectAccount" class="textInput">
-                    <option v-for="element in clientAccounts" :value="element.number">{{element.number}}</option>
-                  </select>
-                </label>
               <label for="number">
                 select the amount
                   <input type="text" name="" id="number" class="textInput">
