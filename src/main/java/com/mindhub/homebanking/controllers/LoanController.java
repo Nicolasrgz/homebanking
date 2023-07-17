@@ -81,8 +81,7 @@ public class LoanController {
         }
 
         //le sumo el 20% en intereses
-        double percentage = (long) ((Math.random() * (99 - 10)) + 10);
-        double totalAmount = loan.getAmount() + (loan.getAmount() * percentage);
+        double totalAmount = loan.getAmount() + (loan.getAmount() * 0.20);
         ClientLoan loan1 = new ClientLoan( totalAmount, loan.getPayments());
         loan1.setDebtor(client);
 
