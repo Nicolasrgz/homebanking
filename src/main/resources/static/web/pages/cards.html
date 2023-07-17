@@ -131,6 +131,9 @@
             </div>
         </div>
     </div>
+    <div v-if="user.type == 'DEBIT' && new Date() > new Date(user.fromDate)" class="d-flex justify-content-center align-center m-3 text-primary">
+      <p>su tarjeta se encuentra expirada!</p>
+    </div>
     <div v-if="user.type == 'DEBIT'" class="d-flex justify-content-center align-center m-3">
       <input class="button-ui" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">
     </div>
@@ -208,7 +211,11 @@
                   <p class="code">{{user.cvv}}</p>
                 </div>
             </div>
+            
         </div>
+    </div>
+    <div v-if="user.type == 'CREDIT' && new Date() > new Date(user.fromDate)" class="d-flex justify-content-center align-center m-3 text-primary">
+      <p>su tarjeta se encuentra expirada!</p>
     </div>
     <div v-if="user.type == 'CREDIT'" class="d-flex justify-content-center align-center m-3">
       <input class="button-ui" type="submit" @click.prevent="deleteCard($event)" v-bind:data-id="user.id" value="delete">

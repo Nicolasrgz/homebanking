@@ -116,13 +116,12 @@ public class LoanController {
     }
 
     @PostMapping("/loans/created")
-    public ResponseEntity<Object> createLoanAdmin(Authentication authentication,
-                                                  Loan loan,
+    public ResponseEntity<Object> createLoanAdmin(
                                                   @RequestParam String name,
                                                   @RequestParam Double maxAmount,
                                                   @RequestParam List<Integer> payments){
 
-        Client client = clientService.findByEmail(authentication.getName());
+//        Client client = clientService.findByEmail(authentication.getName());
 
         if(name.isBlank() || maxAmount.isNaN() || payments.isEmpty()){
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);

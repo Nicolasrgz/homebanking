@@ -9,7 +9,7 @@ const app = createApp({
         }
     },
     created(){
-    this.user()
+        this.user()
     },
     methods:{
         user(){
@@ -39,20 +39,6 @@ const app = createApp({
               alert('Error al iniciar sesión');
             });
           },
-          deleteCard(event){
-            // Obtener el ID de la tarjeta desde el atributo data-id del botón
-            let cardId = event.target.getAttribute('data-id');
-        
-            axios.delete("/api/clients/current/card?id=" + cardId)
-            .then(res =>{
-              window.location.href = "/web/pages/cards.html"
-            })
-            .catch(error => {
-              // Inicio de sesión fallido
-              // Mostrar mensaje de error al usuario
-              alert('error');
-            });
-          }
     },
 })
 app.mount("#app")
