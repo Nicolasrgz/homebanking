@@ -8,7 +8,6 @@ const app = createApp({
             identificador: '',
             accountsP: [],
             accountSort: [],
-            
         }
     },
     created() {
@@ -25,7 +24,7 @@ const app = createApp({
               this.accountsP = response.data;
               this.account = this.accountsP.accounts;
               this.balance = this.accountsP.balance
-              console.log(this.balance)
+              console.log(this.accountsP)
             })
             .catch((err) => {
               console.error(err);
@@ -34,13 +33,9 @@ const app = createApp({
         LogOut(){
           axios.post('/api/logout')
           .then(response => {
-            // Inicio de sesión exitoso
-            // Redireccionar a accounts.html
             window.location.href = '/web/index.html';
           })
           .catch(error => {
-            // Inicio de sesión fallido
-            // Mostrar mensaje de error al usuario
             alert('Error al iniciar sesión');
           });
         },
@@ -48,7 +43,7 @@ const app = createApp({
    computed: {
     sortedAccount() {
         return this.account.slice().sort((a, b) => b.id - a.id);
-    }
+    },
 },
 
 })

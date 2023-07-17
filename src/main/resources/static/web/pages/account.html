@@ -14,11 +14,6 @@
   <header class="bg-body-tertiary" data-bs-theme="dark">
     <nav>
       <div class="contain-btn-a d-flex justify-content-evenly ">
-        <a class="btn-c m-2" href="/web/index.html">
-          <span class="box">
-              Home
-          </span>
-        </a class="btn-c">
         <a class="btn-c m-2" href="/web/pages/accounts.html">
           <span class="box">
              Cards
@@ -74,8 +69,8 @@
               <td v-if="element.type == 'DEBIT'"><p class="credit">${{element.amount}}</p></td>
               <td v-if="element.type == 'CREDIT'"><p class="debit">$-{{element.amount}}</p></td>
               <td>{{element.date.slice(2,10)}}-{{ new Date(element.date).toLocaleString([], { hour: '2-digit', minute: '2-digit' }) }}</td>
-              <td v-if="element.type == 'DEBIT'"><p>${{this.balancee = element.amount + this.balancee}}</p></td>
-              <td v-if="element.type == 'CREDIT'"><p>$-{{this.balancee = element.amount - this.balancee}}</p></td>
+              <td v-if="element.type == 'DEBIT'"><p>${{(this.balance + element.amount) - this.balance}}</p></td>
+              <td v-if="element.type == 'CREDIT'"><p>${{this.balance - element.amount}}</p></td>
           </tr>
           
           </tbody>

@@ -39,6 +39,17 @@ const app = createApp({
               alert('Error al iniciar sesión');
             });
           },
+          deleteCard(cardId) {
+            axios.patch(`/api/card/${cardId}/deactivate`)
+              .then(res => {
+                alert("logrado")
+                window.location.href = "/web/pages/cards.html"
+              })
+              .catch(err => {
+                alert("error")
+              })
+          }
+          
     },
 })
 app.mount("#app")

@@ -18,6 +18,7 @@ public class Loan {
     private long id;
     private String name;
     private double maxAmount;
+    private double percentage;
     @ElementCollection
     private List<Integer> payments;
 
@@ -71,8 +72,10 @@ public class Loan {
     public List<Client> getClients(){
         return clientLoans.stream().map(ClientLoan::getDebtor).collect(Collectors.toList());
     }
+
     public void addClientLoans(ClientLoan clientLoan){
         clientLoan.setLoan(this);
         clientLoans.add(clientLoan);
     }
+
 }
