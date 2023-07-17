@@ -116,12 +116,16 @@ public class LoanController {
     }
 
     @PostMapping("/loans/created")
-    public ResponseEntity<Object> createLoanAdmin(
+    public ResponseEntity<Object> createLoanAdmin(Authentication authentication,
                                                   @RequestParam String name,
                                                   @RequestParam Double maxAmount,
                                                   @RequestParam List<Integer> payments){
 
-//        Client client = clientService.findByEmail(authentication.getName());
+        Client client = clientService.findByEmail(authentication.getName());
+
+        if (!client.getEmail().equals("admin@gmail.com")){
+            return new ResponseEntity<>("You are not allowed access to this site", HttpStatus.UNAUTHORIZED);
+        }
 
         if(name.isBlank() || maxAmount.isNaN() || payments.isEmpty()){
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);

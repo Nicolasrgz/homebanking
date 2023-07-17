@@ -107,8 +107,8 @@ private PasswordEncoder passwordEncoder;
 //			//melba.addCards(card3);
 //			//cardRepository.save(card3);
 //
-//			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("admin-code"));
-//			clientRepository.save(admin);
+			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("admin-code"));
+			clientRepository.save(admin);
 		};
 	}
 }

@@ -72,16 +72,17 @@ public class CardController {
 //
 //        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 //    }
-        @PostMapping("/{Id}/deactivate")
-        public ResponseEntity<?> deactivateCard(@PathVariable Long Id) {
+        @PostMapping("/card/{Id}/deactivate")
+        public ResponseEntity<Object> deactivateCard(@PathVariable Long Id) {
             Optional<Card> cardOpt = cardRepository.findById(Id);
             if (cardOpt.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
             Card card = cardOpt.get();
-            card.setIsActive(true);
+            card.setIsActive(false);
             cardRepository.save(card);
             return ResponseEntity.ok().build();
         }
+
 }
 

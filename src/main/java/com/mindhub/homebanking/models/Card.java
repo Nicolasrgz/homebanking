@@ -109,7 +109,7 @@ public class Card {
     }
 
     public void setIsActive(boolean isActive) {
-        this.isActive = false;
+        this.isActive = isActive;
     }
 
 }

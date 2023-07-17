@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
+import com.mindhub.homebanking.dtos.CardApplicationDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -87,6 +85,30 @@ public class TransactionController {
 
         accountService.saveAccount(accountOrigin);
         accountService.saveAccount(accountDestiny);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Transactional
+    @PostMapping("/transaction/app")
+    public ResponseEntity<Object> creationPayments(@RequestBody CardApplicationDTO cardDTO,
+                                                   Account account,
+                                                   Authentication authentication){
+
+        Client client = clientService.findByEmail(authentication.getName());
+
+        if(client.getEmail() != null){
+            return new ResponseEntity<>("One or both account numbers do not exist in our database", HttpStatus.UNAUTHORIZED);
+        }
+
+        if(cardDTO.getCvv() > 0 || cardDTO.getAmount().isNaN() || cardDTO.getDescription().isBlank() || cardDTO.getNumber().isBlank()){
+            return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
+        }
+
+        if(cardDTO.getAmount() > account.getBalance()){
+            return new ResponseEntity<>("usted no posee fondos suficientes", HttpStatus.FORBIDDEN);
+        }
+
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

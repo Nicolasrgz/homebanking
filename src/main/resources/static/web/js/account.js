@@ -8,7 +8,7 @@ const app = createApp({
             identificador: '',
             accountsP: [],
             accountSort: [],
-            loading: true
+            
         }
     },
     created() {
@@ -49,7 +49,7 @@ const app = createApp({
     sortedAccount() {
         return this.account.slice().sort((a, b) => b.id - a.id);
     }
-}
+},
 
 })
 

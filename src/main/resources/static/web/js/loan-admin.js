@@ -42,6 +42,7 @@ const app = createApp({
             })
         .then(res => {
             alert("prestamo creado")
+            window.location.href = "/web/pages/loan-admin.html"
         })
         .catch(err => alert("error"))
         }
