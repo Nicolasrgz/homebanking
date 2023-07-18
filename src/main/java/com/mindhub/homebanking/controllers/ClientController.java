@@ -46,7 +46,7 @@ public class ClientController {
             @RequestParam String password) {
 
         if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password.isBlank()) {
-            return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("fields are missing", HttpStatus.FORBIDDEN);
         }
 
         if (clientService.findByEmail(email) != null) {
@@ -66,7 +66,7 @@ public class ClientController {
         client.addAccount(account);
         accountService.saveAccount(account);
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>( "the account was created successfully",HttpStatus.CREATED);
     }
 
 

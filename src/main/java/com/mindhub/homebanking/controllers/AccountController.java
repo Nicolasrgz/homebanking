@@ -3,6 +3,7 @@ package com.mindhub.homebanking.controllers;
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.AccountType;
+import com.mindhub.homebanking.models.Card;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.repositories.TransactionRepository;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -35,11 +37,29 @@ public class AccountController {
         return accountService.getAccounts();
     }
 
+    @PatchMapping("/accounts/{Id}/deactivate")
+    public ResponseEntity<Object> deactivateCard(@PathVariable Long Id) {
+        Optional<Account> accountOpt = Optional.ofNullable(accountService.findById(Id));
+        if (accountOpt.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        Account account = accountOpt.get();
+        account.setActive(true);
+        accountService.saveAccount(account);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/accounts/{id}")
-    public ResponseEntity<AccountDTO> getAccount(@PathVariable Long id, Authentication authentication) {
+    public ResponseEntity<Object> getAccount(@PathVariable Long id, Authentication authentication, Account accounts) {
+
         Client client = clientService.findByEmail(authentication.getName());
         Account account = accountService.findById(id);
-        if (account == null || !account.getClient().equals(client)) {
+
+        if(account.isActive() != accounts.isActive()){
+            return new ResponseEntity<>("the page you are trying to access does not exist", HttpStatus.FORBIDDEN);
+        }
+
+        if (!account.getClient().equals(client)) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
         return ResponseEntity.ok(new AccountDTO(account));

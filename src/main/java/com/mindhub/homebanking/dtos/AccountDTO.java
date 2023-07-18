@@ -15,6 +15,7 @@ public class AccountDTO {
     private double balance;
     private Set<TransactionDTO> transactions;
     private AccountType accountType;
+    private boolean isActive;
     public AccountDTO() {
     }
 
@@ -28,6 +29,7 @@ public class AccountDTO {
                 .map(TransactionDTO::new)
                 .collect(Collectors.toSet());
         this.accountType = account.getAccountType();
+        this.isActive = account.isActive();
     }
 
     public Set<TransactionDTO> getAccounts() {
@@ -37,6 +39,7 @@ public class AccountDTO {
     public long getId() {
         return Id;
     }
+
     public String getNumber() {
         return number;
     }
@@ -46,7 +49,9 @@ public class AccountDTO {
     public double getBalance() {
         return balance;
     }
-
+    public boolean isActive() {
+        return isActive;
+    }
     public AccountType getAccountType() {
         return accountType;
     }

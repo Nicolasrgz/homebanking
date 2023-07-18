@@ -46,7 +46,6 @@ public class TransactionController {
         Account accountOrigin = accountService.findByNumber(numberAccountOrigin);//cuenta origen
         Account accountDestiny = accountService.findByNumber(numberAccountDestiny);//cuenta destino
 
-
         //Verifies that the account number of both origin and destination exists in our database
         if (accountService.findByNumber(numberAccountOrigin) == null || accountService.findByNumber(numberAccountDestiny) == null) {
             return new ResponseEntity<>("One or both account numbers do not exist in our database", HttpStatus.FORBIDDEN);
@@ -106,7 +105,7 @@ public class TransactionController {
         }
 
         if(cardDTO.getAmount() > account.getBalance()){
-            return new ResponseEntity<>("usted no posee fondos suficientes", HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>("you do not have sufficient funds", HttpStatus.FORBIDDEN);
         }
 
 
