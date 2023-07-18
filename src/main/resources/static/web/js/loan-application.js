@@ -78,6 +78,15 @@ const app = createApp({
           console.error(err);
         });
     },
+    LogOut(){
+      axios.post('/api/logout')
+      .then(response => {
+        window.location.href = '/web/index.html';
+      })
+      .catch(error => {
+        alert('Error al iniciar sesión');
+      });
+    },
   },
 });
 

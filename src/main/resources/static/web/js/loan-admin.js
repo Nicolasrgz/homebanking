@@ -45,7 +45,16 @@ const app = createApp({
             window.location.href = "/web/pages/loan-admin.html"
         })
         .catch(err => alert("error"))
-        }
+        },
+        LogOut(){
+            axios.post('/api/logout')
+            .then(response => {
+              window.location.href = '/web/index.html';
+            })
+            .catch(error => {
+              alert('Error al iniciar sesión');
+            });
+          },
     },
     
 })

@@ -59,19 +59,6 @@ public class CardController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-//    @DeleteMapping("/clients/current/card")
-//    public ResponseEntity<Object> deleteCard(@RequestParam Long id, Authentication authentication){
-//        Client client = clientService.findByEmail(authentication.getName());
-//        Card card = cardService.findById(id);
-//
-//        if (!card.getClient().equals(client)){
-//            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-//        }
-//
-//        cardRepository.delete(card);
-//
-//        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//    }
         @PatchMapping("/card/{Id}/deactivate")
         public ResponseEntity<Object> deactivateCard(@PathVariable Long Id) {
             Optional<Card> cardOpt = cardRepository.findById(Id);

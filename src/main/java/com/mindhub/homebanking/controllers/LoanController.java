@@ -80,8 +80,8 @@ public class LoanController {
             return new ResponseEntity<>("the installment you are trying to select does not belong to the loan", HttpStatus.FORBIDDEN);
         }
 
-        //le sumo el 20% en intereses
-        double totalAmount = loan.getAmount() + (loan.getAmount() * 0.20);
+
+        double totalAmount = loan.getAmount() + (loan.getAmount() * loanType.getPercentage());
         ClientLoan loan1 = new ClientLoan( totalAmount, loan.getPayments());
         loan1.setDebtor(client);
 
@@ -89,19 +89,6 @@ public class LoanController {
              loanService.findByName(loan.getName()).addClientLoans(loan1);
              clientLoanService.clientLoanSave(loan1);
         }
-
-//        if (loan.getName().equals("AUTOMOTIVE")){
-//            loanService.findByName("AUTOMOTIVE").addClientLoans(loan1);
-//            clientLoanService.clientLoanSave(loan1);
-//        }
-//        if (loan.getName().equals("PERSONNEL")){
-//            loanService.findByName("PERSONNEL").addClientLoans(loan1);
-//            clientLoanService.clientLoanSave(loan1);
-//        }
-//        if (loan.getName().equals("MORTGAGE")){
-//            loanService.findByName("MORTGAGE").addClientLoans(loan1);
-//            clientLoanService.clientLoanSave(loan1);
-//        }
 
         Transaction transactionCredit = new Transaction(TransactionType.CREDIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now());
         accountDestiny.addTransaction(transactionCredit);
@@ -139,7 +126,8 @@ public class LoanController {
             return new ResponseEntity<>("a loan with the same name already exists", HttpStatus.FORBIDDEN);
         }
 
-        Loan loanCreated = new Loan(name, maxAmount, payments);
+        double percentage = ((Math.random() * (0.9 - 0.1)) + 0.1);
+        Loan loanCreated = new Loan(name, maxAmount, payments, percentage);
         loanService.loanSave(loanCreated);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
