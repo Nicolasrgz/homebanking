@@ -1,6 +1,7 @@
 package com.mindhub.homebanking.models;
 import com.mindhub.homebanking.dtos.ClientLoanDTO;
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
+import com.sun.istack.NotNull;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -19,9 +20,8 @@ public class Client {
     private long id;
     private String firstName;
     private String lastName;
-    private String email;
     private String password;
-
+    private String email;
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
 
@@ -107,6 +107,5 @@ public class Client {
         card.setClient(this);
         cards.add(card);
     }
-
 
 }

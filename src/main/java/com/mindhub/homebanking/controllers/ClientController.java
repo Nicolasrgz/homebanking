@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequestMapping("/api")
@@ -27,6 +27,7 @@ public class ClientController {
     private AccountService accountService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/clients")
     public List<ClientDTO> getClients(){
@@ -53,8 +54,8 @@ public class ClientController {
         }
 
         Client client = new Client(firstName, lastName, email, passwordEncoder.encode(password));
-        clientService.saveClient(client);
 
+        clientService.saveClient(client);
 
         String accountNumber;
         do {

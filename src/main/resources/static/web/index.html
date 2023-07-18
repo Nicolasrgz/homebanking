@@ -15,6 +15,11 @@
   <header class="bg-body-tertiary" data-bs-theme="dark">
     <nav>
       <div class="contain-btn-a d-flex justify-content-evenly ">
+          <a class="d-flex justify-content-center align-center" href="#">
+            <span>
+              <img class="img-bank" src="/web/img/logo.jpeg" alt="Bootstrap">
+            </span>
+          </a>
         <a class="btn-c m-2" href="#">
           <span class="box">
               Home
@@ -35,7 +40,7 @@
               Register
           </span>
         </a>
-        <div class="input-group d-flex justify-content-end ">
+        <div class="input-group d-flex justify-content-end btn-logout">
           <form  @submit.prevent="submit">
           <label for="email"><input v-model="email" type="email" class="button-ui-i" id="Email" name="Email" placeholder="user@..." autocomplete="off"></label>
           <label for="pass"> <input type="password" v-model="password" class="button-ui-i" id="password" name="password" placeholder="password" autocomplete="off"></label>

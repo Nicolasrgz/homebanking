@@ -21,12 +21,13 @@ public class WebAuthorization {
 
             http.authorizeRequests()
                     .antMatchers("/web/pages/manager.html").hasAuthority("ADMIN")
-                    .antMatchers("/h2-console/login.do").hasAuthority("CLIENT")
+                    .antMatchers("/h2-console/login.do").hasAuthority("admin")
                     .antMatchers("/rest/**").hasAuthority("ADMIN")
-                    .antMatchers("/api/accounts/{id}").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.GET, "/api/clients").hasAuthority("ADMIN")
+                    .antMatchers("/web/pages/loan-admin.html").hasAuthority("ADMIN")
 
 
+                    .antMatchers("/api/accounts/{id}").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/accounts.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/cards.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/create-cards.html").hasAuthority("CLIENT")
