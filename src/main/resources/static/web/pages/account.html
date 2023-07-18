@@ -69,8 +69,8 @@
               <td v-if="element.type == 'DEBIT'"><p class="credit">${{element.amount}}</p></td>
               <td v-if="element.type == 'CREDIT'"><p class="debit">$-{{element.amount}}</p></td>
               <td>{{element.date.slice(2,10)}}-{{ new Date(element.date).toLocaleString([], { hour: '2-digit', minute: '2-digit' }) }}</td>
-              <td v-if="element.type == 'DEBIT'"><p>${{(this.balance + element.amount) - this.balance}}</p></td>
-              <td v-if="element.type == 'CREDIT'"><p>${{this.balance - element.amount}}</p></td>
+              <td v-if="element.type == 'DEBIT'"><p>${{element.balance + element.amount}}</p></td>
+              <td v-if="element.type == 'CREDIT'"><p>${{element.balance - element.amount}}</p></td>
           </tr>
           
           </tbody>

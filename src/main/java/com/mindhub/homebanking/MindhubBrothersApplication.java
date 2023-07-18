@@ -39,10 +39,10 @@ private PasswordEncoder passwordEncoder;
 			accountRepository.save(account2);
 
 
-			Transaction one = new Transaction(TransactionType.CREDIT, 3000.00, "venta de un perro", LocalDateTime.now());
-			Transaction two = new Transaction(TransactionType.DEBIT, 3000.00, "pago de alquiler", LocalDateTime.now());
-			Transaction three = new Transaction(TransactionType.CREDIT, 600.00, "venta de una remera", LocalDateTime.now());
-			Transaction four = new Transaction(TransactionType.DEBIT, 1000.00, "pago de nafta", LocalDateTime.now());
+			Transaction one = new Transaction(TransactionType.CREDIT, 3000.00, "venta de un perro", LocalDateTime.now(), account1.getBalance());
+			Transaction two = new Transaction(TransactionType.DEBIT, 3000.00, "pago de alquiler", LocalDateTime.now(), account1.getBalance());
+			Transaction three = new Transaction(TransactionType.CREDIT, 600.00, "venta de una remera", LocalDateTime.now(), account2.getBalance());
+			Transaction four = new Transaction(TransactionType.DEBIT, 1000.00, "pago de nafta", LocalDateTime.now(), account2.getBalance());
 			account1.addTransaction(one);
 			account1.addTransaction(two);
 			account2.addTransaction(three);

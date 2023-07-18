@@ -68,8 +68,8 @@ public class TransactionController {
             return new ResponseEntity<>("The source account does not belong to the authenticated client", HttpStatus.FORBIDDEN);
         }
 
-        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, amount, description, LocalDateTime.now());
-        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, amount, description, LocalDateTime.now());
+        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, amount, description, LocalDateTime.now(), accountOrigin.getBalance());
+        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, amount, description, LocalDateTime.now(), accountDestiny.getBalance());
 
         accountOrigin.addTransaction(transactionCredit);
         accountDestiny.addTransaction(transactionDebit);

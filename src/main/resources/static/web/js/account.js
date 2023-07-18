@@ -25,6 +25,7 @@ const app = createApp({
               this.account = this.accountsP.accounts;
               this.balance = this.accountsP.balance
               console.log(this.accountsP)
+              console.log(this.account)
             })
             .catch((err) => {
               console.error(err);
