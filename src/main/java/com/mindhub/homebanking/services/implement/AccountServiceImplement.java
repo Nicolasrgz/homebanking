@@ -2,6 +2,7 @@ package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.AccountRepository;
 import com.mindhub.homebanking.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,10 @@ public class AccountServiceImplement implements AccountService {
     @Override
     public void deleteAccount(Account account) {
         accountRepository.delete(account);
+    }
+
+    @Override
+    public List<Account> findByClient(Client client) {
+        return accountRepository.findByClient(client);
     }
 }

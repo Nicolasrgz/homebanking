@@ -75,7 +75,12 @@ const app = createApp({
           window.location.href = "/web/pages/accounts.html";
         })
         .catch((err) => {
-          console.error(err);
+          swal({
+            title: 'Error',
+            text: 'the account you are trying to select does not exist or was deleted',
+            icon: 'error',
+            button: 'OK'
+        });
         });
     },
     LogOut(){

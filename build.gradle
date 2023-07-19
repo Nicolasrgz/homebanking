@@ -20,6 +20,7 @@ bootRun {
 
 dependencies {
 	//implementation 'org.postgresql:postgresql'
+	implementation 'com.itextpdf:itextpdf:5.5.13.3'
 	implementation 'org.glassfish:jakarta.el'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'

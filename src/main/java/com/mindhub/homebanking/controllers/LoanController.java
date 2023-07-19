@@ -37,7 +37,7 @@ public class LoanController {
     @Transactional
     @PostMapping("/loans")
     public ResponseEntity<Object> createLoans(@RequestBody
-                                              LoanApplicationDTO loan,Loan loans, Authentication authentication){
+                                              LoanApplicationDTO loan,Loan loans, Authentication authentication, Account account){
         //cliente autenticado
         Client client = clientService.findByEmail(authentication.getName());
 
@@ -69,6 +69,9 @@ public class LoanController {
         //verifico que la cuenta de destino exista
         if (accountService.findByNumber(loan.getNumberAccountDestiny()) == null){
             return new ResponseEntity<>("destination account does not exist", HttpStatus.FORBIDDEN);
+        }
+        if(accountDestiny.isActive() != account.isActive()){
+            return new ResponseEntity<>("the page you are trying to access does not exist", HttpStatus.FORBIDDEN);
         }
         //Verify that the source account belongs to the authenticated client
         if (!accountDestiny.getClient().equals(client)){

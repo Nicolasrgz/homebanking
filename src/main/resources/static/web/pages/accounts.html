@@ -18,6 +18,11 @@
   <header class="bg-body-tertiary" data-bs-theme="dark">
     <nav>
       <div class="contain-btn-a d-flex justify-content-evenly align-center">
+        <a class="d-flex justify-content-center align-center" href="#">
+          <span>
+            <img class="img-bank" src="/web/img/logo.jpeg" alt="Bootstrap">
+          </span>
+        </a>
         <a class="btn-c m-2" href="/web/pages/cards.html">
           <span class="box">
               Cards
@@ -26,11 +31,6 @@
         <a class="btn-c m-2" href="/web/pages/transfer.html">
           <span class="box">
               Transfer
-          </span>
-        </a>
-        <a class="d-flex justify-content-center align-center" href="#">
-          <span>
-            <img class="img-bank" src="/web/img/logo.jpeg" alt="Bootstrap">
           </span>
         </a>
           <a class="btn-c m-2" href="/web/pages/loan-application.html">
@@ -68,28 +68,33 @@
     </div>
 
   </div>
-      <div class="d-flex container-gap">
-        <div class="card-accounts" v-for="user of melbaSort">
-          <div class="container-accounts-data color-white text-center" >
-            <h4>account type: {{user.accountType}}</h4>
-            <h4>Account n°: {{user.number}}</h4>
-            <h4>Creation date: <br>{{user.creationDate}}</br></h4>
-            <h4>Balance: <br><format-currency :value="user.balance"></format-currency></br></h4>
 
-            <a :href="'/web/pages/account.html?id=' + user.id">
-              <button class="button-btn">
-                <span>more info</span>
-              </button>
-            </a>
-            <div>
-              <button class="button-ui " type="submit" @click.prevent="deleteAccount($event)" v-bind:data-id="user.id" value="delete">
-                Delete
-              </button>
+  <div class="d-flex container-gap">
+        <div v-for="user of melbaSort" >
+          <div v-if="user.active != true">
+            <div  class="card-accounts ">
+              <div class="container-accounts-data color-white text-center" >
+                <h4>account type: {{user.accountType}}</h4>
+                <h4>Account n°: {{user.number}}</h4>
+                <h4>Creation date: <br>{{user.creationDate}}</br></h4>
+                <h4>Balance: <br><format-currency :value="user.balance"></format-currency></br></h4>
+    
+                <a :href="'/web/pages/account.html?id=' + user.id">
+                  <button class="button-btn">
+                    <span>more info</span>
+                  </button>
+                </a>
+                <div>
+                  <button class="button-ui " type="submit" @click.prevent="deleteAccount($event)" v-bind:data-id="user.id" value="delete">
+                    Delete
+                  </button>
+                </div>
+            </div>
             </div>
           </div>
-
         </div>
-      </div>
+  </div>
+
 </div>
 <div class="user-main" v-cloak>
   <h2 class="animate__animated animate__zoomInLeft">LOANS</h2>

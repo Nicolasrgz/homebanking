@@ -1,5 +1,6 @@
 package com.mindhub.homebanking.controllers;
 
+import com.itextpdf.text.DocumentException;
 import com.mindhub.homebanking.dtos.CardApplicationDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
@@ -9,13 +10,21 @@ import com.mindhub.homebanking.services.AccountService;
 import com.mindhub.homebanking.services.ClientService;
 import com.mindhub.homebanking.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
+import com.mindhub.homebanking.pdfs.PdfGenerator;
 import javax.transaction.Transactional;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -111,4 +120,31 @@ public class TransactionController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+    @GetMapping("/transactions/pdf")
+    public ResponseEntity<byte[]> generatePdf(Authentication authentication) throws IOException, DocumentException {
+        // Get the authenticated client
+        Client client = clientService.findByEmail(authentication.getName());
+
+        // Get the list of accounts for the client
+        List<Account> accounts = accountService.findByClient(client);
+
+        // Get the list of transactions for the accounts
+        List<Transaction> transactions = new ArrayList<>();
+        for (Account account : accounts) {
+            transactions.addAll(transferService.findByAccount(account));
+        }
+
+        // Generate the PDF file
+        String filePath = "transactions.pdf";
+        PdfGenerator.generatePdfFromTransactions(transactions, filePath);
+
+        // Return the generated PDF file as a response
+        byte[] pdfFile = Files.readAllBytes(Paths.get(filePath));
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "transactions.pdf");
+        return new ResponseEntity<>(pdfFile, headers, HttpStatus.OK);
+    }
+
+
 }

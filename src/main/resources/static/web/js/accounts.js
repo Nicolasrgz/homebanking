@@ -6,7 +6,6 @@ const app = createApp({
             melba: [],
             melbaAccounts: [],
             melbaSort: [],
-            melbaLoans: [],
             loansSort: [],
             typeAccount: "",
         }
@@ -14,63 +13,99 @@ const app = createApp({
     created(){
         this.user()
     },
-    methods:{
-        user(){
-            axios.get("http://localhost:8080/api/clients/current")
-            .then(response => {
-                this.melba = response.data
-                this.melbaAccounts = this.melba.accounts
-                this.melbaSort = this.melbaAccounts.sort((a,b)=> a.id - b.id)
-                this.melbaLoans = this.melba.loans
-                this.loansSort = this.melbaLoans.sort((a,b)=> a.id - b.id)
-                console.log(this.melba)
-                console.log(this.melbaSort)     
-                console.log(this.melbaLoans)
-                console.log(this.loansSort)
-            })
-            .catch(err => {
-                console.error(err);
+    methods: {
+      user() {
+          axios.get("http://localhost:8080/api/clients/current")
+              .then(response => {
+                  this.melba = response.data
+                  this.melbaAccounts = this.melba.accounts
+                  this.melbaSort = this.melbaAccounts.sort((a, b) => a.id - b.id)
+                  this.melbaLoans = this.melba.loans
+                  this.loansSort = this.melbaLoans.sort((a, b) => a.id - b.id)
+                  console.log(this.melba)
+                  console.log(this.melbaSort)
+              })
+              .catch(err => {
+                  swal({
+                      title: 'Error',
+                      text: 'An error occurred while retrieving user information',
+                      icon: 'error',
+                      button: 'OK'
+                  });
               });
-        },
-        LogOut(){
+      },
+      LogOut() {
           axios.post('/api/logout')
-          .then(response => {
-            // Inicio de sesión exitoso
-            // Redireccionar a accounts.html
-            window.location.href = '/web/index.html';
-          })
-          .catch(error => {
-            // Inicio de sesión fallido
-            // Mostrar mensaje de error al usuario
-            alert('Error al iniciar sesión');
-          });
-        },
-        createdAccount(){
+              .then(response => {
+                  // Successful logout
+                  // Redirect to accounts.html
+                  window.location.href = '/web/index.html';
+              })
+              .catch(error => {
+                  // Failed logout
+                  // Show error message to user
+                  swal({
+                      title: 'Error',
+                      text: 'Error logging out',
+                      icon: 'error',
+                      button: 'OK'
+                  });
+              });
+      },
+      createdAccount() {
           axios.post(`/api/clients/current/accounts?type=${this.typeAccount}`)
-          .then(res => {
-            alert("cuenta creada")
-            window.location.href = '/web/pages/accounts.html'
-          })
-          .catch(err => alert("limite de cuentas alcanzado"))
-        },
-        redirection(){
+              .then(res => {
+                  swal({
+                      title: 'Success',
+                      text: 'Account created',
+                      icon: 'success',
+                      button: 'OK'
+                  })
+                  .then(()=>{
+                    window.location.href = '/web/pages/accounts.html'
+                  })
+              })
+              .catch(err => swal({
+                  title: 'Error',
+                  text: 'Account limit reached',
+                  icon: 'error',
+                  button: 'OK'
+              }));
+      },
+      redirection() {
           return window.location.href = "/web/pages/loan-application.html"
-        },
-        deleteAccount(event){
-          // Obtener el ID de la tarjeta desde el atributo data-id del botón
+      },
+      deleteAccount(event) {
+          // Get the card ID from the data-id attribute of the button
           let accountId = event.target.getAttribute('data-id');
-      
-          axios.delete("/api/clients/current/accounts?id=" + accountId)
-          .then(res =>{
-            window.location.href = "/web/pages/accounts.html"
-          })
-          .catch(error => {
-            // Inicio de sesión fallido
-            // Mostrar mensaje de error al usuario
-            alert('error');
-          });
-        }
-    },
+  
+          axios.patch(`/api/accounts/${accountId}/deactivate`)
+              .then(res => {
+                swal({
+                  title: 'Success',
+                  text: 'Account deleted',
+                  icon: 'success',
+                  button: 'OK'
+              })
+              .then(()=>{
+                window.location.href = "/web/pages/accounts.html"
+              })
+                 
+              })
+              .catch(error => {
+                  // Failed login
+                  // Show error message to user
+                  swal({
+                      title: 'Error',
+                      text: 'Error deleting account',
+                      icon: 'error',
+                      button: 'OK'
+                  });
+              });
+      }
+  }
+  
+  
 })
 
 app.component('format-currency', {

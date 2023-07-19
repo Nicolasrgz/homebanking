@@ -7,6 +7,8 @@ import com.mindhub.homebanking.services.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TransferServiceImplement implements TransferService {
     @Autowired
@@ -14,6 +16,11 @@ public class TransferServiceImplement implements TransferService {
     @Override
     public void saveTransfer(Transaction transaction) {
         transactionRepository.save(transaction);
+    }
+
+    @Override
+    public List<Transaction> findByAccount(Account account) {
+        return transactionRepository.findByAccount(account);
     }
 
     @Override
