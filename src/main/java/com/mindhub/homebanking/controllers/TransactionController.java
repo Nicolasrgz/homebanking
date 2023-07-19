@@ -120,19 +120,21 @@ public class TransactionController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @GetMapping("/transactions/pdf")
-    public ResponseEntity<byte[]> generatePdf(Authentication authentication) throws IOException, DocumentException {
+    @GetMapping("/transactions/{id}/pdf")
+    public ResponseEntity<byte[]> generatePdf(Authentication authentication, @PathVariable Long id) throws IOException, DocumentException {
         // Get the authenticated client
         Client client = clientService.findByEmail(authentication.getName());
 
-        // Get the list of accounts for the client
-        List<Account> accounts = accountService.findByClient(client);
+        // Get the account for the given id
+        Account account = accountService.findById(id);
 
-        // Get the list of transactions for the accounts
-        List<Transaction> transactions = new ArrayList<>();
-        for (Account account : accounts) {
-            transactions.addAll(transferService.findByAccount(account));
+        // Check if the account belongs to the authenticated client
+        if (!account.getClient().equals(client)) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
+
+        // Get the list of transactions for the account
+        List<Transaction> transactions = transferService.findByAccount(account);
 
         // Generate the PDF file
         String filePath = "transactions.pdf";
@@ -145,6 +147,7 @@ public class TransactionController {
         headers.setContentDispositionFormData("attachment", "transactions.pdf");
         return new ResponseEntity<>(pdfFile, headers, HttpStatus.OK);
     }
+
 
 
 }
