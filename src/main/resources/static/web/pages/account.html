@@ -14,6 +14,11 @@
   <header class="bg-body-tertiary" data-bs-theme="dark">
     <nav>
       <div class="contain-btn-a d-flex justify-content-evenly ">
+        <a class="d-flex justify-content-center align-center" href="/web/pages/accounts.html">
+          <span>
+            <img class="img-bank" src="/web/img/logo.jpeg" alt="Bootstrap">
+          </span>
+        </a>
         <a class="btn-c m-2" href="/web/pages/accounts.html">
           <span class="box">
              Cards
@@ -22,11 +27,6 @@
         <a class="btn-c m-2" href="/web/pages/transfer.html">
           <span class="box">
               Transfer 
-          </span>
-        </a>
-        <a class="d-flex justify-content-center align-center" href="/web/pages/accounts.html">
-          <span>
-            <img class="img-bank" src="/web/img/logo.jpeg" alt="Bootstrap">
           </span>
         </a>
         <a class="btn-c m-2" href="/web/pages/loan-application.html">
@@ -46,13 +46,13 @@
     </nav>
 </header>
 <main >
-<div >
+<div class="user-main">
   <h1 v-cloak class="text-center m-3" ><b>ACCOUNT N°:</b> {{accountsP.number}}</h1>
   <h2 v-cloak class="text-center m-3">BALANCE: ${{this.balance}}</h2>
   <div class="container" v-cloak>
     <div class="row row-edit">
       <div class=" text-center">
-        <table class="table">
+        <table class="table table-dark">
           <thead>
             <tr>
               <th>number:</th>
@@ -78,6 +78,11 @@
           </tbody>
         </table>
       </div> 
+    </div>
+    <div v-cloak class="d-flex justify-content-center align-center" v-if="this.sortedAccount.length > 0"  >
+      <button type="submit" @click="generatedPdf(this.accountsP.id)" class="button-ui"  value="created">
+        DOWNLOAD PDF
+      </button>
     </div>
   </div>
 </div>

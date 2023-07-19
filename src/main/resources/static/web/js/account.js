@@ -48,6 +48,21 @@ const app = createApp({
             alert('Error al iniciar sesión');
           });
         },
+        generatedPdf(id) {
+          axios.get(`/api/transactions/${id}/pdf`, { responseType: 'blob' })
+            .then(res => {
+              const url = window.URL.createObjectURL(new Blob([res.data]));
+              const link = document.createElement('a');
+              link.href = url;
+              link.setAttribute('download', 'CLOVERBANK.pdf');
+              document.body.appendChild(link);
+              link.click();
+            })
+            .catch(error => {
+              alert('Error');
+            });
+        }
+        
    },
    computed: {
     sortedAccount() {

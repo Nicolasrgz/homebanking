@@ -137,18 +137,14 @@ public class TransactionController {
         List<Transaction> transactions = transferService.findByAccount(account);
 
         // Generate the PDF file
-        String filePath = "transactions.pdf";
+        String filePath = "CLOVERBANK.pdf";
         PdfGenerator.generatePdfFromTransactions(transactions, account, filePath);
 
         // Return the generated PDF file as a response
         byte[] pdfFile = Files.readAllBytes(Paths.get(filePath));
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("attachment", "transactions.pdf");
+        headers.setContentDispositionFormData("attachment", "CLOVERBANK.pdf");
         return new ResponseEntity<>(pdfFile, headers, HttpStatus.OK);
     }
-
-
-
-
 }
