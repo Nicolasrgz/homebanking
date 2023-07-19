@@ -6,24 +6,19 @@ import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.services.AccountService;
-import com.mindhub.homebanking.services.ClientService;
-import com.mindhub.homebanking.services.TransferService;
+import com.mindhub.homebanking.services.service.AccountService;
+import com.mindhub.homebanking.services.service.ClientService;
+import com.mindhub.homebanking.services.email.EmailService;
+import com.mindhub.homebanking.services.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import com.mindhub.homebanking.pdfs.PdfGenerator;
 import javax.transaction.Transactional;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -36,6 +31,8 @@ public class TransactionController {
     private AccountService accountService;
     @Autowired
     private TransferService transferService;
+    @Autowired
+    private EmailService emailService;
 
     @Transactional
     @PostMapping("/transactions")
@@ -120,31 +117,33 @@ public class TransactionController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-    @GetMapping("/transactions/{id}/pdf")
-    public ResponseEntity<byte[]> generatePdf(Authentication authentication, @PathVariable Long id) throws IOException, DocumentException {
-        // Get the authenticated client
-        Client client = clientService.findByEmail(authentication.getName());
 
-        // Get the account for the given id
-        Account account = accountService.findById(id);
 
-        // Check if the account belongs to the authenticated client
-        if (!account.getClient().equals(client)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        @GetMapping("/transactions/{id}/pdf")
+        public ResponseEntity<?> generatePdf(Authentication authentication, @PathVariable Long id) throws IOException, DocumentException {
+            // Get the authenticated client
+            Client client = clientService.findByEmail(authentication.getName());
+
+            // Get the account for the given id
+            Account account = accountService.findById(id);
+
+            // Check if the account belongs to the authenticated client
+            if (!account.getClient().equals(client)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            // Get the list of transactions for the account
+            List<Transaction> transactions = transferService.findByAccount(account);
+
+            // Generate the PDF file
+            String filePath = "CLOVERBANK.pdf";
+            PdfGenerator.generatePdfFromTransactions(transactions, account, filePath);
+
+            // Send the email with the PDF file attached
+            emailService.sendEmailWithAttachment(client.getEmail(), "Transacciones", "Aquí están tus transacciones", filePath);
+
+            // Return a success message as a response
+            return ResponseEntity.ok("Se ha enviado un correo electrónico con tus transacciones");
         }
-
-        // Get the list of transactions for the account
-        List<Transaction> transactions = transferService.findByAccount(account);
-
-        // Generate the PDF file
-        String filePath = "CLOVERBANK.pdf";
-        PdfGenerator.generatePdfFromTransactions(transactions, account, filePath);
-
-        // Return the generated PDF file as a response
-        byte[] pdfFile = Files.readAllBytes(Paths.get(filePath));
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("attachment", "CLOVERBANK.pdf");
-        return new ResponseEntity<>(pdfFile, headers, HttpStatus.OK);
     }
-}
+

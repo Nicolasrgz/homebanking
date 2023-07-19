@@ -51,12 +51,12 @@ const app = createApp({
         generatedPdf(id) {
           axios.get(`/api/transactions/${id}/pdf`, { responseType: 'blob' })
             .then(res => {
-              const url = window.URL.createObjectURL(new Blob([res.data]));
-              const link = document.createElement('a');
-              link.href = url;
-              link.setAttribute('download', 'CLOVERBANK.pdf');
-              document.body.appendChild(link);
-              link.click();
+              swal({
+                title: "Success",
+                text: "your pdf has been sent to your email, please check your mailbox",
+                icon: "success",
+                button: "OK"
+            })
             })
             .catch(error => {
               alert('Error');

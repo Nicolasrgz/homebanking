@@ -66,8 +66,6 @@ public class PdfGenerator {
         table1.addCell(String.valueOf(accounts.getBalance()));
 
 
-
-
         // Create a table to display the transactions
         PdfPTable table = new PdfPTable(new float[]{ 2, 2, 2, 2});
         table.addCell("DATE");

@@ -2,14 +2,13 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.repositories.CardRepository;
-import com.mindhub.homebanking.services.CardService;
-import com.mindhub.homebanking.services.ClientService;
+import com.mindhub.homebanking.services.service.CardService;
+import com.mindhub.homebanking.services.service.ClientService;
 import com.mindhub.homebanking.utils.CardUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;

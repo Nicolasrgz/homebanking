@@ -53,29 +53,39 @@ const app = createApp({
               });
       },
       createdAccount() {
-          axios.post(`/api/clients/current/accounts?type=${this.typeAccount}`)
-              .then(res => {
-                  swal({
-                      title: 'Success',
-                      text: 'Account created',
-                      icon: 'success',
-                      button: 'OK'
-                  })
-                  .then(()=>{
-                    window.location.href = '/web/pages/accounts.html'
-                  })
-              })
-              .catch(err => swal({
-                  title: 'Error',
-                  text: 'Account limit reached',
-                  icon: 'error',
-                  button: 'OK'
-              }));
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure you want to create an account?",
+            icon: "warning",
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+        })
+        .then(()=>{
+            axios.post(`/api/clients/current/accounts?type=${this.typeAccount}`)          
+            .then(res => {
+                swal({
+                    title: 'Success',
+                    text: 'Account created',
+                    icon: 'success',
+                    button: 'OK'
+                })
+                .then(()=>{
+                  window.location.href = '/web/pages/accounts.html'
+                })
+                .catch(err => swal({
+                    title: 'Error',
+                    text: 'Account limit reached',
+                    icon: 'error',
+                    button: 'OK'
+                }));
+            })
+        })
       },
       redirection() {
           return window.location.href = "/web/pages/loan-application.html"
       },
       deleteAccount(event) {
+        
           // Get the card ID from the data-id attribute of the button
           let accountId = event.target.getAttribute('data-id');
   

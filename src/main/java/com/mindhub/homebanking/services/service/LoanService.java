@@ -1,4 +1,4 @@
-package com.mindhub.homebanking.services;
+package com.mindhub.homebanking.services.service;
 
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.models.Loan;

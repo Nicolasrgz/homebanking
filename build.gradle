@@ -20,12 +20,15 @@ bootRun {
 
 dependencies {
 	//implementation 'org.postgresql:postgresql'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+
 	implementation 'com.itextpdf:itextpdf:5.5.13.3'
 	implementation 'org.glassfish:jakarta.el'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml'
+	implementation 'de.vinado.spring:dkim-javamail:1.2.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
 	runtimeOnly 'com.h2database:h2'
