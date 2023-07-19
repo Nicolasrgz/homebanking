@@ -138,7 +138,7 @@ public class TransactionController {
 
         // Generate the PDF file
         String filePath = "transactions.pdf";
-        PdfGenerator.generatePdfFromTransactions(transactions, filePath);
+        PdfGenerator.generatePdfFromTransactions(transactions, account, filePath);
 
         // Return the generated PDF file as a response
         byte[] pdfFile = Files.readAllBytes(Paths.get(filePath));
@@ -147,6 +147,7 @@ public class TransactionController {
         headers.setContentDispositionFormData("attachment", "transactions.pdf");
         return new ResponseEntity<>(pdfFile, headers, HttpStatus.OK);
     }
+
 
 
 
