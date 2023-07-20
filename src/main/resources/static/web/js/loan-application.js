@@ -4,7 +4,7 @@ const app = createApp({
   data() {
     return {
       selectType: "",
-      selectPayments: "",
+      selectPayments: null,
       selectAccount: "",
       amount: 0,
       loansPayments: {},

@@ -37,7 +37,7 @@ public class LoanController {
     @Transactional
     @PostMapping("/loans")
     public ResponseEntity<Object> createLoans(@RequestBody
-                                              LoanApplicationDTO loan,Loan loans, Authentication authentication, Account account){
+                                              LoanApplicationDTO loan, Authentication authentication, Account account){
         //cliente autenticado
         Client client = clientService.findByEmail(authentication.getName());
 
@@ -85,7 +85,8 @@ public class LoanController {
 
 
         double totalAmount = loan.getAmount() + (loan.getAmount() * loanType.getPercentage());
-        ClientLoan loan1 = new ClientLoan( totalAmount, loan.getPayments());
+        Double payments = totalAmount /  loan.getPayments() ;
+        ClientLoan loan1 = new ClientLoan( totalAmount, loan.getPayments(), payments);
         loan1.setDebtor(client);
 
         if(loan.getName().equals(loanService.findByName(loan.getName()).getName())){

@@ -7,6 +7,7 @@ import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
 import com.mindhub.homebanking.models.TransactionType;
 import com.mindhub.homebanking.services.service.AccountService;
+import com.mindhub.homebanking.services.service.CardService;
 import com.mindhub.homebanking.services.service.ClientService;
 import com.mindhub.homebanking.services.email.EmailService;
 import com.mindhub.homebanking.services.service.TransferService;
@@ -31,6 +32,8 @@ public class TransactionController {
     private AccountService accountService;
     @Autowired
     private TransferService transferService;
+    @Autowired
+    private CardService cardService;
     @Autowired
     private EmailService emailService;
 
@@ -97,14 +100,7 @@ public class TransactionController {
     @Transactional
     @PostMapping("/transaction/app")
     public ResponseEntity<Object> creationPayments(@RequestBody CardApplicationDTO cardDTO,
-                                                   Account account,
-                                                   Authentication authentication){
-
-        Client client = clientService.findByEmail(authentication.getName());
-
-        if(client.getEmail() != null){
-            return new ResponseEntity<>("One or both account numbers do not exist in our database", HttpStatus.UNAUTHORIZED);
-        }
+                                                   Account account){
 
         if(cardDTO.getCvv() > 0 || cardDTO.getAmount().isNaN() || cardDTO.getDescription().isBlank() || cardDTO.getNumber().isBlank()){
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
@@ -145,5 +141,6 @@ public class TransactionController {
             // Return a success message as a response
             return ResponseEntity.ok("Se ha enviado un correo electrónico con tus transacciones");
         }
+
     }
 

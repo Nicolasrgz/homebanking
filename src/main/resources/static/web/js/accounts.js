@@ -24,6 +24,7 @@ const app = createApp({
                   this.loansSort = this.melbaLoans.sort((a, b) => a.id - b.id)
                   console.log(this.melba)
                   console.log(this.melbaSort)
+                  console.log(this.melbaLoans)
               })
               .catch(err => {
                   swal({
@@ -83,6 +84,9 @@ const app = createApp({
       },
       redirection() {
           return window.location.href = "/web/pages/loan-application.html"
+      },
+      redirectionLoan(){
+        return window.location.href = "/web/pages/loan-ap"
       },
       deleteAccount(event) {
         

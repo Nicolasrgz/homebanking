@@ -19,7 +19,7 @@ public class Account {
     private LocalDate creationDate;
     private Double balance;
     private AccountType accountType;
-    private boolean isActive;
+    private Boolean isActive;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name= "client")
     private Client client;
@@ -84,11 +84,11 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         isActive = active;
     }
 

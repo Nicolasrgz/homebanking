@@ -15,7 +15,7 @@ public class AccountDTO {
     private double balance;
     private Set<TransactionDTO> transactions;
     private AccountType accountType;
-    private boolean isActive;
+    private Boolean isActive;
     public AccountDTO() {
     }
 
@@ -49,7 +49,7 @@ public class AccountDTO {
     public double getBalance() {
         return balance;
     }
-    public boolean isActive() {
+    public Boolean isActive() {
         return isActive;
     }
     public AccountType getAccountType() {

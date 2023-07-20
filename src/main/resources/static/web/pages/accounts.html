@@ -53,7 +53,7 @@
 <main>
 <div class="user-main" v-cloak>
   <h2 class="animate__animated animate__zoomInLeft">ACCOUNTS</h2>
-  <div  v-if="this.melbaSort.length <= 2" class="d-flex">
+  <div   class="d-flex">
     <h4></h4>
     <div class="">
       <select name="" v-model="typeAccount" class="button-ui">
@@ -102,11 +102,17 @@
     <h3>you do not have any loan</h3>
   </div>
   <div class="d-flex justify-content-center container-gap flex-wrap m-5" v-if="this.loansSort.length > 0">
-    <div class="card-accounts-l" v-for="user of loansSort">
+    <div class="card-accounts" v-for="user of loansSort">
       <div class="container-accounts-data color-white text-center" >
         <h4>Payments: <br>{{user.payments}}</h4>
         <h4>Loan: <br>{{user.loanName}}</h4>
         <h4>Amount: <br><format-currency  :value="user.amount"></format-currency></br></h4>
+        <h4>loan installment: <br>{{user.payments}} of ${{user.loanInstallment}}</h4>
+        <div class="m-5">
+          <button class="button-ui " type="submit">
+            Pay
+          </button>
+        </div>
       </div>
     </div>
   </div>
