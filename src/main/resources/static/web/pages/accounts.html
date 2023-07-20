@@ -109,12 +109,11 @@
         <h4>Amount: <br><format-currency  :value="user.amount"></format-currency></br></h4>
         <h4>loan installment: <br>{{user.payments}} of ${{user.loanInstallment}}</h4>
         <div class="m-5"  v-if="user.amount > 0">
-          <button class="button-ui " type="submit">
-            Pay
-          </button>
+          <a class="button-ui" type="submit" :href="'/web/pages/loan-pay.html?id=' + user.id">
+          </a>
         </div>
         <div class="m-5" v-if="user.amount <= 0">
-          <button class="button-ui " type="submit">
+          <button class="button-ui" type="submit" >
             pagado
           </button>
         </div>

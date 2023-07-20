@@ -182,7 +182,9 @@ public class LoanController {
         if (loan.getAmount() > clientLoan.getLoanInstallment()){
             return new ResponseEntity<>("its amount is greater than the payment of the quota", HttpStatus.FORBIDDEN);
         }
-
+        if (clientLoan.getAmount() <= 0){
+            return new ResponseEntity<>("The loan has already been fully repaid", HttpStatus.FORBIDDEN);
+        }
         //loan
         double amountPay = clientLoan.getAmount() - loan.getAmount();
         Integer paymentsPay = clientLoan.getPayments() - loan.getPayments();
