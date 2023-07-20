@@ -94,9 +94,9 @@ public class LoanController {
              clientLoanService.clientLoanSave(loan1);
         }
 
-        Transaction transactionCredit = new Transaction(TransactionType.DEBIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now(), accountDestiny.getBalance());
-        accountDestiny.addTransaction(transactionCredit);
-        transferService.saveTransfer(transactionCredit);
+        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now(), accountDestiny.getBalance());
+        accountDestiny.addTransaction(transactionDebit);
+        transferService.saveTransfer(transactionDebit);
 
         Double credit = accountDestiny.getBalance() + loan.getAmount();
 
@@ -133,6 +133,66 @@ public class LoanController {
         double percentage = ((Math.random() * (0.9 - 0.1)) + 0.1);
         Loan loanCreated = new Loan(name, maxAmount, payments, percentage);
         loanService.loanSave(loanCreated);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @Transactional
+    @PostMapping("/loan/pay/{id}")
+    public ResponseEntity<Object> loanPay(Authentication authentication,
+                                          Account account,
+                                          @RequestParam Long id,
+                                          @RequestBody LoanApplicationDTO loan){
+
+        Client client = clientService.findByEmail(authentication.getName());
+        //loan solicited
+        Loan loanPay = loanService.findById(id);
+
+        //verifica que los campos esten completos
+        if (loan.getAmount().isNaN() || loan.getNumberAccountDestiny().isBlank()|| loan.getPayments() == null){
+            return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
+        }
+
+        Account accountDestiny = accountService.findByNumber(loan.getNumberAccountDestiny());//cuenta destino
+
+        //el monto debe ser mayor a 0
+        if (loan.getAmount() <= 0 ){
+            return new ResponseEntity<>("the amount has to be greater than 0", HttpStatus.FORBIDDEN);
+        }
+        //verifico que la cuenta de destino exista
+        if (accountService.findByNumber(loan.getNumberAccountDestiny()) == null){
+            return new ResponseEntity<>("destination account does not exist", HttpStatus.FORBIDDEN);
+        }
+        if(accountDestiny.isActive() != account.isActive()){
+            return new ResponseEntity<>("the page you are trying to access does not exist", HttpStatus.FORBIDDEN);
+        }
+        //Verify that the source account belongs to the authenticated client
+        if (!accountDestiny.getClient().equals(client)){
+            return new ResponseEntity<>("The destination account does not belong to the authenticated client", HttpStatus.FORBIDDEN);
+        }
+        //verifies that the source account has funds
+        if (accountDestiny.getBalance() < loan.getAmount() && accountDestiny.getBalance() > 0){
+            return new ResponseEntity<>("your account does not have enough funds to make the transfer", HttpStatus.FORBIDDEN);
+        }
+
+        //loan
+        if(loanPay == null){
+            return  new ResponseEntity<>("no exist", HttpStatus.BAD_REQUEST);
+        }
+
+
+
+
+        //transaction
+        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now(), accountDestiny.getBalance());
+        accountDestiny.addTransaction(transactionCredit);
+        transferService.saveTransfer(transactionCredit);
+
+        Double credit = accountDestiny.getBalance() - loan.getAmount();
+
+        accountDestiny.setBalance(credit);
+        accountService.saveAccount(accountDestiny);
+
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
