@@ -137,6 +137,7 @@ public class LoanController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+
     @Transactional
     @PostMapping("/loan/pay/{id}")
     public ResponseEntity<Object> loanPay(Authentication authentication,
@@ -146,7 +147,7 @@ public class LoanController {
 
         Client client = clientService.findByEmail(authentication.getName());
         //loan solicited
-        Loan loanPay = loanService.findById(id);
+        ClientLoan clientLoan = clientLoanService.findById(id);
 
         //verifica que los campos esten completos
         if (loan.getAmount().isNaN() || loan.getNumberAccountDestiny().isBlank()|| loan.getPayments() == null){
@@ -176,12 +177,15 @@ public class LoanController {
         }
 
         //loan
-        if(loanPay == null){
+        if(clientLoan == null){
             return  new ResponseEntity<>("no exist", HttpStatus.BAD_REQUEST);
         }
 
-
-
+        double amountPay = clientLoan.getAmount() - loan.getAmount();
+        Integer paymentsPay = clientLoan.getPayments() - loan.getPayments();
+        clientLoan.setPayments(paymentsPay);
+        clientLoan.setAmount(amountPay);
+        clientLoanService.clientLoanSave(clientLoan);
 
         //transaction
         Transaction transactionCredit = new Transaction(TransactionType.CREDIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now(), accountDestiny.getBalance());
@@ -192,7 +196,6 @@ public class LoanController {
 
         accountDestiny.setBalance(credit);
         accountService.saveAccount(accountDestiny);
-
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

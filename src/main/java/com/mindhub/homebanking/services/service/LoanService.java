@@ -11,6 +11,5 @@ public interface LoanService {
     List<Loan> findByPayments(Integer payments);
     List<LoanDTO>getLoans();
     void loanSave(Loan loan);
-    Loan findById(long id);
-    Loan existById (ClientLoan clientLoan);
+
 }
