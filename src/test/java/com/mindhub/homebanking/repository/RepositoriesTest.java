@@ -1,8 +1,9 @@
 package com.mindhub.homebanking.repository;
 
-import com.mindhub.homebanking.dtos.AccountDTO;
-import com.mindhub.homebanking.dtos.ClientDTO;
 import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Card;
+import com.mindhub.homebanking.models.enums.CardColor;
 import com.mindhub.homebanking.repositories.*;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
@@ -11,7 +12,6 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;

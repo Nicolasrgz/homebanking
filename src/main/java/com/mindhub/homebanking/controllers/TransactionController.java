@@ -5,7 +5,7 @@ import com.mindhub.homebanking.dtos.CardApplicationDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
+import com.mindhub.homebanking.models.enums.TransactionType;
 import com.mindhub.homebanking.services.service.AccountService;
 import com.mindhub.homebanking.services.service.CardService;
 import com.mindhub.homebanking.services.service.ClientService;

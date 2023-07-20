@@ -6,10 +6,8 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Transaction;
 
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 

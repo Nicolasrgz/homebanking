@@ -2,7 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.AccountDTO;
 import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.AccountType;
+import com.mindhub.homebanking.models.enums.AccountType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.services.service.AccountService;
 import com.mindhub.homebanking.services.service.ClientService;

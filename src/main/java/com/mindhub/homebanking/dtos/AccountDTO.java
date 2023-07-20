@@ -1,10 +1,9 @@
 package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Account;
-import com.mindhub.homebanking.models.AccountType;
+import com.mindhub.homebanking.models.enums.AccountType;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 

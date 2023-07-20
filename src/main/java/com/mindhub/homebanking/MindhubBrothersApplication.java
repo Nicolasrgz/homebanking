@@ -1,6 +1,12 @@
 package com.mindhub.homebanking;
 
 import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.Card;
+import com.mindhub.homebanking.models.enums.AccountType;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
+import com.mindhub.homebanking.models.enums.TransactionType;
 import com.mindhub.homebanking.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.List;
 
 @SpringBootApplication
 public class MindhubBrothersApplication {

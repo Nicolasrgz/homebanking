@@ -1,5 +1,8 @@
 package com.mindhub.homebanking.models;
 
+import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;

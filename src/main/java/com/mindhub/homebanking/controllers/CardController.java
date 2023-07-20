@@ -1,6 +1,9 @@
 package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.models.Card;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
 import com.mindhub.homebanking.repositories.CardRepository;
 import com.mindhub.homebanking.services.service.CardService;
 import com.mindhub.homebanking.services.service.ClientService;

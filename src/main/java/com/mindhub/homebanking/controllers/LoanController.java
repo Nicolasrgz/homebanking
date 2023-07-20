@@ -4,6 +4,8 @@ import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
 import com.mindhub.homebanking.dtos.LoanPayDTO;
 import com.mindhub.homebanking.models.*;
+import com.mindhub.homebanking.models.Account;
+import com.mindhub.homebanking.models.enums.TransactionType;
 import com.mindhub.homebanking.services.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,7 +1,4 @@
 package com.mindhub.homebanking.models;
-import com.mindhub.homebanking.dtos.ClientLoanDTO;
-import com.mindhub.homebanking.dtos.LoanApplicationDTO;
-import com.sun.istack.NotNull;
 import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 

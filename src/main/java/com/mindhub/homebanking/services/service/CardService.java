@@ -1,8 +1,8 @@
 package com.mindhub.homebanking.services.service;
 
 import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.CardColor;
-import com.mindhub.homebanking.models.CardType;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
 import com.mindhub.homebanking.models.Client;
 
 public interface CardService {
