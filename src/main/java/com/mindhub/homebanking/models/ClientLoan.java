@@ -31,6 +31,7 @@ public class ClientLoan {
         this.loanInstallment = loanInstallment;
     }
 
+
     public long getId() {
         return id;
     }

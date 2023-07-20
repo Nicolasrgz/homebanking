@@ -14,6 +14,4 @@ public interface LoanRepository extends JpaRepository<Loan, Long> {
     Loan findByName(String name);
     List<Loan> findByPayments(Integer payments);
 
-    Loan existById (ClientLoan clientLoan);
-
 }

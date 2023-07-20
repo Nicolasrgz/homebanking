@@ -2,6 +2,7 @@ package com.mindhub.homebanking.controllers;
 
 import com.mindhub.homebanking.dtos.LoanApplicationDTO;
 import com.mindhub.homebanking.dtos.LoanDTO;
+import com.mindhub.homebanking.dtos.LoanPayDTO;
 import com.mindhub.homebanking.models.*;
 import com.mindhub.homebanking.services.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -86,7 +87,7 @@ public class LoanController {
 
         double totalAmount = loan.getAmount() + (loan.getAmount() * loanType.getPercentage());
         Double payments = totalAmount /  loan.getPayments() ;
-        ClientLoan loan1 = new ClientLoan( totalAmount, loan.getPayments(), payments);
+        ClientLoan loan1 = new ClientLoan(totalAmount, loan.getPayments(), payments);
         loan1.setDebtor(client);
 
         if(loan.getName().equals(loanService.findByName(loan.getName()).getName())){
@@ -142,15 +143,15 @@ public class LoanController {
     @PostMapping("/loan/pay/{id}")
     public ResponseEntity<Object> loanPay(Authentication authentication,
                                           Account account,
-                                          @RequestParam Long id,
-                                          @RequestBody LoanApplicationDTO loan){
+                                          @PathVariable Long id,
+                                          @RequestBody LoanPayDTO loan){
 
         Client client = clientService.findByEmail(authentication.getName());
         //loan solicited
         ClientLoan clientLoan = clientLoanService.findById(id);
 
         //verifica que los campos esten completos
-        if (loan.getAmount().isNaN() || loan.getNumberAccountDestiny().isBlank()|| loan.getPayments() == null){
+        if (loan.getAmount().isNaN() || loan.getNumberAccountDestiny().isBlank()|| loan.getPayments() < 1){
             return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
         }
 
@@ -175,12 +176,14 @@ public class LoanController {
         if (accountDestiny.getBalance() < loan.getAmount() && accountDestiny.getBalance() > 0){
             return new ResponseEntity<>("your account does not have enough funds to make the transfer", HttpStatus.FORBIDDEN);
         }
-
-        //loan
-        if(clientLoan == null){
-            return  new ResponseEntity<>("no exist", HttpStatus.BAD_REQUEST);
+        if (loan.getAmount() < clientLoan.getLoanInstallment()){
+            return new ResponseEntity<>("its amount is less than the payment of the quota", HttpStatus.FORBIDDEN);
+        }
+        if (loan.getAmount() > clientLoan.getLoanInstallment()){
+            return new ResponseEntity<>("its amount is greater than the payment of the quota", HttpStatus.FORBIDDEN);
         }
 
+        //loan
         double amountPay = clientLoan.getAmount() - loan.getAmount();
         Integer paymentsPay = clientLoan.getPayments() - loan.getPayments();
         clientLoan.setPayments(paymentsPay);
@@ -188,7 +191,7 @@ public class LoanController {
         clientLoanService.clientLoanSave(clientLoan);
 
         //transaction
-        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, loan.getAmount(), loan.getName() + " " + "loan approved", LocalDateTime.now(), accountDestiny.getBalance());
+        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, loan.getAmount(), "loan pay", LocalDateTime.now(), accountDestiny.getBalance());
         accountDestiny.addTransaction(transactionCredit);
         transferService.saveTransfer(transactionCredit);
 
