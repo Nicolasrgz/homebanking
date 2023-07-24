@@ -70,7 +70,7 @@ private PasswordEncoder passwordEncoder;
 			cardRepository.save(card);
 
 
-			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("admin-code"));
+			Client admin = new Client("admin", "admin", "admin@gmail.com",passwordEncoder.encode("123"));
 			clientRepository.save(admin);
 		};
 	}

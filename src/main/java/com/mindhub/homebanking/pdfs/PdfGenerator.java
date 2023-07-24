@@ -35,7 +35,6 @@ public class PdfGenerator {
         Font font = new Font();
         font.setSize(15);
         font.setColor(BaseColor.BLUE);
-
         Font fontSize = new Font();
         fontSize.setSize(20);
 
