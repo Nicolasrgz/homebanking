@@ -71,8 +71,6 @@ public class PdfGenerator {
         table.addCell("TYPE");
 
 
-
-
         // Add the transactions to the table
         for (Transaction transaction : transactions) {
             table.addCell(transaction.getDate().toString());

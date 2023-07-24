@@ -117,21 +117,17 @@ public class TransactionController {
 
         @GetMapping("/transactions/{id}/pdf")
         public ResponseEntity<?> generatePdf(Authentication authentication, @PathVariable Long id) throws IOException, DocumentException {
-            // Get the authenticated client
             Client client = clientService.findByEmail(authentication.getName());
 
-            // Get the account for the given id
             Account account = accountService.findById(id);
 
-            // Check if the account belongs to the authenticated client
             if (!account.getClient().equals(client)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
             }
 
-            // Get the list of transactions for the account
             List<Transaction> transactions = transferService.findByAccount(account);
 
-            // Generate the PDF file
+            // Generate the PDF
             String filePath = "CLOVERBANK.pdf";
             PdfGenerator.generatePdfFromTransactions(transactions, account, filePath);
 

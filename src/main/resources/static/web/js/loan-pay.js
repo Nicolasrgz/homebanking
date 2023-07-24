@@ -51,13 +51,18 @@ const app = createApp ({
                 payments: this.payments
             })
             .then((res) => {
-                alert("prestamo realizado");
-                window.location.href = "/web/pages/accounts.html";
-              })
-              .catch((err) => {
+               swal({
+              title: 'Success',
+              text: 'loan made',
+              icon: 'success',
+              button: 'OK'
+            }).then(res=>{
+              window.location.href = "/web/pages/accounts.html";
+            })})
+            .catch((err) => {
                 swal({
                   title: 'Error',
-                  text: 'the account you are trying to select does not exist or was deleted',
+                  text: 'error',
                   icon: 'error',
                   button: 'OK'
               });

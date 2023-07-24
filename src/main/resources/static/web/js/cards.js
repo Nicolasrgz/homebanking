@@ -40,14 +40,33 @@ const app = createApp({
             });
           },
           deleteCard(cardId) {
+            swal({
+              title: "Are you sure?",
+              text: "Are you sure you want to create an account?",
+              icon: "warning",
+              buttons: ["No", "Yes"],
+              dangerMode: true,
+          }).then(res=>{
             axios.patch(`/api/card/${cardId}/deactivate`)
-              .then(res => {
-                alert("logrado")
-                window.location.href = "/web/pages/cards.html"
+            .then(res => {swal({
+              title: 'Success',
+              text: 'card deleted',
+              icon: 'success',
+              button: 'OK'
+            }).then(res=>{
+              window.location.href = "/web/pages/cards.html"
+            }) 
+            })
+            .catch(err => {
+              swal({
+                title: 'error',
+                text: 'error',
+                icon: 'error',
+                button: 'OK'
               })
-              .catch(err => {
-                alert("error")
-              })
+            })
+          })
+
           }
           
     },

@@ -35,35 +35,20 @@ methods: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
-    .then(response => { swal({
-      title: 'Success',
-      text: 'successful login',
-      icon: 'success',
-      button: 'OK'
-    }).then(res=>{
-      window.location.href = '/web/pages/accounts.html';
-      this.resetLogin()
-    })})
-    .catch(err => swal({
-      title: 'Error',
-      text: 'Account no exist',
-      icon: 'error',
-      button: 'OK'
-  }));
-  },
-  submit2() {
-    const formData = new URLSearchParams();
-    formData.append('email', this.emailR);
-    formData.append('password', this.passwordR);
-
-    axios.post('/api/login', formData, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    .then(response => {
-
-      window.location.href = '/web/pages/accounts.html';
+    .then(response => { 
+      swal({
+        title: 'Success',
+        text: 'successful login',
+        icon: 'success',
+        button: 'OK'
+      }).then(res=>{
+        if (this.email === "admin@gmail.com") {
+          window.location.href = '/web/pages/loan-admin.html';
+        } else {
+          window.location.href = '/web/pages/accounts.html';
+        }
+        this.resetLogin();
+      })
     })
     .catch(err => swal({
       title: 'Error',
@@ -71,7 +56,8 @@ methods: {
       icon: 'error',
       button: 'OK'
   }));
-  },
+},
+
   register() {
 
     const formDatas = new URLSearchParams();

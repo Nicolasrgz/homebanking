@@ -138,7 +138,7 @@
             </div>
         </div>
         <div v-if="user.type == 'DEBIT' && new Date() > new Date(user.fromDate)" class="d-flex justify-content-center align-center m-3 text-primary">
-          <p>su tarjeta se encuentra expirada!</p>
+          <p>your card is expired!</p>
         </div>
         <div v-if="user.type == 'DEBIT'" class="d-flex justify-content-center align-center m-3">
           <input class="button-ui" type="submit" @click.prevent="deleteCard(user.id)" value="delete">
@@ -225,7 +225,7 @@
           </div>
       </div>
       <div v-if="user.type == 'CREDIT' && new Date() > new Date(user.fromDate)" class="d-flex justify-content-center align-center m-3 text-primary">
-        <p>su tarjeta se encuentra expirada!</p>
+        <p>your card is expired!</p>
       </div>
       <div v-if="user.type == 'CREDIT'" class="d-flex justify-content-center align-center m-3">
         <input class="button-ui" type="submit" @click.prevent="deleteCard(user.id)" value="delete">
@@ -237,7 +237,9 @@
   </div>
 
 </div>
-
+<!-- <div class="m-5 d-flex justify-content-center align-center" v-if="this.card.length">
+  <img class="img-form" src="/web/img/_d9885811-18bf-4141-97d5-cf52603bffdc.jpg" alt="">
+</div> -->
 </div>
 </main>
 </div>
