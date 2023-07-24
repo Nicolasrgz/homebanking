@@ -1433,3 +1433,7 @@ label{
   -webkit-transition: 100ms;
   transition: 100ms;
 }
+
+.p-t{
+  font-size: 35px;
+}

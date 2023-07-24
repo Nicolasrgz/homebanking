@@ -70,18 +70,20 @@ const app = createApp({
           numberAccountDestiny: this.selectAccount,
           payments: this.selectPayments,
         })
-        .then((res) => {
-          alert("prestamo realizado");
-          window.location.href = "/web/pages/accounts.html";
-        })
-        .catch((err) => {
-          swal({
-            title: 'Error',
-            text: 'the account you are trying to select does not exist or was deleted',
-            icon: 'error',
-            button: 'OK'
-        });
-        });
+        .then(response => { swal({
+          title: 'Success',
+          text: 'Loan created',
+          icon: 'success',
+          button: 'OK'
+        }).then(res=>{
+          window.location.href = '/web/pages/accounts.html';
+        })})
+        .catch(err => swal({
+          title: 'Error',
+          text: 'loan denied',
+          icon: 'error',
+          button: 'OK'
+      }));
     },
     LogOut(){
       axios.post('/api/logout')

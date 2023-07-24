@@ -85,7 +85,7 @@
               </label>
               <select name="" id="" v-model="amount" class="input-3">
                 <option :value="loans.loanInstallment * payments ">
-                  {{ loans.loanInstallment * payments }}
+                  ${{ loans.loanInstallment * payments }}
                 </option>
               </select>
             </div>
@@ -107,11 +107,6 @@
     </div>
     
 </div>
-<!-- <div class="m-5" v-if="user.amount <= 0">
-    <a class="button-ui" type="submit" :href="'/web/pages/loan-pay.html?id=' + user.id">
-      pagado
-    </a>
-  </div> -->
 </main>
 
 </div>

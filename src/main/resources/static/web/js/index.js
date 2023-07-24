@@ -35,13 +35,21 @@ methods: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
-    .then(response => {
+    .then(response => { swal({
+      title: 'Success',
+      text: 'successful login',
+      icon: 'success',
+      button: 'OK'
+    }).then(res=>{
       window.location.href = '/web/pages/accounts.html';
       this.resetLogin()
-    })
-    .catch(error => {
-      alert('Su usuario no se encuentra registrado');
-    });
+    })})
+    .catch(err => swal({
+      title: 'Error',
+      text: 'Account no exist',
+      icon: 'error',
+      button: 'OK'
+  }));
   },
   submit2() {
     const formData = new URLSearchParams();
@@ -57,9 +65,12 @@ methods: {
 
       window.location.href = '/web/pages/accounts.html';
     })
-    .catch(error => {
-      alert('Su usuario no se encuentra registrado');
-    });
+    .catch(err => swal({
+      title: 'Error',
+      text: 'Account no exist',
+      icon: 'error',
+      button: 'OK'
+  }));
   },
   register() {
 
@@ -74,14 +85,20 @@ methods: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
     })
-    .then(response => {
-      alert("your user was successfully registered")
-      this.submit2()
-      this.resetRegister()
-    })
-    .catch(error => {
-      alert('Su usuario ya se encuentra registrado');
-    });
+    .then(response => { swal({
+      title: 'Success',
+      text: 'successful login',
+      icon: 'success',
+      button: 'OK'
+    }).then(res=>{
+      window.location.href = '/web/pages/accounts.html';
+    })})
+    .catch(err => swal({
+      title: 'Error',
+      text: 'error',
+      icon: 'error',
+      button: 'OK'
+  }));
   },
 }
 })
