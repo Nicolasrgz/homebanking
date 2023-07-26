@@ -27,6 +27,7 @@ public class WebAuthorization {
                     .antMatchers("/web/pages/loan-admin.html").hasAuthority("ADMIN")
 
 
+                    .antMatchers(HttpMethod.GET, "/api/loans").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.POST, "/api/accounts/{Id}/deactivate").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
@@ -48,8 +49,7 @@ public class WebAuthorization {
                     .antMatchers("/web/pages/account.html").hasAuthority("CLIENT")
 
 
-                    .antMatchers(HttpMethod.GET, "/api/loans").permitAll()
-                    .antMatchers(HttpMethod.POST, "/api/clients").permitAll()
+                    .antMatchers(HttpMethod.POST, "/api/clients").permitAll()//register
                     .antMatchers("/web/index.html").permitAll()
                     .antMatchers("/web/pages/style/style.css").permitAll()
                     .antMatchers("/web/pages/js/**").permitAll()

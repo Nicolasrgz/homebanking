@@ -49,10 +49,18 @@ public class ClientController {
             @RequestParam String email,
             @RequestParam String password) throws JsonProcessingException {
 
-        if (firstName.isBlank() || lastName.isBlank() || email.isBlank() || password.isBlank()) {
-            return new ResponseEntity<>("fields are missing", HttpStatus.FORBIDDEN);
+        if (firstName.isBlank()) {
+            return new ResponseEntity<>("the firstname field is incomplete", HttpStatus.FORBIDDEN);
         }
-
+        if (lastName.isBlank()) {
+            return new ResponseEntity<>("the lastname field is incomplete", HttpStatus.FORBIDDEN);
+        }
+        if (email.isBlank()) {
+            return new ResponseEntity<>("the email field is incomplete", HttpStatus.FORBIDDEN);
+        }
+        if (password.isBlank()) {
+            return new ResponseEntity<>("the password field is incomplete", HttpStatus.FORBIDDEN);
+        }
         if (clientService.findByEmail(email) != null) {
             return new ResponseEntity<>("Email already in use", HttpStatus.FORBIDDEN);
         }
