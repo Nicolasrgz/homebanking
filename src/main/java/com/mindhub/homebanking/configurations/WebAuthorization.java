@@ -27,7 +27,18 @@ public class WebAuthorization {
                     .antMatchers("/web/pages/loan-admin.html").hasAuthority("ADMIN")
 
 
+                    .antMatchers(HttpMethod.POST, "/api/accounts/{Id}/deactivate").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/clients/current/accounts").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/clients/current/cards").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/card/{Id}/deactivate").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/loans/created").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/loan/pay/{id}").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/transactions").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/transactions/app").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.POST, "/api/transactions/{id}/pdf").hasAuthority("CLIENT")
                     .antMatchers(HttpMethod.GET, "/api/accounts").hasAuthority("CLIENT")
+                    .antMatchers(HttpMethod.GET, "/api/clients/current").hasAuthority("CLIENT")
                     .antMatchers("/api/accounts/{id}").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/accounts.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/cards.html").hasAuthority("CLIENT")
@@ -35,7 +46,6 @@ public class WebAuthorization {
                     .antMatchers("/web/pages/loan-application.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/transfer.html").hasAuthority("CLIENT")
                     .antMatchers("/web/pages/account.html").hasAuthority("CLIENT")
-                    .antMatchers(HttpMethod.POST, "/api/loans").hasAuthority("CLIENT")
 
 
                     .antMatchers(HttpMethod.GET, "/api/loans").permitAll()

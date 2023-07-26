@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -36,10 +37,19 @@ public class AccountController {
     @PatchMapping("/accounts/{Id}/deactivate")
     public ResponseEntity<Object> deactivateCard(@PathVariable Long Id) {
         Optional<Account> accountOpt = Optional.ofNullable(accountService.findById(Id));
+
+        List<AccountDTO> accountDTOS = accountService.getAccounts().stream().filter(accountDTO -> accountDTO.isActive() == null).collect(Collectors.toList());
+
         if (accountOpt.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
         Account account = accountOpt.get();
+        if (account.getBalance() > 0){
+            return new ResponseEntity<>("your account has funds, please move those funds before being deactivated", HttpStatus.FORBIDDEN);
+        }
+        if (accountDTOS.size() < 2){
+            return new ResponseEntity<>("you can't deactivate all your accounts", HttpStatus.FORBIDDEN);
+        }
         account.setActive(true);
         accountService.saveAccount(account);
         return ResponseEntity.ok().build();
