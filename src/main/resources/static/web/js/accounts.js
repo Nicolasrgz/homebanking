@@ -89,34 +89,59 @@ const app = createApp({
         return window.location.href = "/web/pages/loan-ap"
       },
       deleteAccount(event) {
-        
-          // Get the card ID from the data-id attribute of the button
-          let accountId = event.target.getAttribute('data-id');
-  
-          axios.patch(`/api/accounts/${accountId}/deactivate`)
-              .then(res => {
-                swal({
-                  title: 'Success',
-                  text: 'Account deleted',
-                  icon: 'success',
-                  button: 'OK'
-              })
-              .then(()=>{
-                window.location.href = "/web/pages/accounts.html"
-              })
-                 
-              })
-              .catch(error => {
-                  // Failed login
-                  // Show error message to user
-                  swal({
-                      title: 'Error',
-                      text: 'Error deleting account',
-                      icon: 'error',
-                      button: 'OK'
-                  });
-              });
-      }
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure you want to delete the account?",
+            icon: "warning",
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+        }).then(() => {
+            // Get the card ID from the data-id attribute of the button
+            let accountId = event.target.getAttribute('data-id');
+    
+            axios.patch(`/api/accounts/${accountId}/deactivate`)
+                .then(res => {
+                    swal({
+                        title: 'Success',
+                        text: 'Account deleted',
+                        icon: 'success',
+                        button: 'OK'
+                    })
+                    .then(() => {
+                        window.location.href = "/web/pages/accounts.html"
+                    })
+    
+                })
+                .catch(error => {
+                    if (error.response.status === 404) {
+                        // Account not found
+                        swal({
+                            title: 'Error',
+                            text: 'Account not found',
+                            icon: 'error',
+                            button: 'OK'
+                        });
+                    } else if (error.response.status === 403) {
+                        // Forbidden
+                        swal({
+                            title: 'Error',
+                            text: error.response.data,
+                            icon: 'error',
+                            button: 'OK'
+                        });
+                    } else {
+                        // Failed request
+                        swal({
+                            title: 'Error',
+                            text: 'Error deleting account',
+                            icon: 'error',
+                            button: 'OK'
+                        });
+                    }
+                });
+        })
+    }
+    
   }
   
   

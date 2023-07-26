@@ -35,7 +35,7 @@ public class AccountController {
     }
 
     @PatchMapping("/accounts/{Id}/deactivate")
-    public ResponseEntity<Object> deactivateCard(@PathVariable Long Id) {
+    public ResponseEntity<Object> deactivateAccount(@PathVariable Long Id) {
         Optional<Account> accountOpt = Optional.ofNullable(accountService.findById(Id));
 
         List<AccountDTO> accountDTOS = accountService.getAccounts().stream().filter(accountDTO -> accountDTO.isActive() == null).collect(Collectors.toList());
@@ -46,9 +46,6 @@ public class AccountController {
         Account account = accountOpt.get();
         if (account.getBalance() > 0){
             return new ResponseEntity<>("your account has funds, please move those funds before being deactivated", HttpStatus.FORBIDDEN);
-        }
-        if (accountDTOS.size() < 2){
-            return new ResponseEntity<>("you can't deactivate all your accounts", HttpStatus.FORBIDDEN);
         }
         account.setActive(true);
         accountService.saveAccount(account);
@@ -77,7 +74,6 @@ public class AccountController {
 
         Client client = clientService.findByEmail(authentication.getName());
 
-        if (client.getAccounts().size() <= 2) {
             String accountNumber;
             do {
                 accountNumber = AccountUtils.getAccountNumber();
@@ -86,10 +82,6 @@ public class AccountController {
             Account account = new Account(accountNumber, LocalDate.now(), 0.0, type);
             client.addAccount(account);
             accountService.saveAccount(account);
-
-        }else {
-            return new ResponseEntity<>("Client already has 3 accounts registered", HttpStatus.FORBIDDEN);
-        }
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
