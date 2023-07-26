@@ -19,7 +19,7 @@ public class AccountServiceImplement implements AccountService {
 
     @Override
     public List<AccountDTO> getAccounts() {
-        return accountRepository.findAll().stream().map(AccountDTO::new).collect(Collectors.toList());
+        return accountRepository.findAll().stream().map(account -> new AccountDTO(account)).collect(Collectors.toList());
     }
 
     @Override

@@ -53,8 +53,7 @@
 <main>
 <div class="user-main" v-cloak>
   <h2 class="animate__animated animate__zoomInLeft">ACCOUNTS</h2>
-  <div   class="d-flex">
-    <h4></h4>
+  <div class="d-flex" v-if="melbaSort.length > 3">
     <div class="">
       <select name="" v-model="typeAccount" class="button-ui">
         <option value="SAVING">SAVING</option>
@@ -71,7 +70,6 @@
 
   <div class="d-flex container-gap">
         <div v-for="user of melbaSort" >
-          <div v-if="user.active != true">
             <div  class="card-accounts ">
               <div class="container-accounts-data color-white text-center" >
                 <h4>account type: {{user.accountType}}</h4>
@@ -92,7 +90,6 @@
             </div>
             </div>
           </div>
-        </div>
   </div>
 
 </div>

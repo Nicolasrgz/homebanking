@@ -18,7 +18,7 @@ const app = createApp({
           axios.get("http://localhost:8080/api/clients/current")
               .then(response => {
                   this.melba = response.data
-                  this.melbaAccounts = this.melba.accounts
+                  this.melbaAccounts = this.melba.accounts.filter(account => account.active == null)
                   this.melbaSort = this.melbaAccounts.sort((a, b) => a.id - b.id)
                   this.melbaLoans = this.melba.loans
                   this.loansSort = this.melbaLoans.sort((a, b) => a.id - b.id)

@@ -9,7 +9,6 @@ import java.util.List;
 public interface AccountService {
 
     List<AccountDTO>getAccounts();
-
     Account findById (long id);
     Account findByNumber (String number);
     List<Account> findByClient(Client client);
