@@ -34,7 +34,7 @@ const app = createApp ({
               .get("http://localhost:8080/api/clients/current")
               .then((res) => {
                 this.client = res.data;
-                this.clientAccounts = this.client.accounts;
+                this.clientAccounts = this.client.accounts.filter(account => account.active == null);
                 console.log(this.clientAccounts);
               })
               .catch((err) => {

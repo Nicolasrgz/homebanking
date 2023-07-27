@@ -1517,3 +1517,41 @@ h1{
 h2{
   font-family: 'Courier New'
 }
+
+.index-section{
+  background-color: rgb(90, 89, 89);
+  border-radius: 50px;
+}
+
+.butt-index {
+  cursor: pointer;
+  font-weight: 700;
+  font-family: Helvetica,"sans-serif";
+  transition: all .2s;
+  padding: 10px 20px;
+  border-radius: 100px;
+  background: rgb(53, 52, 52);
+  border: 1px solid transparent;
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+}
+
+.butt-index:hover {
+  background: rgb(255, 253, 253);
+}
+
+.butt-index > svg {
+  width: 34px;
+  margin-left: 10px;
+  transition: transform .3s ease-in-out;
+}
+
+.butt-index:hover svg {
+  transform: translateX(5px);
+}
+
+.butt-index:active {
+  transform: scale(0.95);
+}
+

@@ -16,7 +16,7 @@ const app = createApp({
             axios.get("http://localhost:8080/api/clients/current")
             .then(response => {
                 this.client = response.data
-                this.card = this.client.cards
+                this.card = this.client.cards.filter(cards => cards.active == false)
                 this.type = this.card.type
             
                 console.log(this.card)
@@ -67,6 +67,9 @@ const app = createApp({
             })
           })
 
+          },
+          redirection(){
+            return window.location.href = '/web/pages/create-cards.html';
           }
           
     },

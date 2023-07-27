@@ -70,13 +70,12 @@
     </div>
   </div>
 </div>
-<div class="user-main">
+<div v-cloak class="user-main">
   <div class=" d-flex">
 
-    <div>
       <div class="debit-card"> 
         <div v-if="this.card.length >= 1">
-          <h2 class="text-center">DEBIT</h2>
+          <h2 class="text-center">CARD DEBIT</h2>
         </div>
         <div class="cont-card-c" v-for="user of card" >
           <div v-if="user.active == false">
@@ -159,12 +158,10 @@
         </div>
       
       </div>
-    </div>
   
-    <div>
       <div class="credit-card">
         <div v-if="this.card.length >= 1">
-          <h2 class="text-center animate__animated animate__zoomInLeft">CREDIT</h2>
+          <h2 class="text-center animate__animated animate__zoomInLeft">CARD CREDIT</h2>
         </div>
         <div class="cont-card-c"  v-for="user of card">
           <div v-if="user.active == false">
@@ -248,10 +245,13 @@
         </div>
         
       </div>
-    </div>
+
     <div v-if="this.card.length === 0" class="text-center">
       <h2>You don't own cards, create one!</h2>
     </div>
+  </div>
+  <div class="d-flex justify-content-center align-center m-3">
+    <input class="button-ui" type="submit" @click.prevent="redirection()" value="Created card">
   </div>
 </div>
 </main>

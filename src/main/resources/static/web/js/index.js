@@ -127,6 +127,9 @@ register() {
           });
       }
   });
+},
+redirection(){
+  return window.location.href = '/web/pages/register.html';
 }
 
 }
