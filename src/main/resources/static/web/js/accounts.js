@@ -6,56 +6,145 @@ const app = createApp({
             melba: [],
             melbaAccounts: [],
             melbaSort: [],
-            melbaLoans: [],
-            loansSort: []
+            loansSort: [],
+            typeAccount: "",
         }
     },
     created(){
         this.user()
     },
-    methods:{
-        user(){
-            axios.get("http://localhost:8080/api/clients/current")
-            .then(response => {
-                this.melba = response.data
-                this.melbaAccounts = this.melba.accounts
-                this.melbaSort = this.melbaAccounts.sort((a,b)=> a.id - b.id)
-                this.melbaLoans = this.melba.loans
-                this.loansSort = this.melbaLoans.sort((a,b)=> a.id - b.id)
-                console.log(this.melba)
-                console.log(this.melbaSort)     
-                console.log(this.melbaLoans)
-                console.log(this.loansSort)
-            })
-            .catch(err => {
-                console.error(err);
+    methods: {
+      user() {
+          axios.get("http://localhost:8080/api/clients/current")
+              .then(response => {
+                  this.melba = response.data
+                  this.melbaAccounts = this.melba.accounts.filter(account => account.active == null)
+                  this.melbaSort = this.melbaAccounts.sort((a, b) => a.id - b.id)
+                  this.melbaLoans = this.melba.loans
+                  this.loansSort = this.melbaLoans.sort((a, b) => a.id - b.id)
+                  console.log(this.melba)
+                  console.log(this.melbaSort)
+                  console.log(this.melbaLoans)
+              })
+              .catch(err => {
+                  swal({
+                      title: 'Error',
+                      text: 'An error occurred while retrieving user information',
+                      icon: 'error',
+                      button: 'OK'
+                  });
               });
-        },
-        LogOut(){
+      },
+      LogOut() {
           axios.post('/api/logout')
-          .then(response => {
-            // Inicio de sesión exitoso
-            // Redireccionar a accounts.html
-            window.location.href = '/web/index.html';
-          })
-          .catch(error => {
-            // Inicio de sesión fallido
-            // Mostrar mensaje de error al usuario
-            alert('Error al iniciar sesión');
-          });
-        },
-        createdAccount(){
-          axios.post("/api/clients/current/accounts")
-          .then(res => {
-            alert("cuenta creada")
-            window.location.href = '/web/pages/accounts.html'
-          })
-          .catch(err => alert("limite de cuentas alcanzado"))
-        },
-        redirection(){
+              .then(response => {
+                  // Successful logout
+                  // Redirect to accounts.html
+                  window.location.href = '/web/index.html';
+              })
+              .catch(error => {
+                  // Failed logout
+                  // Show error message to user
+                  swal({
+                      title: 'Error',
+                      text: 'Error logging out',
+                      icon: 'error',
+                      button: 'OK'
+                  });
+              });
+      },
+      createdAccount() {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure you want to create an account?",
+            icon: "warning",
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+        })
+        .then(()=>{
+            axios.post(`/api/clients/current/accounts?type=${this.typeAccount}`)          
+            .then(res => {
+                swal({
+                    title: 'Success',
+                    text: 'Account created',
+                    icon: 'success',
+                    button: 'OK'
+                })
+                .then(()=>{
+                  window.location.href = '/web/pages/accounts.html'
+                })
+                .catch(err => swal({
+                    title: 'Error',
+                    text: 'Account limit reached',
+                    icon: 'error',
+                    button: 'OK'
+                }));
+            })
+        })
+      },
+      redirection() {
           return window.location.href = "/web/pages/loan-application.html"
-        }
-    },
+      },
+      redirectionLoan(){
+        return window.location.href = "/web/pages/loan-ap"
+      },
+      deleteAccount(event) {
+        swal({
+            title: "Are you sure?",
+            text: "Are you sure you want to delete the account?",
+            icon: "warning",
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+        }).then(() => {
+            // Get the card ID from the data-id attribute of the button
+            let accountId = event.target.getAttribute('data-id');
+    
+            axios.patch(`/api/accounts/${accountId}/deactivate`)
+                .then(res => {
+                    swal({
+                        title: 'Success',
+                        text: 'Account deleted',
+                        icon: 'success',
+                        button: 'OK'
+                    })
+                    .then(() => {
+                        window.location.href = "/web/pages/accounts.html"
+                    })
+    
+                })
+                .catch(error => {
+                    if (error.response.status === 404) {
+                        // Account not found
+                        swal({
+                            title: 'Error',
+                            text: 'Account not found',
+                            icon: 'error',
+                            button: 'OK'
+                        });
+                    } else if (error.response.status === 403) {
+                        // Forbidden
+                        swal({
+                            title: 'Error',
+                            text: error.response.data,
+                            icon: 'error',
+                            button: 'OK'
+                        });
+                    } else {
+                        // Failed request
+                        swal({
+                            title: 'Error',
+                            text: 'Error deleting account',
+                            icon: 'error',
+                            button: 'OK'
+                        });
+                    }
+                });
+        })
+    }
+    
+  }
+  
+  
 })
 
 app.component('format-currency', {

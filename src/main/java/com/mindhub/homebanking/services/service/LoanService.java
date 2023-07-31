@@ -1,6 +1,7 @@
-package com.mindhub.homebanking.services;
+package com.mindhub.homebanking.services.service;
 
 import com.mindhub.homebanking.dtos.LoanDTO;
+import com.mindhub.homebanking.models.ClientLoan;
 import com.mindhub.homebanking.models.Loan;
 
 import java.util.List;
@@ -10,4 +11,5 @@ public interface LoanService {
     List<Loan> findByPayments(Integer payments);
     List<LoanDTO>getLoans();
     void loanSave(Loan loan);
+
 }

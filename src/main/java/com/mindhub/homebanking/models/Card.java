@@ -1,5 +1,8 @@
 package com.mindhub.homebanking.models;
 
+import com.mindhub.homebanking.models.Client;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -18,6 +21,7 @@ public class Card {
     private long cvv;
     private LocalDateTime thruDate;
     private LocalDateTime fromDate;
+    private boolean isActive;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "client")
     private Client client;
@@ -102,4 +106,13 @@ public class Card {
     public void setFromDate(LocalDateTime fromDate) {
         this.fromDate = fromDate;
     }
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
 }

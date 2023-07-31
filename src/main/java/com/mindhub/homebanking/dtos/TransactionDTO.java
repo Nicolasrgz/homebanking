@@ -1,7 +1,7 @@
 package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
+import com.mindhub.homebanking.models.enums.TransactionType;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +11,7 @@ public class TransactionDTO {
     private double amount;
     private String description;
     private LocalDateTime date;
-
+    private double balance;
     public TransactionDTO(){}
 
     public TransactionDTO(Transaction transaction) {
@@ -20,6 +20,7 @@ public class TransactionDTO {
         this.amount = transaction.getAmount();
         this.description = transaction.getDescription();
         this.date = transaction.getDate();
+        this.balance = transaction.getBalance();
     }
 
     public long getId() {
@@ -40,5 +41,9 @@ public class TransactionDTO {
 
     public LocalDateTime getDate() {
         return date;
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }

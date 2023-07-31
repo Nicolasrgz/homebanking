@@ -1,7 +1,4 @@
 package com.mindhub.homebanking.models;
-import com.mindhub.homebanking.dtos.ClientLoanDTO;
-import com.mindhub.homebanking.dtos.LoanApplicationDTO;
-import net.minidev.json.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -19,9 +16,8 @@ public class Client {
     private long id;
     private String firstName;
     private String lastName;
-    private String email;
     private String password;
-
+    private String email;
     @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
     private Set<Account> accounts = new HashSet<>();
 
@@ -93,7 +89,7 @@ public class Client {
         account.setClient(this);
         accounts.add(account);
     }
-    @JsonIgnore
+
     public List<Loan> getLoans() {
     return clientLoans.stream().map(ClientLoan::getLoan).collect(Collectors.toList());
     }
@@ -107,6 +103,5 @@ public class Client {
         card.setClient(this);
         cards.add(card);
     }
-
 
 }

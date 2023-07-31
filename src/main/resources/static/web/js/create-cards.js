@@ -12,24 +12,41 @@ const app = createApp({
     },
     methods:{
         createCard(){
-            const formDatas = new URLSearchParams();
-            formDatas.append('type', this.type);  
-            formDatas.append('color', this.color); 
-            console.log('color:', this.color);
-            console.log('type:', this.type);          
-            axios.post('/api/clients/current/cards', formDatas, {
-              headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-              }
+          swal({
+            title: "Are you sure?",
+            text: "Are you sure you want to create an account?",
+            icon: "warning",
+            buttons: ["No", "Yes"],
+            dangerMode: true,
+        }).then(res=> {
+          const formDatas = new URLSearchParams();
+          formDatas.append('type', this.type);  
+          formDatas.append('color', this.color); 
+          console.log('color:', this.color);
+          console.log('type:', this.type);          
+          axios.post('/api/clients/current/cards', formDatas, {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            }
+          })
+          .then(response => {swal({
+            title: 'Success',
+            text: 'card created',
+            icon: 'success',
+            button: 'OK'
+          }).then(res=>{
+            window.location.href = "/web/pages/cards.html"
+          })})
+          .catch(error => {
+            swal({
+              title: 'error',
+              text: 'card creation limit exceeded',
+              icon: 'error',
+              button: 'OK'
             })
-            .then(response => {
-              alert("your user was successfully registered")
-              window.location.href = "/web/pages/cards.html"  
- 
-            })
-            .catch(error => {
-              alert('excede su limite de creacion de tarjetas');
-            });
+          });
+        })
+            
         },
          LogOut(){
           axios.post('/api/logout')

@@ -1,23 +1,26 @@
 package com.mindhub.homebanking.controllers;
 
+import com.itextpdf.text.DocumentException;
+import com.mindhub.homebanking.dtos.CardApplicationDTO;
 import com.mindhub.homebanking.models.Account;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.models.Transaction;
-import com.mindhub.homebanking.models.TransactionType;
-import com.mindhub.homebanking.services.AccountService;
-import com.mindhub.homebanking.services.ClientService;
-import com.mindhub.homebanking.services.TransferService;
+import com.mindhub.homebanking.models.enums.TransactionType;
+import com.mindhub.homebanking.services.service.AccountService;
+import com.mindhub.homebanking.services.service.CardService;
+import com.mindhub.homebanking.services.service.ClientService;
+import com.mindhub.homebanking.services.email.EmailService;
+import com.mindhub.homebanking.services.service.TransferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
+import com.mindhub.homebanking.pdfs.PdfGenerator;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -29,6 +32,10 @@ public class TransactionController {
     private AccountService accountService;
     @Autowired
     private TransferService transferService;
+    @Autowired
+    private CardService cardService;
+    @Autowired
+    private EmailService emailService;
 
     @Transactional
     @PostMapping("/transactions")
@@ -47,7 +54,6 @@ public class TransactionController {
 
         Account accountOrigin = accountService.findByNumber(numberAccountOrigin);//cuenta origen
         Account accountDestiny = accountService.findByNumber(numberAccountDestiny);//cuenta destino
-
 
         //Verifies that the account number of both origin and destination exists in our database
         if (accountService.findByNumber(numberAccountOrigin) == null || accountService.findByNumber(numberAccountDestiny) == null) {
@@ -70,8 +76,8 @@ public class TransactionController {
             return new ResponseEntity<>("The source account does not belong to the authenticated client", HttpStatus.FORBIDDEN);
         }
 
-        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, amount, description, LocalDateTime.now());
-        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, amount, description, LocalDateTime.now());
+        Transaction transactionCredit = new Transaction(TransactionType.CREDIT, amount, description, LocalDateTime.now(), accountOrigin.getBalance());
+        Transaction transactionDebit = new Transaction(TransactionType.DEBIT, amount, description, LocalDateTime.now(), accountDestiny.getBalance());
 
         accountOrigin.addTransaction(transactionCredit);
         accountDestiny.addTransaction(transactionDebit);
@@ -90,4 +96,47 @@ public class TransactionController {
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
-}
+
+    @Transactional
+    @PostMapping("/transaction/app")
+    public ResponseEntity<Object> creationPayments(@RequestBody CardApplicationDTO cardDTO,
+                                                   Account account){
+
+        if(cardDTO.getCvv() > 0 || cardDTO.getAmount().isNaN() || cardDTO.getDescription().isBlank() || cardDTO.getNumber().isBlank()){
+            return new ResponseEntity<>("has unfilled fields", HttpStatus.FORBIDDEN);
+        }
+
+        if(cardDTO.getAmount() > account.getBalance()){
+            return new ResponseEntity<>("you do not have sufficient funds", HttpStatus.FORBIDDEN);
+        }
+
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+
+        @GetMapping("/transactions/{id}/pdf")
+        public ResponseEntity<?> generatePdf(Authentication authentication, @PathVariable Long id) throws IOException, DocumentException {
+            Client client = clientService.findByEmail(authentication.getName());
+
+            Account account = accountService.findById(id);
+
+            if (!account.getClient().equals(client)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            List<Transaction> transactions = transferService.findByAccount(account);
+
+            // Generate the PDF
+            String filePath = "CLOVERBANK.pdf";
+            PdfGenerator.generatePdfFromTransactions(transactions, account, filePath);
+
+            // Send the email with the PDF file attached
+            emailService.sendEmailWithAttachment(client.getEmail(), "Transacciones", "Aquí están tus transacciones", filePath);
+
+            // Return a success message as a response
+            return ResponseEntity.ok("Se ha enviado un correo electrónico con tus transacciones");
+        }
+
+    }
+

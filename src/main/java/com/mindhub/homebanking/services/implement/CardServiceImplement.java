@@ -1,11 +1,11 @@
 package com.mindhub.homebanking.services.implement;
 
 import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.CardColor;
-import com.mindhub.homebanking.models.CardType;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
 import com.mindhub.homebanking.models.Client;
 import com.mindhub.homebanking.repositories.CardRepository;
-import com.mindhub.homebanking.services.CardService;
+import com.mindhub.homebanking.services.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,5 +32,10 @@ public class CardServiceImplement implements CardService {
     @Override
     public void cardSave(Card card) {
         cardRepository.save(card);
+    }
+
+    @Override
+    public Card findById(long id) {
+        return cardRepository.findById(id);
     }
 }

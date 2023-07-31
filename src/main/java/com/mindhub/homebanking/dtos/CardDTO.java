@@ -1,8 +1,8 @@
 package com.mindhub.homebanking.dtos;
 
 import com.mindhub.homebanking.models.Card;
-import com.mindhub.homebanking.models.CardColor;
-import com.mindhub.homebanking.models.CardType;
+import com.mindhub.homebanking.models.enums.CardColor;
+import com.mindhub.homebanking.models.enums.CardType;
 
 import java.time.LocalDateTime;
 
@@ -15,6 +15,7 @@ public class CardDTO {
     private long cvv;
     private LocalDateTime thruDate;
     private LocalDateTime fromDate;
+    private boolean isActive;
 
     public CardDTO (){}
 
@@ -27,6 +28,7 @@ public class CardDTO {
         this.thruDate = card.getThruDate();
         this.fromDate = card.getFromDate();
         this.id =  card.getId();
+        this.isActive = card.getIsActive();
     }
 
     public long getId() {
@@ -61,4 +63,7 @@ public class CardDTO {
         return fromDate;
     }
 
+    public boolean isActive() {
+        return isActive;
+    }
 }
